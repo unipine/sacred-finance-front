@@ -1,0 +1,102 @@
+@font-face {
+  font-family: 'Timeline';
+  src: local('Timeline'), url(./fonts/Timeline.ttf) format('truetype');
+}
+
+.App {
+  text-align: center;
+  background: linear-gradient(#2F2F53, #57223E);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  /* background: linear-gradient(#2F2F53, #57223E); */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.header {
+  padding: 20px;
+  padding-top: 50px;
+}
+
+.footer {
+  padding: 20px;
+  display: flex;
+  flex: 1;
+}
+
+.ip-display {
+  color: white;
+}
+
+.deposit-1 {
+  color: #8CBDE9;
+  font-weight: bold;
+  border-style: solid;
+  border-width: thin;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.deposit-latest {
+  color: #D0E3E9;
+  font-weight: bold;
+}
+
+.deposit-id {
+  color: #8CBDE9;
+  font-weight: bold;
+}
+
+.deposit-age {
+  color: #D0E3E9;
+}
+
+.blue-text {
+  color: #8CBDE9;
+}
+
+.main-container {
+  padding: 20px;
+  padding-top: 50px;
+  color: white;
+}
+
+.title-container {
+  font-family: 'Timeline';
+  font-style: normal;
+  font-weight: normal;
+  font-size: calc(70px + 2vmin);
+
+}
+
+
+.transition-modal-title {
+  margin: auto;
+}
+
+.inline-icon {
+   vertical-align: bottom;
+   font-size: 18px !important;
+}
