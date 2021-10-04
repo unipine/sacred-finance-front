@@ -204,7 +204,7 @@ const WithdrawConfirm = ({
               <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
                 ".",
                 ""
-              )}.sacred.cfx`}</small>
+              )}.sacred.eth`}</small>
             </Grid>
           </Grid>
         </Box>

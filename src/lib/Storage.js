@@ -36,4 +36,4 @@ class JsStorage {
   }
 }
 
-module.exports = JsStorage
+export default JsStorage

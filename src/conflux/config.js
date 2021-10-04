@@ -593,7 +593,7 @@ const deployments = {
     netId42: {
       eth: {
         instanceAddress: {
-          '0.1': '0xa9560Ca31f74625095b2102a221c08cf579F6B05',
+          '0.1': '0x17B21990Cf231aD2Ce277497ba22809008dbFe34',
           '1': undefined,
           '10': undefined,
           '100': undefined

@@ -1,5 +1,5 @@
-const jsStorage = require('./Storage')
-const hasherImpl = require('./MiMC')
+import jsStorage from './Storage'
+import hasherImpl from './MiMC'
 
 class MerkleTree {
 
@@ -192,4 +192,4 @@ class MerkleTree {
   }
 }
 
-module.exports = MerkleTree
+export default MerkleTree

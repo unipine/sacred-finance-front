@@ -1,3 +1,4 @@
+import merkleTree from '../lib/MerkleTree';
 // import { address, abi } from './config';
 // const { bigInt } = require('snarkjs');
 // const { format } = require('js-conflux-sdk')
@@ -10,7 +11,6 @@ const { toWei, fromWei, toBN, BN } = require('web3-utils')
 //const buildGroth16 = require('websnark/src/groth16')
 const websnarkUtils = require("websnark/src/utils");
 // const MerkleTree = require("fixed-merkle-tree"); // Conflux
-const merkleTree = require('../lib/MerkleTree')
 
 const assert = require("assert");
 const { poseidonHash2, getExtWithdrawAssetArgsHash } = require("./utils2");
@@ -270,13 +270,12 @@ async function generateMerkleProof(deposit) {
   console.log('Getting current state from sacred contract')
   const events = await sacred.getPastEvents('Deposit', { fromBlock: 0, toBlock: 'latest' })
   const leaves = events
-    .sort((a, b) => a.returnValues.leafIndex - b.returnValues.leafIndex) // Sort events in chronological order
-    .map(e => e.returnValues.commitment)
-  const tree = new merkleTree(MERKLE_TREE_HEIGHT, leaves)
+    .sort((a, b) => a.returnValues.leafIndex - b.returnValues.leafIndex).map(e => e.returnValues.commitment);
+  const tree = new merkleTree(MERKLE_TREE_HEIGHT, leaves);
 
   // Find current commitment in the tree
-  const depositEvent = events.find(e => e.returnValues.commitment === toHex(deposit.commitment))
-  const leafIndex = depositEvent ? depositEvent.returnValues.leafIndex : -1
+  const depositEvent = events.find(e => e.returnValues.commitment === toHex(deposit.commitment));
+  const leafIndex = depositEvent ? depositEvent.returnValues.leafIndex : -1;
 
   // Validate that our data is correct
   const root = await tree.root()

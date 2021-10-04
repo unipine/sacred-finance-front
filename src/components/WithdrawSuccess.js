@@ -110,7 +110,7 @@ const WithdrawSuccess = ({ parsedNote, txReceipt, claim, deployment }) => {
               <Button variant="outlined" color="secondary" style={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth onClick={handleDepositRoute}>Done</Button>
             </Grid>
             <Grid item>
-              <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace('.', '')}.sacred.cfx`}</small>
+              <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace('.', '')}.sacred.eth`}</small>
             </Grid>
           </Grid>
         </Box>

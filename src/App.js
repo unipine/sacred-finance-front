@@ -29,15 +29,8 @@ import { parseNote, toHex, generateClaim } from "./conflux/utils";
 import AlertWindow from "./components/AlertWindow";
 import Theme from "./theme";
 import { makeStyles } from "@material-ui/core/styles";
-import { ethers } from "ethers";
 const Web3 = require("web3");
-const { format } = require("js-conflux-sdk");
-// const conflux = new Conflux({
-//   url: "https://test.confluxrpc.com",
-//   networkId: 1,
-// });
 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
 const web3 = new Web3(window.web3.currentProvider)
 
 function getLibrary(provider, connector) {

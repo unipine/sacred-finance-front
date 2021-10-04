@@ -36,7 +36,7 @@ const WithdrawWorking = ({ deployment }) => {
             </Grid>
             <Grid item>
               <br />
-              <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace('.', '')}.sacred.cfx`}</small>
+              <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace('.', '')}.sacred.eth`}</small>
             </Grid>
           </Grid>
         </Box>
