@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
 const { format } = require("js-conflux-sdk");
 const Web3 = require("web3");
-const web3 = new Web3(window.web3.currentProvider)
+const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null;
 
 const useStyles = makeStyles((theme) => ({
   textField: {

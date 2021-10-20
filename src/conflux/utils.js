@@ -15,7 +15,7 @@ const websnarkUtils = require("websnark/src/utils");
 const assert = require("assert");
 const { poseidonHash2, getExtWithdrawAssetArgsHash } = require("./utils2");
 const Web3 = require("web3");
-const web3 = new Web3(window.web3.currentProvider)
+const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null;
 
 // const confluxJS = new Conflux({
 //   url: "https://test.confluxrpc.com",
