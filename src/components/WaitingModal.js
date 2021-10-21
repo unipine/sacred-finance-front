@@ -8,7 +8,7 @@ import logoR from "../images/sacred_r.svg";
 import logoE from "../images/sacred_e.svg";
 import logoD from "../images/sacred_d.svg";
 
-const WaitingModal = () => {
+const WaitingModal = (prop) => {
     const mainStyle = {
         position: 'fixed',
         zIndex: 1300,
@@ -67,7 +67,7 @@ const WaitingModal = () => {
                     </Grid>
                 </Grid>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Transaction is progressing...
+                    {prop.content}
                 </Typography>
             </Box>
         </Box>

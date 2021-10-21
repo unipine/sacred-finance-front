@@ -226,7 +226,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
         </Box>
       </Paper>
       {waiting}aaa
-      {waiting && <WaitingModal />}
+      {waiting && <WaitingModal content="Transaction is progressing..."/>}
     </div>
   );
 };
