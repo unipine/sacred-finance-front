@@ -29,9 +29,12 @@ import { parseNote, toHex, generateClaim } from "./conflux/utils";
 import AlertWindow from "./components/AlertWindow";
 import Theme from "./theme";
 import { makeStyles } from "@material-ui/core/styles";
+import MetaMaskDialog from "./components/MetaMaskDialog";
 const Web3 = require("web3");
 
-const web3 = new Web3(window.web3.currentProvider)
+const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null;
+
+const connectMeta = !web3 ? true : false;
 
 function getLibrary(provider, connector) {
   return new Web3Provider(provider);
@@ -181,6 +184,7 @@ function App() {
   const handleDepositCount = async () => {
     // Get all deposit events from smart contract and assemble merkle tree from them
     console.log("Getting current state from sacred contract");
+    if(!web3)return;
     const contract = new web3.eth.Contract(deployment.abi, deployment.address)
     const events = await contract.getPastEvents("Deposit", {
       fromBlock: 0,
@@ -253,13 +257,13 @@ function App() {
     setNetworkId(netId);
   };
 
-  window.ethereum.on("networkChanged", function (netId) {
+  web3 && window.ethereum.on("networkChanged", function (netId) {
     // Time to reload your interface with the new netId
     if (netId === "loading") return;
     if (netId !== networkId) {
-      handleAlert(
-        "Current network selected on Sacred does not match the network selected in Metamask."
-      );
+      // handleAlert(
+      //   "Current network selected on Sacred does not match the network selected in Metamask."
+      // );
     }
   });
 
@@ -268,6 +272,7 @@ function App() {
   }
 
   return (
+    <>
     <Router>
       <Web3ReactProvider getLibrary={getLibrary}>
         <MuiThemeProvider theme={Theme}>
@@ -493,6 +498,8 @@ function App() {
         </MuiThemeProvider>
       </Web3ReactProvider>
     </Router>
+    <MetaMaskDialog connectMeta={connectMeta}/>
+    </>
   );
 }
 

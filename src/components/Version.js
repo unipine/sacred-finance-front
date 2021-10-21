@@ -32,11 +32,16 @@ const Version = ({ handleNetworkId, networkId, handleAlert }) => {
   const [versionChainId, setVersionChainId] = useState(networkId);
   const { chainId } = useWeb3React();
 
-  const handleChange = (event) => {
+  const handleChange = async (event) => {
     if (chainId !== undefined && chainId !== event.target.value) {
-      handleAlert(
-        "Current network selected on Sacred does not match the network selected in Metamask."
-      );
+      let sacredChainId = '0x' + parseInt(event.target.value).toString(16);
+      await window.ethereum
+        .request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: sacredChainId }],
+        })
+        .then(res => console.log(res))
+        .then(err => console.log(err));
     }
     setVersionChainId(event.target.value);
     handleNetworkId(event.target.value);
