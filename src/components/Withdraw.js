@@ -60,6 +60,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
     if (await handleWithdraw({ claim, recipient })) {
       history.push("/withdrawCheck");
     }
+    setWaiting(false);
   }
 
   const handleClick = () => {
@@ -225,7 +226,6 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
           </Grid>
         </Box>
       </Paper>
-      {waiting}aaa
       {waiting && <WaitingModal content="Transaction is progressing..."/>}
     </div>
   );

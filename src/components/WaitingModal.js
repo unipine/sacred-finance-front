@@ -33,11 +33,7 @@ const WaitingModal = (prop) => {
         width: '100%',
         border: 'none',
     };
-
-    const letterStyle = {
-        width: '50%',
-    }
-
+    
     return (
         <Box sx={mainStyle}>
             <Box sx={bodyStyle}>
