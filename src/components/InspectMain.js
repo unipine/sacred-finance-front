@@ -73,7 +73,7 @@ const InspectMain = () => {
   const [txLayers, setTxLayers] = useState();
 
   const handleWithdrawRoute = () => {
-    history.push("/withdraw");
+    history.push("/walletmanagement");
   };
 
   //TODO code duplication in this function

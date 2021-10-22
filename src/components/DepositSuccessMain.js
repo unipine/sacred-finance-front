@@ -49,7 +49,7 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
   const classes = useStyles();
 
   const handleClick = () => {
-    history.push("/withdraw");
+    history.push("/walletmanagement");
   };
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect

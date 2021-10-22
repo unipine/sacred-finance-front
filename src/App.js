@@ -29,6 +29,8 @@ import { parseNote, toHex, generateClaim } from "./conflux/utils";
 import AlertWindow from "./components/AlertWindow";
 import Theme from "./theme";
 import MetaMaskDialog from "./components/MetaMaskDialog";
+import WalletManagement from "./components/WalletManagement";
+
 const Web3 = require("web3");
 
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
@@ -324,13 +326,16 @@ function App() {
                       />
                       <Route
                         exact
-                        path="/deposit"
+                        path="/walletmanagement"
                         component={() => (
-                          <Deposit
+                          <WalletManagement 
                             deployment={deployment}
                             handleGenerateClaim={handleGenerateClaim}
                             handleSetToken={handleSetToken}
                             handleSetAmount={handleSetAmount}
+                            handleWithdraw={handleWithdraw}
+                            handleRelayer={handleRelayer}
+                            relayerOption={relayer}
                           />
                         )}
                       />
@@ -369,18 +374,6 @@ function App() {
                           <DepositSuccess
                             txReceipt={txReceipt}
                             deployment={deployment}
-                          />
-                        )}
-                      />
-                      <Route
-                        exact
-                        path="/withdraw"
-                        component={() => (
-                          <Withdraw
-                            handleWithdraw={handleWithdraw}
-                            deployment={deployment}
-                            handleRelayer={handleRelayer}
-                            relayerOption={relayer}
                           />
                         )}
                       />
@@ -449,11 +442,10 @@ function App() {
                       exact
                       path={[
                         "/",
-                        "/deposit",
+                        "/walletmanagement",
                         "/depositClaim",
                         "/depositConfirm",
                         "/depositWorking",
-                        "/withdraw",
                       ]}
                       component={Title}
                     />

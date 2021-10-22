@@ -76,11 +76,11 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
   };
 
   const handleDepositRoute = () => {
-    history.push("/deposit");
+    history.push("/walletmanagement");
   };
 
   const handleWithdrawRoute = () => {
-    if (location.pathname === "/inspect") history.push("/withdraw");
+    if (location.pathname === "/inspect") history.push("/walletmanagement");
   };
 
   const handleCurrentAddress = () => {

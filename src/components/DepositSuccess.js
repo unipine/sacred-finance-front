@@ -9,7 +9,7 @@ const DepositSuccess = ({ txReceipt, deployment }) => {
   const history = useHistory();
 
   const handleClick = () => {
-    history.push("/deposit");
+    history.push("/walletmanagement");
   }
 
   return (
