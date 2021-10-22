@@ -1,18 +1,38 @@
 import * as React from 'react';
 import { Box, Typography, Modal, Link } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: null,
-  borderRadius: 20,
-  boxShadow: 24,
-  p: 4,
-};
+const useStyles = makeStyles({
+  box: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    backgroundColor: 'white',
+    border: null,
+    borderRadius: 20,
+    boxShadow: 24,
+    padding: 20,
+  },
+
+  title: {
+    color: 'black',
+    fontSize: 24,
+    fontWeight: 'bold',
+    fontFamily: [
+      'Montserrat'
+    ]
+  },
+
+  content: {
+    color: 'black',
+    fontSize: 14,
+    fontFamily: [
+      'Montserrat'
+    ]
+  }
+})
 
 const MetaMaskDialog = (prop) => {
   const [open, setOpen] = React.useState(prop.connectMeta);
@@ -21,6 +41,8 @@ const MetaMaskDialog = (prop) => {
     setOpen(false);
   };
 
+  const classes = useStyles();
+
   return (
     <Modal
       open={open}
@@ -28,13 +50,13 @@ const MetaMaskDialog = (prop) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+      <Box className={classes.box}>
+        <p className={classes.title} >
           You need to install Metamask.
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        </p>
+        <p className={classes.content} >
           Please visit <Link href="https://metamask.io/" variant="body2">https://metamask.io/</Link>
-        </Typography>
+        </p>
       </Box>
     </Modal>
   );

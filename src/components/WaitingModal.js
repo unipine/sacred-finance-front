@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Box } from '@material-ui/core';
+import { Grid, Typography, Box, makeStyles } from '@material-ui/core';
 import logo from "../images/logo.svg";
 import logoS from "../images/sacred_s.svg";
 import logoA from "../images/sacred_a.svg";
@@ -8,21 +8,19 @@ import logoR from "../images/sacred_r.svg";
 import logoE from "../images/sacred_e.svg";
 import logoD from "../images/sacred_d.svg";
 
-const WaitingModal = (prop) => {
-    const mainStyle = {
+const useStyles = makeStyles({
+    root: {
         position: 'fixed',
         zIndex: 1300,
         inset: '0px',
-    }
-
-    const bodyStyle = {
+    },
+    body: {
         zIndex: -1,
         position: 'fixed',
         inset: '0px',
-        bgcolor: 'rgba(20, 20, 20, 0.85)',
-    }
-
-    const style = {
+        backgroundColor: 'rgba(20, 20, 20, 0.85)',
+    },
+    style: {
         position: 'absolute',
         textAlign: 'center',
         top: '50%',
@@ -32,13 +30,23 @@ const WaitingModal = (prop) => {
         bgcolor: 'transparent',
         width: '100%',
         border: 'none',
-    };
-    
+    },
+    content: {
+        color: 'white',
+        fontSize: 18,
+        fontFamily: [
+            'Montserrat'
+        ]
+    }
+})
+
+const WaitingModal = (prop) => {
+    const classes = useStyles();
+
     return (
-        <Box sx={mainStyle}>
-            <Box sx={bodyStyle}>
-            </Box>
-            <Box sx={style}>
+        <Box className={classes.root}>
+            <Box className={classes.body} />
+            <Box className={classes.style}>
                 <Grid item xs={12}>
                     <Grid
                         item
@@ -62,7 +70,7 @@ const WaitingModal = (prop) => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
+                <Typography className={classes.content}>
                     {prop.content}
                 </Typography>
             </Box>
