@@ -172,6 +172,7 @@ const Deposit = ({
                       className={classes.buttonColor}
                       value={deployment.denominations[1]}
                       aria-label={deployment.denominations[1]}
+                      disabled={true}
                     >
                       <strong>{deployment.denominations[1]}</strong>&nbsp;
                       {deployment.symbol}

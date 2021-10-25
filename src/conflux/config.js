@@ -594,7 +594,7 @@ const deployments = {
       eth: {
         instanceAddress: {
           // '0.01' : '0xEAA6e7E61cE012d39bff27f611dde9F5d6491f96', // Testnet: 0xBb74D194AC3D29eB755CDFF0200262d4feCC0257
-          '0.1': '0xa29018039fe1a22dD1a721cFC2216CaF31d7cb42', // Testnet: 0x17B21990Cf231aD2Ce277497ba22809008dbFe34
+          '0.1': '0x17B21990Cf231aD2Ce277497ba22809008dbFe34', // Testnet: 0x17B21990Cf231aD2Ce277497ba22809008dbFe34
           '1': '0xb5648046c854Dd142BdEfCD5ac57B15356aF8654', // Testnet: 0x3CeE41353B6d1aF5DD51C9Fd0a1Cc4Fd0FFE3140
           '10': undefined,
           '100': undefined
