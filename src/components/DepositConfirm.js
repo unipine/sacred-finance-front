@@ -15,9 +15,10 @@ import { useWeb3React } from "@web3-react/core";
 import { format } from "js-conflux-sdk";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { useState } from "react";
+
 const Web3Utils = require("web3-utils");
 const Web3 = require("web3");
-const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null;
+const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
 const injectedConnector = new InjectedConnector({
   supportedChainIds: [

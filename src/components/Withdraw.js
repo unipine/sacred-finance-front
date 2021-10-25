@@ -12,6 +12,8 @@ import { useWeb3React } from "@web3-react/core";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import WaitingModal from "./WaitingModal";
+
 const web3Utils = require("web3-utils");
 
 const useStyles = makeStyles((theme) => ({
@@ -52,11 +54,17 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
   const [claim, setClaim] = useState("");
   const [recipient, setRecipient] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(true);
+  const [waiting, setWaiting] = useState(false);
 
-  const handleClick = async () => {
+  async function sendWithdraw() {
     if (await handleWithdraw({ claim, recipient })) {
       history.push("/withdrawCheck");
     }
+    setWaiting(false);
+  }
+
+  const handleClick = () => {
+    setWaiting(true);
   };
 
   const handleClaim = (e) => {
@@ -82,6 +90,12 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
   const handleRelayerOption = (event) => {
     handleRelayer(event.target.checked);
   }
+
+  useEffect(() => {
+    if (waiting) {
+      sendWithdraw();
+    }
+  }, [waiting])
 
   //TODO optimize this as there's time lag to parse the note
   useEffect(() => {
@@ -212,6 +226,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
           </Grid>
         </Box>
       </Paper>
+      {waiting && <WaitingModal content="Verifying claim..." />}
     </div>
   );
 };
