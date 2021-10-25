@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import WaitingModal from "./WaitingModal";
 
 const DepositWorking = ({ deployment }) => {
 
@@ -43,6 +44,7 @@ const DepositWorking = ({ deployment }) => {
           </Grid>
         </Box>
       </Paper>
+      <WaitingModal content="Transaction is in progress..." />
     </div>
   )
 }
