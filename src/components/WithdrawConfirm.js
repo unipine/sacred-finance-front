@@ -43,7 +43,7 @@ const WithdrawConfirm = ({
   handleTransaction,
   deployment,
   handleAlert,
-  relayerOption
+  relayerOption,
 }) => {
   const { activate, active, account } = useWeb3React();
   const history = useHistory();
@@ -90,12 +90,13 @@ const WithdrawConfirm = ({
           console.log("receipt: ", receipt);
         });
 
-      const receipt = await waitForTxReceipt({ txHash: tx.transactionHash });
+      // const receipt = await waitForTxReceipt({ txHash: tx.transactionHash });
+      // console.log(tx);
+      // console.log(receipt);
+      const blockInfo = await web3.eth.getBlock(tx.blockNumber);
+      tx.timestamp = blockInfo.timestamp;
 
-      const blockInfo = await web3.eth.getBlock(receipt.blockNumber);
-      receipt.timestamp = blockInfo.timestamp;
-
-      handleTransaction(receipt);
+      handleTransaction(tx);
 
       history.push("/withdrawSuccess");
 
@@ -137,11 +138,12 @@ const WithdrawConfirm = ({
       setBtnDisable(false);
       setWaiting(false);
 
-      if (error.message.indexOf("Transaction has been reverted by the EVM") >= 0) {
-        handleAlert("Error: Transaction has been reverted by the EVM")
-        history.push("/withdrawCheck")
+      if (
+        error.message.indexOf("Transaction has been reverted by the EVM") >= 0
+      ) {
+        handleAlert("Transaction has been reverted by the EVM");
+        history.push("/withdrawCheck");
       }
-
     }
   };
 

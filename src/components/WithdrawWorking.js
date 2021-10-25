@@ -30,7 +30,7 @@ const WithdrawWorking = ({ deployment }) => {
             </Grid>
             <Grid item>
               <br />
-              Your <span className='blue-text'><b>{`${deployment.amount} ${deployment.symbol}`}</b></span> withdrawal is being confirmed on the Conflux blockchain.
+              Your <span className='blue-text'><b>{`${deployment.amount} ${deployment.symbol}`}</b></span> withdrawal is being confirmed on the blockchain.
             </Grid>
             <Grid item>
               <br />

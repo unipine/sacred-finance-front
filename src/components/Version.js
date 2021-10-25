@@ -59,7 +59,7 @@ const Version = ({ handleNetworkId, networkId, handleAlert }) => {
           onChange={handleChange}
           className={classes.input}
         >
-          <MenuItem value={1}>Ethereum Mainnet</MenuItem>
+          {/* <MenuItem value={1}>Ethereum Mainnet</MenuItem> */}
           <MenuItem value={42}>Kovan Testnet</MenuItem>
         </Select>
       </FormControl>
