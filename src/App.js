@@ -233,6 +233,8 @@ function App() {
     const deposit = parsedNote.deposit;
     const isSpent = await sacred.methods.isSpent(toHex(deposit.nullifierHash)).call()
 
+    console.log('deposit', deposit);
+
     if (isSpent) {
       setIsSpent(isSpent);
       setIsExist(true);
@@ -258,6 +260,9 @@ function App() {
     } else {
       setIsExist(false);
     }
+
+    console.log('isspent', isSpent);
+    console.log('isExist', isExist);
 
     setIsSpent(isSpent);
     setClaim(claim);

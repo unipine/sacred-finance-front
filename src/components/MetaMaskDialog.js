@@ -40,5 +40,4 @@ const MetaMaskDialog = (prop) => {
   );
 };
 
-
 export default MetaMaskDialog;
