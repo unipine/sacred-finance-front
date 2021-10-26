@@ -25,7 +25,7 @@ import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { deployments } from "./conflux/config";
-import { parseNote, toHex, generateClaim, loadDepositData } from "./conflux/utils";
+import { parseNote, toHex, generateClaim } from "./conflux/utils";
 import AlertWindow from "./components/AlertWindow";
 import Theme from "./theme";
 import MetaMaskDialog from "./components/MetaMaskDialog";
@@ -95,7 +95,6 @@ function App() {
   const [isExist, setIsExist] = useState(false);
   const [txLayers, setTxLayers] = useState();
   const [relayer, setRelayer] = useState(false);
-  const [depositData, setDepositData] = useState();
   const [deployment, setDeployment] = useState({
     address:
       deployments.eth_deployments[`netId42`][`eth`].instanceAddress[`0.1`],
@@ -189,12 +188,6 @@ function App() {
 
     depositClaim.networkId = +window.ethereum.chainId;
     setDeposit(depositClaim);
-
-    if(deposit === undefined || !deposit) return;
-
-    const data = loadDepositData(deposit);
-
-    setDepositData(data);
     return true;
   };
 
@@ -504,7 +497,7 @@ function App() {
                   </Grid>
                 </Grid>
               </div>
-              <Footer deployment={deployment} depositCount={depositCount} depositData={depositData}/>
+              <Footer deployment={deployment} depositCount={depositCount}/>
             </div>
           </MuiThemeProvider>
         </Web3ReactProvider>

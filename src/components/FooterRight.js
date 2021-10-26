@@ -1,19 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
-import Deposit from "./Deposit";
+import { useEffect } from "react";
+const Web3 = require("web3");
 
-const FooterRight = ({ deployment, depositCount, depositData }) => {
+const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
+
+const FooterRight = ({ deployment, depositCount }) => {
+  const [depositData, setDepositData] = useState([]);
+
+  const handleDepositData = async() => {
+    if (!web3) return;
+    const contract = new web3.eth.Contract(deployment.abi, deployment.address)
+    const events = await contract.getPastEvents("Deposit", {
+      fromBlock: 0,
+      toBlock: "latest",
+    });
+
+    if (events.length === 0) {
+      throw new Error('There is no related deposit, the note is invalid')
+    }
+
+    let depositlist = [];
+    let length = 0;
+    events.length >= 8 ? length = 8 : length = events.length
+    for(let i = 0; i < length; i ++) {
+      depositlist.push(events[i].returnValues.timestamp);
+    }
+    
+    setDepositData(depositlist);
+  }
+
+  useEffect(() => {
+    handleDepositData();
+  }, [])
 
   const getRemainTimeString = (dep) => {
+    if(!dep)return;
+    var milisec = parseInt(dep) * 1000;
+    let newDate = new Date(milisec);
     let currentTime = new Date();
-    let countTime = currentTime - dep;
+    let countTime = currentTime - newDate;
     const [days, hours, mins] = [countTime / (3600 * 24 * 1000), countTime / (3600 * 1000), countTime / (60 * 1000)];
     if (days >= 1) {
-      return parseInt(days.toString()) + "days ago";
+      return parseInt(days.toString()) + " days ago";
     } else if (hours >= 1) {
-      return parseInt(hours.toString()) + "hours ago";
+      return parseInt(hours.toString()) + " hours ago";
     } else {
-      return parseInt(mins.toString()) + "mins ago";
+      return parseInt(mins.toString()) + " mins ago";
     }
   }
 
@@ -55,7 +88,7 @@ const FooterRight = ({ deployment, depositCount, depositData }) => {
                 depositData?.map((dep, index) => {
                   return index < 4 && (
                     <>
-                      <b className='deposit-id'>{depositData.length - index}</b> {getRemainTimeString(dep.timestamp)} <br />
+                      <b className='deposit-id'>{depositCount - index}</b> {getRemainTimeString(dep)} <br />
                     </>
                   )
                 })
@@ -68,13 +101,13 @@ const FooterRight = ({ deployment, depositCount, depositData }) => {
                 depositData?.map((dep, index) => {
                   return index >= 4 && index < 8 && (
                     <>
-                      <b className='deposit-id'>{depositData.length - index}</b> {getRemainTimeString(dep.timestamp)} <br />
+                      <b className='deposit-id'>{depositCount - index}</b> {getRemainTimeString(dep)} <br />
                     </>
                   )
                 })
               }
             </div>
-          </Grid>
+          </Grid> 
         </Grid>
       </Grid>
     </Grid>
