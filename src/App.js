@@ -25,7 +25,7 @@ import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { deployments } from "./conflux/config";
-import { parseNote, toHex, generateClaim } from "./conflux/utils";
+import { parseNote, toHex, generateClaim, loadDepositData } from "./conflux/utils";
 import AlertWindow from "./components/AlertWindow";
 import Theme from "./theme";
 import MetaMaskDialog from "./components/MetaMaskDialog";
@@ -94,7 +94,8 @@ function App() {
   const [parsedNote, setParsedNote] = useState();
   const [isExist, setIsExist] = useState(false);
   const [txLayers, setTxLayers] = useState();
-  const [relayer, setRelayer] = useState(false)
+  const [relayer, setRelayer] = useState(false);
+  const [depositData, setDepositData] = useState();
   const [deployment, setDeployment] = useState({
     address:
       deployments.eth_deployments[`netId42`][`eth`].instanceAddress[`0.1`],
@@ -189,6 +190,11 @@ function App() {
     depositClaim.networkId = +window.ethereum.chainId;
     setDeposit(depositClaim);
 
+    if(deposit === undefined || !deposit) return;
+
+    const data = loadDepositData(deposit);
+
+    setDepositData(data);
     return true;
   };
 
@@ -233,8 +239,6 @@ function App() {
     const deposit = parsedNote.deposit;
     const isSpent = await sacred.methods.isSpent(toHex(deposit.nullifierHash)).call()
 
-    console.log('deposit', deposit);
-
     if (isSpent) {
       setIsSpent(isSpent);
       setIsExist(true);
@@ -260,9 +264,6 @@ function App() {
     } else {
       setIsExist(false);
     }
-
-    console.log('isspent', isSpent);
-    console.log('isExist', isExist);
 
     setIsSpent(isSpent);
     setClaim(claim);
@@ -503,7 +504,7 @@ function App() {
                   </Grid>
                 </Grid>
               </div>
-              <Footer deployment={deployment} depositCount={depositCount} />
+              <Footer deployment={deployment} depositCount={depositCount} depositData={depositData}/>
             </div>
           </MuiThemeProvider>
         </Web3ReactProvider>

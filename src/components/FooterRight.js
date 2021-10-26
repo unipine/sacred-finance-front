@@ -1,7 +1,22 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
+import Deposit from "./Deposit";
 
-const FooterRight = ({ deployment, depositCount }) => {
+const FooterRight = ({ deployment, depositCount, depositData }) => {
+
+  const getRemainTimeString = (dep) => {
+    let currentTime = new Date();
+    let countTime = currentTime - dep;
+    const [days, hours, mins] = [countTime / (3600 * 24 * 1000), countTime / (3600 * 1000), countTime / (60 * 1000)];
+    if (days >= 1) {
+      return parseInt(days.toString()) + "days ago";
+    } else if (hours >= 1) {
+      return parseInt(hours.toString()) + "hours ago";
+    } else {
+      return parseInt(mins.toString()) + "mins ago";
+    }
+  }
+
   return (
     <Grid item xs={3}>
       <Grid
@@ -24,7 +39,7 @@ const FooterRight = ({ deployment, depositCount }) => {
             equal user deposits
           </div>
         </Grid>
-        {/* <Grid item>
+        <Grid item>
           <div className='deposit-latest'>Latest Deposits</div>
         </Grid>
         <Grid item
@@ -36,21 +51,31 @@ const FooterRight = ({ deployment, depositCount }) => {
         >
           <Grid item>
             <div className='deposit-age'>
-              <b className='deposit-id'>7769</b> 1 min ago <br />
-              <b className='deposit-id'>7769</b> 1 min ago <br />
-              <b className='deposit-id'>7769</b> 1 min ago <br />
-              <b className='deposit-id'>7769</b> 1 min ago <br />
+              {
+                depositData?.map((dep, index) => {
+                  return index < 4 && (
+                    <>
+                      <b className='deposit-id'>{depositData.length - index}</b> {getRemainTimeString(dep.timestamp)} <br />
+                    </>
+                  )
+                })
+              }
             </div>
           </Grid>
           <Grid item>
             <div className='deposit-age'>
-              <b className='deposit-id'>7769</b> 1 min ago <br />
-              <b className='deposit-id'>7769</b> 1 min ago <br />
-              <b className='deposit-id'>7769</b> 1 min ago <br />
-              <b className='deposit-id'>7769</b> 1 min ago <br />
+              {
+                depositData?.map((dep, index) => {
+                  return index >= 4 && index < 8 && (
+                    <>
+                      <b className='deposit-id'>{depositData.length - index}</b> {getRemainTimeString(dep.timestamp)} <br />
+                    </>
+                  )
+                })
+              }
             </div>
           </Grid>
-        </Grid> */}
+        </Grid>
       </Grid>
     </Grid>
   );
