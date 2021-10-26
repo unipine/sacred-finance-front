@@ -327,7 +327,7 @@ function App() {
                         exact
                         path="/walletmanagement"
                         component={() => (
-                          <WalletManagement 
+                          <WalletManagement
                             deployment={deployment}
                             handleGenerateClaim={handleGenerateClaim}
                             handleSetToken={handleSetToken}
@@ -494,7 +494,7 @@ function App() {
                         <InspectMain handleSetDeployment={handleSetDeployment} />
                       )}
                     />
-                  </Switch>
+                  </Grid>
                 </Grid>
 
                 <Grid item md={8} xs={12}>
@@ -553,13 +553,12 @@ function App() {
                     exact
                     path="/inspect"
                     component={() => (
-                      <InspectMain handleSetDeployment={handleSetDeployment}/>
+                      <InspectMain handleSetDeployment={handleSetDeployment} />
                     )}
                   />
-                  </Grid>
                 </Grid>
               </div>
-              <Footer deployment={deployment} depositCount={depositCount}/>
+              <Footer deployment={deployment} depositCount={depositCount} />
             </div>
           </MuiThemeProvider>
         </Web3ReactProvider>
