@@ -40,7 +40,7 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
   };
 
   const handleWithdrawRoute = () => {
-    history.push("/withdraw");
+    history.push("/walletmanagement");
   };
 
   return (

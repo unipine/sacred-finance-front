@@ -73,7 +73,7 @@ const InspectMain = () => {
   const [txLayers, setTxLayers] = useState();
 
   const handleWithdrawRoute = () => {
-    history.push("/withdraw");
+    history.push("/walletmanagement");
   };
 
   //TODO code duplication in this function
@@ -114,8 +114,13 @@ const InspectMain = () => {
       .map(e => e.returnValues.commitment)
     
     // Find current commitment in the tree
+
     const depositEvent = events.find(e => e.returnValues.commitment === toHex(deposit.commitment))
     const leafIndex = depositEvent ? depositEvent.returnValues.leafIndex : -1
+
+
+    console.log('commitment', deposit.commitment);
+    console.log('returnValues', e.returnValues.commitment);
 
     // Validate that our data is correct
     const isSpent = await sacred.methods.isSpent(toHex(deposit.nullifierHash)).call()
