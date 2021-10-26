@@ -494,6 +494,68 @@ function App() {
                         <InspectMain handleSetDeployment={handleSetDeployment} />
                       )}
                     />
+                  </Switch>
+                </Grid>
+
+                <Grid item md={8} xs={12}>
+                  <Route
+                    exact
+                    path={[
+                      "/",
+                      "/deposit",
+                      "/depositClaim",
+                      "/depositConfirm",
+                      "/depositWorking",
+                      "/withdraw",
+                    ]}
+                    component={Title}
+                  />
+                  <Route
+                    exact
+                    path="/depositSuccess"
+                    component={() => (
+                      <DepositSuccessMain
+                        deposit={deposit}
+                        txReceipt={txReceipt}
+                        deployment={deployment}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path={[
+                      "/withdrawCheck",
+                      "/withdrawConfirm",
+                      "/withdrawWorking",
+                    ]}
+                    component={() => (
+                      <WithdrawCheckMain
+                        isSpent={isSpent}
+                        claim={claim}
+                        isExist={isExist}
+                        parsedNote={parsedNote}
+                        txLayers={txLayers}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/withdrawSuccess"
+                    component={() => (
+                      <WithdrawSuccessMain
+                        claim={claim}
+                        parsedNote={parsedNote}
+                        txReceipt={txReceipt}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/inspect"
+                    component={() => (
+                      <InspectMain handleSetDeployment={handleSetDeployment}/>
+                    )}
+                  />
                   </Grid>
                 </Grid>
               </div>
