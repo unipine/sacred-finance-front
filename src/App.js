@@ -28,13 +28,28 @@ import { deployments } from "./conflux/config";
 import { parseNote, toHex, generateClaim } from "./conflux/utils";
 import AlertWindow from "./components/AlertWindow";
 import Theme from "./theme";
-import { makeStyles } from "@material-ui/core/styles";
 import MetaMaskDialog from "./components/MetaMaskDialog";
+import WalletManagement from "./components/WalletManagement";
+
 const Web3 = require("web3");
 
-const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null;
+const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
 const connectMeta = !web3 ? true : false;
+
+const style = {
+  position: 'absolute',
+  textAlign: 'center',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  color: 'white',
+  bgcolor: 'transparent',
+  border: 'none',
+  boxShadow: 24,
+  p: 4,
+};
 
 function getLibrary(provider, connector) {
   return new Web3Provider(provider);
@@ -79,7 +94,7 @@ function App() {
   const [parsedNote, setParsedNote] = useState();
   const [isExist, setIsExist] = useState(false);
   const [txLayers, setTxLayers] = useState();
-  const [relayer, setRelayer] = useState(false)
+  const [relayer, setRelayer] = useState(false);
   const [deployment, setDeployment] = useState({
     address:
       deployments.eth_deployments[`netId42`][`eth`].instanceAddress[`0.1`],
@@ -173,7 +188,6 @@ function App() {
 
     depositClaim.networkId = +window.ethereum.chainId;
     setDeposit(depositClaim);
-
     return true;
   };
 
@@ -184,7 +198,7 @@ function App() {
   const handleDepositCount = async () => {
     // Get all deposit events from smart contract and assemble merkle tree from them
     console.log("Getting current state from sacred contract");
-    if(!web3)return;
+    if (!web3) return;
     const contract = new web3.eth.Contract(deployment.abi, deployment.address)
     const events = await contract.getPastEvents("Deposit", {
       fromBlock: 0,
@@ -273,87 +287,173 @@ function App() {
 
   return (
     <>
-    <Router>
-      <Web3ReactProvider getLibrary={getLibrary}>
-        <MuiThemeProvider theme={Theme}>
-          <div className="App">
-            <Header
-              handleAlert={handleAlert}
-              handleNetworkId={handleNetworkId}
-              networkId={networkId}
-            />
-
-            <div className="main-container">
-              <AlertWindow
-                openAlert={openAlert}
-                handleCloseAlert={handleCloseAlert}
-                alertText={alertText}
+      <Router>
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <MuiThemeProvider theme={Theme}>
+            <div className="App">
+              <Header
+                handleAlert={handleAlert}
+                handleNetworkId={handleNetworkId}
+                networkId={networkId}
               />
 
-              <Grid
-                container
-                spacing={5}
-                direction="row"
-                justify="center"
-                alignItems="center"
-              >
-                <Grid item md={3} xs={8}>
-                  <Switch>
+              <div className="main-container">
+                <AlertWindow
+                  openAlert={openAlert}
+                  handleCloseAlert={handleCloseAlert}
+                  alertText={alertText}
+                />
+
+                <Grid
+                  container
+                  spacing={5}
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Grid item md={3} xs={8}>
+                    <Switch>
+                      <Route
+                        exact
+                        path="/"
+                        component={() => (
+                          <Welcome
+                            handleAgree={handleAgree}
+                            handleAlert={handleAlert}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/walletmanagement"
+                        component={() => (
+                          <WalletManagement 
+                            deployment={deployment}
+                            handleGenerateClaim={handleGenerateClaim}
+                            handleSetToken={handleSetToken}
+                            handleSetAmount={handleSetAmount}
+                            handleWithdraw={handleWithdraw}
+                            handleRelayer={handleRelayer}
+                            relayerOption={relayer}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/depositClaim"
+                        component={() => (
+                          <DepositClaim
+                            deposit={deposit}
+                            deployment={deployment}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/depositConfirm"
+                        component={() => (
+                          <DepositConfirm
+                            deposit={deposit}
+                            handleTransaction={handleTransaction}
+                            deployment={deployment}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/depositWorking"
+                        component={() => (
+                          <DepositWorking deployment={deployment} />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/depositSuccess"
+                        component={() => (
+                          <DepositSuccess
+                            txReceipt={txReceipt}
+                            deployment={deployment}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/withdrawCheck"
+                        component={() => (
+                          <WithdrawCheck
+                            claim={claim}
+                            recipient={recipient}
+                            isSpent={isSpent}
+                            isExist={isExist}
+                            deployment={deployment}
+                            relayerOption={relayer}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/withdrawConfirm"
+                        component={() => (
+                          <WithdrawConfirm
+                            parsedNote={parsedNote}
+                            recipient={recipient}
+                            handleTransaction={handleTransaction}
+                            deployment={deployment}
+                            handleAlert={handleAlert}
+                            relayerOption={relayer}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/withdrawWorking"
+                        component={() => (
+                          <WithdrawWorking deployment={deployment} />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/withdrawSuccess"
+                        component={() => (
+                          <WithdrawSuccess
+                            parsedNote={parsedNote}
+                            txReceipt={txReceipt}
+                            claim={claim}
+                            deployment={deployment}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/inspect"
+                        component={() => (
+                          <Withdraw
+                            handleWithdraw={handleWithdraw}
+                            deployment={deployment}
+                          />
+                        )}
+                      />
+                    </Switch>
+                  </Grid>
+
+                  <Grid item md={8} xs={12}>
                     <Route
                       exact
-                      path="/"
-                      component={() => (
-                        <Welcome
-                          handleAgree={handleAgree}
-                          handleAlert={handleAlert}
-                        />
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/deposit"
-                      component={() => (
-                        <Deposit
-                          deployment={deployment}
-                          handleGenerateClaim={handleGenerateClaim}
-                          handleSetToken={handleSetToken}
-                          handleSetAmount={handleSetAmount}
-                        />
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/depositClaim"
-                      component={() => (
-                        <DepositClaim
-                          deposit={deposit}
-                          deployment={deployment}
-                        />
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/depositConfirm"
-                      component={() => (
-                        <DepositConfirm
-                          deposit={deposit}
-                          handleTransaction={handleTransaction}
-                          deployment={deployment}
-                        />
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/depositWorking"
-                      component={() => (
-                        <DepositWorking deployment={deployment} />
-                      )}
+                      path={[
+                        "/",
+                        "/walletmanagement",
+                        "/depositClaim",
+                        "/depositConfirm",
+                        "/depositWorking",
+                      ]}
+                      component={Title}
                     />
                     <Route
                       exact
                       path="/depositSuccess"
                       component={() => (
-                        <DepositSuccess
+                        <DepositSuccessMain
+                          deposit={deposit}
                           txReceipt={txReceipt}
                           deployment={deployment}
                         />
@@ -361,60 +461,29 @@ function App() {
                     />
                     <Route
                       exact
-                      path="/withdraw"
+                      path={[
+                        "/withdrawCheck",
+                        "/withdrawConfirm",
+                        "/withdrawWorking",
+                      ]}
                       component={() => (
-                        <Withdraw
-                          handleWithdraw={handleWithdraw}
-                          deployment={deployment}
-                          handleRelayer={handleRelayer}
-                          relayerOption={relayer}
-                        />
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/withdrawCheck"
-                      component={() => (
-                        <WithdrawCheck
-                          claim={claim}
-                          recipient={recipient}
+                        <WithdrawCheckMain
                           isSpent={isSpent}
+                          claim={claim}
                           isExist={isExist}
-                          deployment={deployment}
-                          relayerOption={relayer}
-                        />
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/withdrawConfirm"
-                      component={() => (
-                        <WithdrawConfirm
                           parsedNote={parsedNote}
-                          recipient={recipient}
-                          handleTransaction={handleTransaction}
-                          deployment={deployment}
-                          handleAlert={handleAlert}
-                          relayerOption={relayer}
+                          txLayers={txLayers}
                         />
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/withdrawWorking"
-                      component={() => (
-                        <WithdrawWorking deployment={deployment} />
                       )}
                     />
                     <Route
                       exact
                       path="/withdrawSuccess"
                       component={() => (
-                        <WithdrawSuccess
+                        <WithdrawSuccessMain
+                          claim={claim}
                           parsedNote={parsedNote}
                           txReceipt={txReceipt}
-                          claim={claim}
-                          deployment={deployment}
                         />
                       )}
                     />
@@ -422,10 +491,7 @@ function App() {
                       exact
                       path="/inspect"
                       component={() => (
-                        <Withdraw
-                          handleWithdraw={handleWithdraw}
-                          deployment={deployment}
-                        />
+                        <InspectMain handleSetDeployment={handleSetDeployment} />
                       )}
                     />
                   </Switch>
@@ -490,15 +556,15 @@ function App() {
                       <InspectMain handleSetDeployment={handleSetDeployment}/>
                     )}
                   />
+                  </Grid>
                 </Grid>
-              </Grid>
+              </div>
+              <Footer deployment={deployment} depositCount={depositCount}/>
             </div>
-            <Footer deployment={deployment} depositCount={depositCount} />
-          </div>
-        </MuiThemeProvider>
-      </Web3ReactProvider>
-    </Router>
-    <MetaMaskDialog connectMeta={connectMeta}/>
+          </MuiThemeProvider>
+        </Web3ReactProvider>
+      </Router>
+      <MetaMaskDialog connectMeta={connectMeta} />
     </>
   );
 }

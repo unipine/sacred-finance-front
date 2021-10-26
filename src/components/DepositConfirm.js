@@ -5,14 +5,20 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { useHistory } from "react-router-dom";
-import { fromHexString, toHex, fromDecimals, waitForTxReceipt } from "../conflux/utils";
+import {
+  fromHexString,
+  toHex,
+  fromDecimals,
+  waitForTxReceipt,
+} from "../conflux/utils";
 import { useWeb3React } from "@web3-react/core";
 import { format } from "js-conflux-sdk";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { useState } from "react";
+
 const Web3Utils = require("web3-utils");
 const Web3 = require("web3");
-const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null;
+const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
 const injectedConnector = new InjectedConnector({
   supportedChainIds: [
@@ -20,8 +26,12 @@ const injectedConnector = new InjectedConnector({
   ],
 });
 
-
-const DepositConfirm = ({ deposit, handleTransaction, deployment }) => {
+const DepositConfirm = ({
+  deposit,
+  handleTransaction,
+  deployment,
+  handleAlert,
+}) => {
   const history = useHistory();
   const { activate, active, account } = useWeb3React();
   const [btnDisable, setBtnDisable] = useState(false);
@@ -61,13 +71,10 @@ const DepositConfirm = ({ deposit, handleTransaction, deployment }) => {
           console.log("receipt: ", receipt);
         });
 
+      const blockInfo = await web3.eth.getBlock(tx.blockNumber);
+      tx.timestamp = blockInfo.timestamp;
 
-      const receipt = await waitForTxReceipt({ txHash: tx.transactionHash });
-
-      const blockInfo = await web3.eth.getBlock(receipt.blockNumber);
-      receipt.timestamp = blockInfo.timestamp;
-
-      handleTransaction(receipt);
+      handleTransaction(tx);
 
       history.push("/depositSuccess");
 
@@ -94,11 +101,18 @@ const DepositConfirm = ({ deposit, handleTransaction, deployment }) => {
     } catch (error) {
       console.log("Caught error: ", error.message);
       setBtnDisable(false);
+
+      if (
+        error.message.indexOf("Transaction has been reverted by the EVM") >= 0
+      ) {
+        handleAlert("Transaction has been reverted by the EVM");
+        history.push("/withdrawCheck");
+      }
     }
   };
 
   const handleDepositRoute = () => {
-    history.push("/deposit");
+    history.push("/walletmanagement");
   };
 
   return (

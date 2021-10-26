@@ -268,7 +268,6 @@ const WithdrawCheckMain = ({
                     <small>asdf</small>
                   </Grid>
                 </Grid>
-
                 <Grid item xs={12}
                   container
                   direction="row"
