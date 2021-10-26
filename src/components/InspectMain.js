@@ -8,6 +8,7 @@ import { deployments } from "../conflux/config";
 import arrowReturn from "../images/arrow_return.svg";
 import { useHistory } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
+import DepositInfo from "./DepositInfo";
 const { format } = require("js-conflux-sdk");
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null;
@@ -62,7 +63,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const InspectMain = () => {
+const InspectMain = ({handleSetDeployment, txReceipt}) => {
   const classes = useStyles();
   const history = useHistory();
   const { chainId } = useWeb3React();
@@ -73,7 +74,7 @@ const InspectMain = () => {
   const [txLayers, setTxLayers] = useState();
 
   const handleWithdrawRoute = () => {
-    history.push("/withdraw");
+    history.push("/walletmanagement");
   };
 
   //TODO code duplication in this function
@@ -178,6 +179,12 @@ const InspectMain = () => {
         {displayDepositInfo && (
           <Grid item container xs={12} direction="row" spacing={0}>
             <Grid item xs={5}>
+              <DepositInfo />
+              {
+                txReceipt && (
+                  <DepositInfo txReceipt={txReceipt} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()}/>
+                )
+              }
               <Grid item container xs={12} direction="column" spacing={4}>
                 <Grid
                   item
