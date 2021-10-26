@@ -19,11 +19,11 @@ const FooterRight = ({ deployment, depositCount }) => {
     if (events.length === 0) {
       throw new Error('There is no related deposit, the note is invalid')
     }
-
+    
     let depositlist = [];
     let length = 0;
     events.length >= 8 ? length = 8 : length = events.length
-    for(let i = 0; i < length; i ++) {
+    for(let i = events.length - 1; i >= events.length - length; i --) {
       depositlist.push(events[i].returnValues.timestamp);
     }
     
