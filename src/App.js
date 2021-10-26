@@ -487,7 +487,7 @@ function App() {
                     exact
                     path="/inspect"
                     component={() => (
-                      <InspectMain handleSetDeployment={handleSetDeployment} txReceipt={txReceipt}/>
+                      <InspectMain handleSetDeployment={handleSetDeployment}/>
                     )}
                   />
                 </Grid>

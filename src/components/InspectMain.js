@@ -2,16 +2,15 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { parseNote, toHex } from "../conflux/utils";
+import { parseNote, toHex, loadDepositData } from "../conflux/utils";
 import { useState } from "react";
 import { deployments } from "../conflux/config";
 import arrowReturn from "../images/arrow_return.svg";
 import { useHistory } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
-import DepositInfo from "./DepositInfo";
 const { format } = require("js-conflux-sdk");
 const Web3 = require("web3");
-const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null;
+const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -63,7 +62,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const InspectMain = ({handleSetDeployment, txReceipt}) => {
+const InspectMain = () => {
   const classes = useStyles();
   const history = useHistory();
   const { chainId } = useWeb3React();
@@ -81,6 +80,8 @@ const InspectMain = ({handleSetDeployment, txReceipt}) => {
   const handleInspect = async (e) => {
     let claim = e.target.value;
 
+    console.log('claim',  e.target.value);
+
     let parsedNote;
 
     try {
@@ -95,7 +96,7 @@ const InspectMain = ({handleSetDeployment, txReceipt}) => {
 
     let _deployment =
       deployments.eth_deployments[`netId${chainId}`][
-        parsedNote.currency.toLowerCase()
+      parsedNote.currency.toLowerCase()
       ];
 
     const deployment = {
@@ -108,12 +109,13 @@ const InspectMain = ({handleSetDeployment, txReceipt}) => {
     // Get all deposit events from smart contract and assemble merkle tree from them
     console.log('Getting current state from sacred contract')
     const deposit = parsedNote.deposit;
+
     const sacred = new web3.eth.Contract(deployment.abi, deployment.address)
     const events = await sacred.getPastEvents('Deposit', { fromBlock: 0, toBlock: 'latest' })
     const leaves = events
       .sort((a, b) => a.returnValues.leafIndex - b.returnValues.leafIndex) // Sort events in chronological order
       .map(e => e.returnValues.commitment)
-    
+
     // Find current commitment in the tree
     const depositEvent = events.find(e => e.returnValues.commitment === toHex(deposit.commitment))
     const leafIndex = depositEvent ? depositEvent.returnValues.leafIndex : -1
@@ -136,7 +138,6 @@ const InspectMain = ({handleSetDeployment, txReceipt}) => {
       setStatus("This Claim does not exist in Sacred");
       setDisplayDepositInfo(false);
     }
-
   };
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect
@@ -179,14 +180,8 @@ const InspectMain = ({handleSetDeployment, txReceipt}) => {
         {displayDepositInfo && (
           <Grid item container xs={12} direction="row" spacing={0}>
             <Grid item xs={5}>
-              <DepositInfo />
-              {
-                txReceipt && (
-                  <DepositInfo txReceipt={txReceipt} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()}/>
-                )
-              }
               <Grid item container xs={12} direction="column" spacing={4}>
-                <Grid
+                {/* <Grid
                   item
                   xs={12}
                   container
@@ -215,7 +210,7 @@ const InspectMain = ({handleSetDeployment, txReceipt}) => {
                       {parsedNote.amount} {parsedNote.currency.toUpperCase()}
                     </h2>
                   </Grid>
-                </Grid>
+                </Grid> */}
 
                 {/* <Grid item xs={12}
                   container

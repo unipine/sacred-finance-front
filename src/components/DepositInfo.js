@@ -52,9 +52,13 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 alignItems="flex-start"
             >
                 <small>Date</small>
-                <small className={classes.textAlignStyle}>
-                    {new Date(txReceipt.timestamp * 1000).toUTCString()}
-                </small>
+                {
+                    txReceipt && txReceipt.timestamp && (
+                        <small className={classes.textAlignStyle}>
+                            {new Date(txReceipt.timestamp * 1000).toUTCString()}
+                        </small>
+                    )
+                }
             </Grid>
 
             <Grid
@@ -66,9 +70,13 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 alignItems="flex-start"
             >
                 <small>Transaction</small>
-                <small className={classes.textAlignStyle}>
-                    {txReceipt.transactionHash}
-                </small>
+                {
+                    txReceipt && txReceipt.transactionHash && (
+                        <small className={classes.textAlignStyle}>
+                            {txReceipt.transactionHash}
+                        </small>
+                    )
+                }
             </Grid>
 
             <Grid
@@ -80,9 +88,13 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 alignItems="flex-start"
             >
                 <small>From</small>
-                <small className={classes.textAlignStyle}>
-                    {txReceipt.from.toLowerCase()}
-                </small>
+                {
+                    txReceipt && txReceipt.from && (
+                        <small className={classes.textAlignStyle}>
+                            {txReceipt.from.toLowerCase()}
+                        </small>
+                    )
+                }
             </Grid>
 
             <Grid
@@ -94,9 +106,13 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 alignItems="flex-start"
             >
                 <small>Commitment</small>
-                <small className={classes.textAlignStyle}>
-                    {deposit.commitmentHex}
-                </small>
+                {
+                    deposit && deposit.commitmentHex && (
+                        <small className={classes.textAlignStyle}>
+                            {deposit.commitmentHex}
+                        </small>
+                    )
+                }
             </Grid>
         </Grid>
     );
