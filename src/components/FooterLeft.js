@@ -9,21 +9,21 @@ const FooterLeft = () => {
   const [ip, setIp] = useState();
   const [location, setLocation] = useState()
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    // Gets IP address WITHOUT 3rd party but missing location details
-    // getIPs().then(data => {
-    //   setIp(data);
-    // })
+  //   // Gets IP address WITHOUT 3rd party but missing location details
+  //   // getIPs().then(data => {
+  //   //   setIp(data);
+  //   // })
 
-    // This call sends IP address to a 3rd party (geoip) to get location
-    fetch('https://ip.tornado.cash')
-      .then(res => res.json())
-      .then((result) => {
-        setIp(result.ip);
-        setLocation(`${result.city}, ${result.region}, ${result.country}`);
-      })
-  }, [])
+  //   // This call sends IP address to a 3rd party (geoip) to get location
+  //   fetch('https://ip.tornado.cash')
+  //     .then(res => res.json())
+  //     .then((result) => {
+  //       setIp(result.ip);
+  //       setLocation(`${result.city}, ${result.region}, ${result.country}`);
+  //     })
+  // }, [])
 
   return (
 

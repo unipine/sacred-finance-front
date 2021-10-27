@@ -26,7 +26,7 @@ const Nav = () => {
       <ButtonGroup variant="contained" >
         <Button className={classes.button} onClick={() => handleRoute('')}>Sacred App</Button>
         <Button className={classes.button} target="_blank" href="https://sacred.gitbook.io/sacred-finance/">About</Button>
-        <Button className={classes.button} onClick={() => handleRoute('/yield')}>Yield</Button>
+        <Button className={classes.button} onClick={() => handleRoute('yield')}>Yield</Button>
         <Button className={classes.button} onClick={() => handleRoute('inspect')}>Inspect</Button>
         <Button className={classes.button} target="_blank" href="https://sacred.gitbook.io/sacred-finance/tokeneconomics/scrd-token-supply-and-distribution">Token</Button>
         <Button className={classes.button} target="_blank" href="https://sacred.gitbook.io/sacred-finance/other-important-information/faq">FAQ</Button>

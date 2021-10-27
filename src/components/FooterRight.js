@@ -16,9 +16,9 @@ const FooterRight = ({ deployment, depositCount }) => {
       toBlock: "latest",
     });
 
-    console.log('events', events)
-
-    if(!events) return;
+    if (events.length === 0) {
+      console.log('There is no related deposit, the note is invalid')
+    }
     
     let depositlist = [];
     let length = 0;
