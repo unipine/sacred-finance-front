@@ -8,6 +8,8 @@ import { deployments } from "../conflux/config";
 import arrowReturn from "../images/arrow_return.svg";
 import { useHistory } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
+import DepositInfo from "./DepositInfo";
+
 const { format } = require("js-conflux-sdk");
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
@@ -69,6 +71,7 @@ const InspectMain = () => {
 
   const [status, setStatus] = useState();
   const [displayDepositInfo, setDisplayDepositInfo] = useState(false);
+  const [depositData, setDepositData] = useState();
   const [parsedNote, setParsedNote] = useState();
   const [txLayers, setTxLayers] = useState();
 
@@ -79,9 +82,6 @@ const InspectMain = () => {
   //TODO code duplication in this function
   const handleInspect = async (e) => {
     let claim = e.target.value;
-
-    console.log('claim',  e.target.value);
-
     let parsedNote;
 
     try {
@@ -117,14 +117,19 @@ const InspectMain = () => {
       .map(e => e.returnValues.commitment)
 
     // Find current commitment in the tree
+    const depositEvent = events[0];
 
-    const depositEvent = events.find(e => e.returnValues.commitment === toHex(deposit.commitment))
     const leafIndex = depositEvent ? depositEvent.returnValues.leafIndex : -1
 
 
     console.log('commitment', deposit.commitment);
-    console.log('returnValues', e.returnValues.commitment);
+    console.log('returnValues', depositEvent);
 
+    const { timestamp } = depositEvent.returnValues
+    const transactionHash = depositEvent.transactionHash
+    const receipt = await web3.eth.getTransactionReceipt(transactionHash)
+
+    console.log('receipt', receipt)
     // Validate that our data is correct
     const isSpent = await sacred.methods.isSpent(toHex(deposit.nullifierHash)).call()
 
@@ -138,6 +143,7 @@ const InspectMain = () => {
       setStatus("This Claim is in Sacred");
       setParsedNote(parsedNote);
       setTxLayers(leaves.length - leafIndex - 1);
+      setDepositData({timestamp, transactionHash, receipt});
       setDisplayDepositInfo(true);
     } else {
       setStatus("This Claim does not exist in Sacred");
@@ -185,148 +191,7 @@ const InspectMain = () => {
         {displayDepositInfo && (
           <Grid item container xs={12} direction="row" spacing={0}>
             <Grid item xs={5}>
-              <Grid item container xs={12} direction="column" spacing={4}>
-                {/* <Grid
-                  item
-                  xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item>
-                    <Grid
-                      item
-                      container
-                      direction="column"
-                      spacing={0}
-                      alignItems="flex-start"
-                    >
-                      <Grid item>
-                        <small>Deposit</small>
-                      </Grid>
-                      <Grid item className="blue-text">
-                        Verified
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item className="blue-text">
-                    <h2>
-                      {parsedNote.amount} {parsedNote.currency.toUpperCase()}
-                    </h2>
-                  </Grid>
-                </Grid> */}
-
-                {/* <Grid item xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={2}
-                    xs={3}
-                  >
-                    <small>Date</small>
-                  </Grid>
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    spacing={2}
-                    xs={9}
-                  >
-                    <small>Jan 20, 2021, 4:03 PM EST</small>
-                  </Grid>
-                </Grid> */}
-
-                {/* <Grid item xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={2}
-                    xs={3}
-                  >
-                    <small>Transaction</small>
-                  </Grid>
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    spacing={2}
-                    xs={9}
-                  >
-                    <small>0x23g45g59fm30vm40504l34m942j</small>
-                  </Grid>
-                </Grid> */}
-
-                {/* <Grid item xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={2}
-                    xs={3}
-                  >
-                    <small>From</small>
-                  </Grid>
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    spacing={2}
-                    xs={9}
-                  >
-                    <small>0x23g45g59fm30vm40504l34m942j</small>
-                  </Grid>
-                </Grid> */}
-
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="flex-start"
-                >
-                  <Grid
-                    item
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={2}
-                    xs={3}
-                  >
-                    <small>Commitment</small>
-                  </Grid>
-                  <Grid
-                    item
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    spacing={2}
-                    xs={9}
-                  >
-                    <small style={{ overflowWrap: "anywhere" }}>
-                      {parsedNote.deposit.commitmentHex}
-                    </small>
-                  </Grid>
-                </Grid>
-              </Grid>
+              <DepositInfo txReceipt={depositData} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()}/>
             </Grid>
 
             <Grid item xs={5}>
