@@ -112,7 +112,7 @@ const DepositConfirm = ({
   };
 
   const handleDepositRoute = () => {
-    history.push("/deposit");
+    history.push("/walletmanagement");
   };
 
   return (

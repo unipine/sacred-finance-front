@@ -17,6 +17,7 @@ import WithdrawWorking from "./components/WithdrawWorking";
 import WithdrawSuccess from "./components/WithdrawSuccess";
 import WithdrawSuccessMain from "./components/WithdrawSuccessMain";
 import InspectMain from "./components/InspectMain";
+import YieldRedemption from "./components/YieldRedemption";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { MemoryRouter as Router, Route, Switch } from "react-router-dom";
@@ -29,6 +30,10 @@ import { parseNote, toHex, generateClaim } from "./conflux/utils";
 import AlertWindow from "./components/AlertWindow";
 import Theme from "./theme";
 import MetaMaskDialog from "./components/MetaMaskDialog";
+import WalletManagement from "./components/WalletManagement";
+import YieldRedemptionSetup from "./components/YieldRedemptionSetup";
+import YieldManage from "./components/YieldManage";
+
 const Web3 = require("web3");
 
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
@@ -92,7 +97,7 @@ function App() {
   const [parsedNote, setParsedNote] = useState();
   const [isExist, setIsExist] = useState(false);
   const [txLayers, setTxLayers] = useState();
-  const [relayer, setRelayer] = useState(false)
+  const [relayer, setRelayer] = useState(false);
   const [deployment, setDeployment] = useState({
     address:
       deployments.eth_deployments[`netId42`][`eth`].instanceAddress[`0.1`],
@@ -186,7 +191,6 @@ function App() {
 
     depositClaim.networkId = +window.ethereum.chainId;
     setDeposit(depositClaim);
-
     return true;
   };
 
@@ -310,6 +314,15 @@ function App() {
                   justify="center"
                   alignItems="center"
                 >
+                  <Grid item xs={12}>
+                    <Route
+                      exact
+                      path="/yield"
+                      component={() => (
+                        <YieldRedemption />
+                      )}
+                    />
+                  </Grid>
                   <Grid item md={3} xs={8}>
                     <Switch>
                       <Route
@@ -324,13 +337,16 @@ function App() {
                       />
                       <Route
                         exact
-                        path="/deposit"
+                        path="/walletmanagement"
                         component={() => (
-                          <Deposit
+                          <WalletManagement
                             deployment={deployment}
                             handleGenerateClaim={handleGenerateClaim}
                             handleSetToken={handleSetToken}
                             handleSetAmount={handleSetAmount}
+                            handleWithdraw={handleWithdraw}
+                            handleRelayer={handleRelayer}
+                            relayerOption={relayer}
                           />
                         )}
                       />
@@ -369,18 +385,6 @@ function App() {
                           <DepositSuccess
                             txReceipt={txReceipt}
                             deployment={deployment}
-                          />
-                        )}
-                      />
-                      <Route
-                        exact
-                        path="/withdraw"
-                        component={() => (
-                          <Withdraw
-                            handleWithdraw={handleWithdraw}
-                            deployment={deployment}
-                            handleRelayer={handleRelayer}
-                            relayerOption={relayer}
                           />
                         )}
                       />
@@ -441,6 +445,20 @@ function App() {
                           />
                         )}
                       />
+                      <Route 
+                        exact
+                        path="/yieldSetup"
+                        component={() => (
+                          <YieldRedemptionSetup />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/yieldManage"
+                        component={() => (
+                          <YieldManage />
+                        )}
+                      />
                     </Switch>
                   </Grid>
 
@@ -449,11 +467,10 @@ function App() {
                       exact
                       path={[
                         "/",
-                        "/deposit",
+                        "/walletmanagement",
                         "/depositClaim",
                         "/depositConfirm",
                         "/depositWorking",
-                        "/withdraw",
                       ]}
                       component={Title}
                     />
