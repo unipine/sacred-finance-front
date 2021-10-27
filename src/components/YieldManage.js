@@ -18,7 +18,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import WaitingModal from "./WaitingModal";
 import { useLocation } from "react-router";
-import { InputLabel, Select, MenuItem } from "@material-ui/core";
+import { InputLabel, MenuItem } from "@material-ui/core";
 import arrow_down from "../images/arrow_down.svg";
 
 const useStyles = makeStyles((theme) => ({
@@ -26,22 +26,6 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "left",
     },
     formControl: {
-    },
-    input: {
-        borderRadius: '10px',
-        fontSize: '22px',
-        height: '32px',
-        "&.Mui-focused": {
-            borderRadius: '10px',
-            backgroundColor: "#EF646D",
-            color: "#FFFFFF",
-            // fontWeight: "bold",
-        },
-        color: "#FFFFFF",
-        borderColor: "white",
-        labelStyle: {
-            color: "#FFFFFF",
-        },
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
@@ -82,8 +66,10 @@ const useStyles = makeStyles((theme) => ({
     button: {
         marginTop: '80px',
         fontSize: '20px',
-    }
-
+    },
+    textBlack: {
+        color: 'black',
+    },
 }));
 
 const YieldManage = () => {
@@ -145,26 +131,24 @@ const YieldManage = () => {
                             selectedWithdraw ? (
                                 <>
                                     <Grid item direction="column">
-                                        <Grid item className={classes.balance} style={{marginTop: '20px'}}>
+                                        <Grid item className={classes.balance} style={{ marginTop: '20px' }}>
                                             <Grid item container direction="row" justifyContent="space-between">
-                                                <InputLabel style={{ color: 'black' }}>From</InputLabel>
-                                                <InputLabel style={{ color: 'black' }}>Balance: 56078</InputLabel>
+                                                <InputLabel className={classes.textBlack}>From</InputLabel>
+                                                <InputLabel className={classes.textBlack}>Balance: 56078</InputLabel>
                                             </Grid>
                                             <Grid item container direction="row" justifyContent="space-between" alignItems="center" style={{ paddingTop: '10px' }}>
-                                                <InputLabel style={{ fontSize: '22px' }}>0.0</InputLabel>
+                                                <InputLabel style={{ fontSize: '20px' }}>0.0</InputLabel>
                                                 <div className={classes.flex}>
                                                     <div className={classes.max}>MAX</div>
-                                                    <FormControl variant="outlined" className={classes.formControl}>
-                                                        <Select
-                                                            labelId="network-select-label"
-                                                            value={coinType}
-                                                            onChange={handleCoinType}
-                                                            className={classes.input}
-                                                        >
-                                                            <MenuItem value={0}>USDT YP</MenuItem>
-                                                            <MenuItem value={1}>BNB</MenuItem>
-                                                        </Select>
-                                                    </FormControl>
+                                                    <select
+                                                        labelId="network-select-label"
+                                                        value={coinType}
+                                                        onChange={handleCoinType}
+                                                        className="select"
+                                                    >
+                                                        <option value={0}>USDT YP</option>
+                                                        <option value={1}>BNB</option>
+                                                    </select>
                                                 </div>
                                             </Grid>
                                         </Grid>
@@ -173,12 +157,12 @@ const YieldManage = () => {
                                         </Grid>
                                         <Grid item className={classes.balance}>
                                             <Grid item container direction="row" justifyContent="space-between" style={{ paddingBottom: '10px' }}>
-                                                <InputLabel style={{ color: 'black' }}>To</InputLabel>
-                                                <InputLabel style={{ color: 'black' }}>Balance: 0.000000</InputLabel>
+                                                <InputLabel className={classes.textBlack}>To</InputLabel>
+                                                <InputLabel className={classes.textBlack}>Balance: 0.000000</InputLabel>
                                             </Grid>
                                             <Grid item container direction="row" justifyContent="space-between">
-                                                <InputLabel style={{ fontSize: '22px' }}>0.0</InputLabel>
-                                                <InputLabel style={{ fontSize: '22px' }}>USDT</InputLabel>
+                                                <InputLabel style={{ fontSize: '20px' }}>0.0</InputLabel>
+                                                <InputLabel style={{ fontSize: '20px' }}>USDT</InputLabel>
                                             </Grid>
                                         </Grid>
                                         <Grid item container>
