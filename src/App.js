@@ -522,7 +522,7 @@ function App() {
                   </Grid>
                 </Grid>
               </div>
-              <Footer deployment={deployment} depositCount={depositCount} />
+              <Footer deployment={deployment} depositCount={depositCount} networkId={networkId}/>
             </div>
           </MuiThemeProvider>
         </Web3ReactProvider>

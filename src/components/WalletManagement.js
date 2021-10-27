@@ -102,6 +102,7 @@ const WalletManagement = ({
     const classes = useStyles();
     // const [token, setToken] = React.useState(deployment.symbol);
     // const [amount, setAmount] = React.useState(deployment.amount);
+    const { chainId } = useWeb3React()
     const [withdrawbtnDisabled, setWithdrawBtnDisabled] = useState(true);
     const [depositbtnDisabled, setDepositbtnDisabled] = useState(true);
 
@@ -153,6 +154,7 @@ const WalletManagement = ({
     };
 
     const depositContinueClick = () => {
+        if(chainId === undefined) return;
         handleGenerateClaim();
         history.push("/depositClaim");
     }
@@ -162,6 +164,7 @@ const WalletManagement = ({
     };
 
     const handleClaim = (e) => {
+        if(chainId === undefined)return;
         setClaim(e.target.value);
     };
 
