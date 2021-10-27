@@ -53,7 +53,7 @@ const injectedConnector = new InjectedConnector({
 const Connect = ({ handleAlert, networkId }) => {
   const classes = useStyles();
 
-  const { active, account, activate } = useWeb3React();
+  const { active, account, activate, chainId } = useWeb3React();
 
   const changeNetworkId = async () => {
     let sacredChainId = '0x' + parseInt(networkId).toString(16);
@@ -67,12 +67,16 @@ const Connect = ({ handleAlert, networkId }) => {
   }
 
   const onConnectClick = async () => {
-    activate(injectedConnector, (err) => {
-      handleAlert(err);
-
-      if(web3) 
+    console.log('networkId', networkId);
+    if (!web3) {
+      activate(injectedConnector, (err) => {});
+    }
+    else {
+      if (chainId === undefined || (chainId !== undefined && networkId !== chainId)){
         changeNetworkId();
-    });
+        activate(injectedConnector, (err) => {});
+      }
+    }
   };
 
   return (

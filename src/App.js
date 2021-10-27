@@ -35,7 +35,6 @@ import YieldRedemptionSetup from "./components/YieldRedemptionSetup";
 import YieldManage from "./components/YieldManage";
 
 const Web3 = require("web3");
-
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
 const connectMeta = !web3 ? true : false;

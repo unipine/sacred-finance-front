@@ -195,8 +195,9 @@ const YieldManage = () => {
                                             <Button
                                                 variant="contained"
                                                 color="secondary"
+                                                className={classes.button}
                                                 fullWidth
-                                                style={{ marginTop: '280px' }}
+                                                style={{ marginTop: '280px', }}
                                             >
                                                 Calculate Points
                                             </Button>
