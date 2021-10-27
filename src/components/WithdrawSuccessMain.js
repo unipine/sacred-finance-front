@@ -1,6 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import DepositInfo from "./DepositInfo";
 import Grid from "@material-ui/core/Grid";
 import arrow from "../images/arrow_right.svg";
 
@@ -71,150 +72,9 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
           />
         </Grid>
 
-        <Grid item container xs={12} direction="row" spacing={0}>
+        <Grid item container xs={12} direction="row" spacing={2}>
           <Grid item xs={5}>
-            <Grid item container xs={12} direction="column" spacing={4}>
-              <Grid
-                item
-                xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-              >
-                <Grid item>
-                  <Grid
-                    item
-                    container
-                    direction="column"
-                    spacing={0}
-                    alignItems="flex-start"
-                  >
-                    <Grid item>
-                      <small>Deposit</small>
-                    </Grid>
-                    <Grid item className="blue-text">
-                      Verified
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item className="blue-text">
-                  <h2>
-                    {parsedNote.amount} {parsedNote.currency.toUpperCase()}
-                  </h2>
-                </Grid>
-              </Grid>
-
-              {/* <Grid item xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-              >
-                <Grid item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>Date</small>
-                </Grid>
-                <Grid item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small>Jan 20, 2021, 4:03 PM EST</small>
-                </Grid>
-              </Grid> */}
-
-              {/* <Grid item xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-              >
-                <Grid item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>Transaction</small>
-                </Grid>
-                <Grid item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small>0x23g45g59fm30vm40504l34m942j</small>
-                </Grid>
-              </Grid> */}
-
-              {/* <Grid item xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-              >
-                <Grid item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>From</small>
-                </Grid>
-                <Grid item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small>0x23g45g59fm30vm40504l34m942j</small>
-                </Grid>
-              </Grid> */}
-
-              <Grid
-                item
-                xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="flex-start"
-              >
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>Commitment</small>
-                </Grid>
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small style={{ overflowWrap: "anywhere" }}>
-                    {parsedNote.deposit.commitmentHex}
-                  </small>
-                </Grid>
-              </Grid>
-            </Grid>
+            <DepositInfo txReceipt={txReceipt} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()}/>
           </Grid>
           <Grid item xs={1} container justify="center" alignItems="center">
             <img src={arrow} alt="arrow" />

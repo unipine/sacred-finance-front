@@ -33,6 +33,8 @@ const Version = ({ handleNetworkId, networkId, handleAlert }) => {
   const { chainId } = useWeb3React();
 
   const handleChange = async (event) => {
+    console.log('event', event.target.value);
+    console.log('chainId', chainId);
     if (chainId !== undefined && chainId !== event.target.value) {
       let sacredChainId = '0x' + parseInt(event.target.value).toString(16);
       await window.ethereum
@@ -59,7 +61,7 @@ const Version = ({ handleNetworkId, networkId, handleAlert }) => {
           onChange={handleChange}
           className={classes.input}
         >
-          <MenuItem value={1}>Ethereum Mainnet</MenuItem>
+          {/* <MenuItem value={1}>Ethereum Mainnet</MenuItem> */}
           <MenuItem value={42}>Kovan Testnet</MenuItem>
         </Select>
       </FormControl>

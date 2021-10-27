@@ -226,7 +226,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
           </Grid>
         </Box>
       </Paper>
-      {waiting && <WaitingModal content="Transaction is progressing..."/>}
+      {waiting && <WaitingModal content="Verifying claim..." />}
     </div>
   );
 };

@@ -20,7 +20,7 @@ const Header = ({ handleAlert, handleNetworkId, networkId }) => {
           networkId={networkId}
           handleAlert={handleAlert}
         />
-        <Connect handleAlert={handleAlert} />
+        <Connect handleAlert={handleAlert} networkId={networkId}/>
         <Nav />
       </Grid>
     </div>

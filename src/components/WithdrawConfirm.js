@@ -16,8 +16,10 @@ import {
 } from "../conflux/utils";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { useState } from "react";
+import WaitingModal from "./WaitingModal";
+
 const Web3 = require("web3");
-const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null;
+const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
 export const injectedConnector = new InjectedConnector({
   supportedChainIds: [
@@ -41,12 +43,13 @@ const WithdrawConfirm = ({
   handleTransaction,
   deployment,
   handleAlert,
-  relayerOption
+  relayerOption,
 }) => {
   const { activate, active, account } = useWeb3React();
   const history = useHistory();
 
   const [btnDisable, setBtnDisable] = useState(false);
+  const [waiting, setWaiting] = useState(false);
 
   const classes = useStyles();
 
@@ -58,6 +61,7 @@ const WithdrawConfirm = ({
 
     // Begin zk proof
     setBtnDisable(true);
+    setWaiting(true);
 
     let deposit = parsedNote.deposit;
     let refund = "0"; // No refund for ETH
@@ -86,17 +90,17 @@ const WithdrawConfirm = ({
           console.log("receipt: ", receipt);
         });
 
-      const receipt = await waitForTxReceipt({ txHash: tx.transactionHash });
+      // const receipt = await waitForTxReceipt({ txHash: tx.transactionHash });
+      // console.log(tx);
+      // console.log(receipt);
+      const blockInfo = await web3.eth.getBlock(tx.blockNumber);
+      tx.timestamp = blockInfo.timestamp;
 
-      const blockInfo = await web3.eth.getBlock(receipt.blockNumber);
-      receipt.timestamp = blockInfo.timestamp;
-
-      handleTransaction(receipt);
+      handleTransaction(tx);
 
       history.push("/withdrawSuccess");
 
-
-        // CONFLUX
+      // CONFLUX
       // //TODO streamline the transaction execution
       // const transactionHash = await pendingTransaction; // send and await endpoint return transaction hash
       // console.log("transaction: ", transactionHash);
@@ -132,12 +136,14 @@ const WithdrawConfirm = ({
     } catch (error) {
       console.log("Caught error: ", error.message);
       setBtnDisable(false);
+      setWaiting(false);
 
-      if (error.message.indexOf("Transaction has been reverted by the EVM") >= 0){
-        handleAlert("Error: Transaction has been reverted by the EVM")
-        history.push("/withdrawCheck")
+      if (
+        error.message.indexOf("Transaction has been reverted by the EVM") >= 0
+      ) {
+        handleAlert("Transaction has been reverted by the EVM");
+        history.push("/withdrawCheck");
       }
-
     }
   };
 
@@ -209,6 +215,7 @@ const WithdrawConfirm = ({
           </Grid>
         </Box>
       </Paper>
+      {waiting && <WaitingModal content="Generating Proof..." />}
     </div>
   );
 };
