@@ -81,6 +81,8 @@ const InspectMain = () => {
 
   //TODO code duplication in this function
   const handleInspect = async (e) => {
+    if(chainId === undefined) return;
+
     let claim = e.target.value;
     let parsedNote;
 
@@ -98,6 +100,8 @@ const InspectMain = () => {
       deployments.eth_deployments[`netId${chainId}`][
       parsedNote.currency.toLowerCase()
       ];
+
+    console.log('_deployment', _deployment);
 
     const deployment = {
       address: _deployment.instanceAddress[parsedNote.amount],
@@ -143,7 +147,7 @@ const InspectMain = () => {
       setStatus("This Claim is in Sacred");
       setParsedNote(parsedNote);
       setTxLayers(leaves.length - leafIndex - 1);
-      setDepositData({timestamp, transactionHash, receipt});
+      setDepositData({ timestamp, transactionHash, from: receipt.from });
       setDisplayDepositInfo(true);
     } else {
       setStatus("This Claim does not exist in Sacred");
@@ -189,12 +193,12 @@ const InspectMain = () => {
         </Grid>
 
         {displayDepositInfo && (
-          <Grid item container xs={12} direction="row" spacing={0}>
-            <Grid item xs={5}>
-              <DepositInfo txReceipt={depositData} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()}/>
+          <Grid item container xs={12} direction="row" spacing={4}>
+            <Grid item xs={6}>
+              <DepositInfo txReceipt={depositData} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()} />
             </Grid>
 
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <Grid item container xs={12} direction="column" spacing={4}>
                 <Grid
                   item
