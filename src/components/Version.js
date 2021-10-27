@@ -33,11 +33,8 @@ const Version = ({ handleNetworkId, networkId, handleAlert }) => {
   const { chainId } = useWeb3React();
 
   const handleChange = async (event) => {
-    console.log('chainId', chainId);
-    console.log('event.target.value', event.target.value);
     if (chainId !== undefined) {
       let sacredChainId = '0x' + parseInt(event.target.value).toString(16);
-      console.log('event', event.target.value)
       await window.ethereum
         .request({
           method: 'wallet_switchEthereumChain',

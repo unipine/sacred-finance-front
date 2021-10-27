@@ -59,7 +59,6 @@ const DepositConfirm = ({
         .deposit(toHex(deposit.commitment))
         .send({ value, from: account })
         .on("transactionHash", function (hash) {
-          console.log("transactionHash: ", hash);
 
           // Loading screen
           history.push("/depositWorking");
@@ -68,7 +67,6 @@ const DepositConfirm = ({
         //   console.log("confirmationNumber: ", confirmationNumber);
         // })
         .on("receipt", function (receipt) {
-          console.log("receipt: ", receipt);
         });
 
       const blockInfo = await web3.eth.getBlock(tx.blockNumber);

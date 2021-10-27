@@ -9,8 +9,6 @@ const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 const FooterRight = ({ deployment, depositCount, networkId }) => {
   const [depositData, setDepositData] = useState([]);
 
-  console.log('networkId', networkId);
-
   const handleDepositData = async () => {
     if (!web3) return;
     const contract = new web3.eth.Contract(deployment.abi, deployment.address)

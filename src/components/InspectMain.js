@@ -101,8 +101,6 @@ const InspectMain = () => {
       parsedNote.currency.toLowerCase()
       ];
 
-    console.log('_deployment', _deployment);
-
     const deployment = {
       address: _deployment.instanceAddress[parsedNote.amount],
       abi: _deployment.abi,
@@ -125,15 +123,10 @@ const InspectMain = () => {
 
     const leafIndex = depositEvent ? depositEvent.returnValues.leafIndex : -1
 
-
-    console.log('commitment', deposit.commitment);
-    console.log('returnValues', depositEvent);
-
     const { timestamp } = depositEvent.returnValues
     const transactionHash = depositEvent.transactionHash
     const receipt = await web3.eth.getTransactionReceipt(transactionHash)
 
-    console.log('receipt', receipt)
     // Validate that our data is correct
     const isSpent = await sacred.methods.isSpent(toHex(deposit.nullifierHash)).call()
 

@@ -67,7 +67,6 @@ const Connect = ({ handleAlert, networkId }) => {
   }
 
   const onConnectClick = async () => {
-    console.log('networkId', networkId);
     if (!web3) {
       activate(injectedConnector, (err) => {});
     }

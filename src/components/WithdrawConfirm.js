@@ -81,13 +81,11 @@ const WithdrawConfirm = ({
           console.log("Submitting withdraw transaction");
           // Loading screen
           history.push("/withdrawWorking");
-          console.log("transactionHash: ", hash);
         })
         // .on("confirmation", function (confirmationNumber, receipt) {
         //   console.log("confirmationNumber: ", confirmationNumber);
         // })
         .on("receipt", function (receipt) {
-          console.log("receipt: ", receipt);
         });
 
       // const receipt = await waitForTxReceipt({ txHash: tx.transactionHash });
