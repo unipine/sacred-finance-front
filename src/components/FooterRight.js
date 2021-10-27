@@ -17,7 +17,7 @@ const FooterRight = ({ deployment, depositCount }) => {
     });
 
     if (events.length === 0) {
-      throw new Error('There is no related deposit, the note is invalid')
+      console.log('There is no related deposit, the note is invalid')
     }
     
     let depositlist = [];

@@ -41,11 +41,16 @@ const useStyles = makeStyles((theme) => ({
 
 const YieldRedemptionSetup = () => {
     const classes = useStyles();
+    const history = useHistory();
     const [value, setValue] = React.useState(0);
 
     const handleRadioChange = (event) => {
         setValue(event.target.value);
     };
+
+    const handleSetupClick = () => {
+        history.push("/yieldManage");
+    }
 
     return (
         <Paper className={classes.body}>
@@ -102,6 +107,7 @@ const YieldRedemptionSetup = () => {
                             variant="contained"
                             color="secondary"
                             className={classes.button}
+                            onClick={handleSetupClick}
                         >
                             Setup
                         </Button>

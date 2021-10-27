@@ -32,6 +32,7 @@ import Theme from "./theme";
 import MetaMaskDialog from "./components/MetaMaskDialog";
 import WalletManagement from "./components/WalletManagement";
 import YieldRedemptionSetup from "./components/YieldRedemptionSetup";
+import YieldManage from "./components/YieldManage";
 
 const Web3 = require("web3");
 
@@ -449,6 +450,13 @@ function App() {
                         path="/yieldSetup"
                         component={() => (
                           <YieldRedemptionSetup />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/yieldManage"
+                        component={() => (
+                          <YieldManage />
                         )}
                       />
                     </Switch>
