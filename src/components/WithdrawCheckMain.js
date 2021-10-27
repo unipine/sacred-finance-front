@@ -93,12 +93,10 @@ const WithdrawCheckMain = ({
         toBlock: 'latest'
       })
 
-      console.log('eventWhenHappened', eventWhenHappened);
-
       if (eventWhenHappened.length === 0) {
-        throw new Error('There is no related deposit, the note is invalid')
+        console.log('There is no related deposit, the note is invalid')
       }
-  
+
       const { timestamp } = eventWhenHappened[0].returnValues
       const transactionHash = eventWhenHappened[0].transactionHash
       const receipt = await web3.eth.getTransactionReceipt(transactionHash)

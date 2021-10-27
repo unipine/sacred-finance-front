@@ -5,6 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
+const Web3 = require("web3");
+const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
+
 const CssTextField = withStyles({
   root: {
     "& label.Mui-focused": {
@@ -67,7 +70,8 @@ const Connect = ({ handleAlert, networkId }) => {
     activate(injectedConnector, (err) => {
       handleAlert(err);
 
-      changeNetworkId();
+      if(web3) 
+        changeNetworkId();
     });
   };
 
