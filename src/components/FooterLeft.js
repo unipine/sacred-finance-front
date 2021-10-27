@@ -28,9 +28,9 @@ const FooterLeft = () => {
   return (
 
     <Grid item xs={3}>
-      <p className='ip-display'>
+      {/* <p className='ip-display'>
         <b>Your IP: </b> {ip}, {location}
-      </p>
+      </p> */}
 
     </Grid>
   )

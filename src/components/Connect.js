@@ -43,19 +43,31 @@ const useStyles = makeStyles((theme) => ({
 
 const injectedConnector = new InjectedConnector({
   supportedChainIds: [
-    1, // Ethereum Mainnet
     42, // Kovan Testnet
   ],
 });
 
-const Connect = ({ handleAlert }) => {
+const Connect = ({ handleAlert, networkId }) => {
   const classes = useStyles();
 
   const { active, account, activate } = useWeb3React();
 
-  const onConnectClick = () => {
+  const changeNetworkId = async () => {
+    let sacredChainId = '0x' + parseInt(networkId).toString(16);
+    await window.ethereum
+      .request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: sacredChainId }],
+      })
+      .then(res => console.log(res))
+      .then(err => console.log(err));
+  }
+
+  const onConnectClick = async () => {
     activate(injectedConnector, (err) => {
       handleAlert(err);
+
+      changeNetworkId();
     });
   };
 

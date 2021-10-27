@@ -33,6 +33,8 @@ const Version = ({ handleNetworkId, networkId, handleAlert }) => {
   const { chainId } = useWeb3React();
 
   const handleChange = async (event) => {
+    console.log('event', event.target.value);
+    console.log('chainId', chainId);
     if (chainId !== undefined && chainId !== event.target.value) {
       let sacredChainId = '0x' + parseInt(event.target.value).toString(16);
       await window.ethereum
