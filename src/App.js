@@ -17,6 +17,7 @@ import WithdrawWorking from "./components/WithdrawWorking";
 import WithdrawSuccess from "./components/WithdrawSuccess";
 import WithdrawSuccessMain from "./components/WithdrawSuccessMain";
 import InspectMain from "./components/InspectMain";
+import YieldRedemption from "./components/YieldRedemption";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { MemoryRouter as Router, Route, Switch } from "react-router-dom";
@@ -30,6 +31,7 @@ import AlertWindow from "./components/AlertWindow";
 import Theme from "./theme";
 import MetaMaskDialog from "./components/MetaMaskDialog";
 import WalletManagement from "./components/WalletManagement";
+import YieldRedemptionSetup from "./components/YieldRedemptionSetup";
 
 const Web3 = require("web3");
 
@@ -311,6 +313,15 @@ function App() {
                   justify="center"
                   alignItems="center"
                 >
+                  <Grid item xs={12}>
+                    <Route
+                      exact
+                      path="/yield"
+                      component={() => (
+                        <YieldRedemption />
+                      )}
+                    />
+                  </Grid>
                   <Grid item md={3} xs={8}>
                     <Switch>
                       <Route
@@ -327,7 +338,7 @@ function App() {
                         exact
                         path="/walletmanagement"
                         component={() => (
-                          <WalletManagement 
+                          <WalletManagement
                             deployment={deployment}
                             handleGenerateClaim={handleGenerateClaim}
                             handleSetToken={handleSetToken}
@@ -433,6 +444,13 @@ function App() {
                           />
                         )}
                       />
+                      <Route 
+                        exact
+                        path="/yieldSetup"
+                        component={() => (
+                          <YieldRedemptionSetup />
+                        )}
+                      />
                     </Switch>
                   </Grid>
 
@@ -497,7 +515,7 @@ function App() {
                   </Grid>
                 </Grid>
               </div>
-              <Footer deployment={deployment} depositCount={depositCount}/>
+              <Footer deployment={deployment} depositCount={depositCount} />
             </div>
           </MuiThemeProvider>
         </Web3ReactProvider>
