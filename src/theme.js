@@ -8,6 +8,9 @@ const Theme = createTheme({
     secondary: {
       main: "#EF646D",
     },
+    third: {
+      main: '#5B5A99',
+    }
   },
   overrides: {
     MuiPaper: {

@@ -97,15 +97,21 @@ const YieldManage = () => {
     }
 
     const handleWithdrawClick = () => {
+        history.push("/yieldWithdraw");
         setSelectedWithdraw(true);
     };
 
     const handleRedeemClick = () => {
+        history.push("/yieldRedeem");
         setSelectedWithdraw(false);
     }
 
     const handleCalculatePoints = () => {
         history.push("/yieldRedeemConfirm");
+    }
+
+    const handleWithrawYield = () => {
+        history.push("/yieldWithdrawConfirm");
     }
 
     return (
@@ -187,6 +193,7 @@ const YieldManage = () => {
                                                 color="secondary"
                                                 className={classes.button}
                                                 fullWidth
+                                                onClick={handleWithrawYield}
                                             >
                                                 Withdraw Yield
                                             </Button>

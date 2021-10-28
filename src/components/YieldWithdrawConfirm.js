@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const YieldRedeemConfirm = () => {
+const YieldWithdrawConfirm = () => {
     const classes = useStyles();
 
     return (
@@ -195,11 +195,11 @@ const YieldRedeemConfirm = () => {
                         <Grid item className={classes.textsize14}>Asset</Grid>
                         <Grid item className={classes.textsize16} style={{color: '#8CBDE9', fontWeight: 'bold'}}>USDT</Grid>
                     </Grid>
-                    <Button variant="contained" color="secondary" style={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth >REDEEM YIELD POINTS</Button>
+                    <Button variant="contained" style={{ textTransform: 'none', fontWeight: 'bold', backgroundColor: '#5B5A99', color: 'white' }} fullWidth >REDEEM YIELD POINTS</Button>
                 </Grid>
             </Grid>
         </Grid>
     );
 };
 
-export default YieldRedeemConfirm;
+export default YieldWithdrawConfirm;
