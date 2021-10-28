@@ -4,21 +4,12 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import TextField from "@material-ui/core/TextField";
-import { parseNote } from "../conflux/utils";
-import { useWeb3React } from "@web3-react/core";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import WaitingModal from "./WaitingModal";
 import { useLocation } from "react-router";
-import { InputLabel, MenuItem } from "@material-ui/core";
+import { InputLabel } from "@material-ui/core";
 import arrow_down from "../images/arrow_down.svg";
 import settingImg from "../images/setting.svg";
 
@@ -37,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
     headerBtn: {
         marginTop: "-10px",
-        fontSize: "20px",
+        fontSize: "1.25rem",
         fontFamily: "Montserrat",
         textTransform: "none",
         fontWeight: "bold",
@@ -51,17 +42,17 @@ const useStyles = makeStyles((theme) => ({
     },
     balance: {
         border: "1px solid #757575",
-        borderRadius: '20px',
-        padding: '16px',
+        borderRadius: '1.25rem',
+        padding: '1rem',
     },
     max: {
-        padding: '4px',
-        marginRight: '8px',
+        padding: '0.25rem',
+        marginRight: '0.5rem',
         border: "1px solid #747474",
         backgroundColor: "#8C8C8C",
         borderRadius: "6px",
         color: 'white',
-        fontSize: '13.5px',
+        fontSize: '0.85rem',
     },
     flex: {
         display: 'flex',
@@ -69,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         marginTop: '80px',
-        fontSize: '20px',
+        fontSize: '1.25rem',
     },
     textBlack: {
         color: 'black',
@@ -77,10 +68,10 @@ const useStyles = makeStyles((theme) => ({
     setting: {
         marginTop: '1.25rem',
         border: '4px solid #8CBDE9',
-        borderRadius: '8px',
+        borderRadius: '0.5rem',
         backgroundColor: 'rgba(140, 189, 233, 0.3)',
         padding: '0.5rem',
-        width: '24px'
+        width: '1.5rem'
     }
 }));
 
@@ -124,7 +115,7 @@ const YieldManage = () => {
                             container
                             direction="row"
                             spacing={0}
-                            justify="space-between"
+                            justify="space-around"
                             alignItems="center"
                         >
                             <Grid item>

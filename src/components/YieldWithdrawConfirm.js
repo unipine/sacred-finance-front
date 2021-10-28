@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/styles";
 const useStyles = makeStyles((theme) => ({
     root: {
         color: 'white',
+        textAlign: 'left',
     },
 
     textFont: {
@@ -66,7 +67,6 @@ const YieldWithdrawConfirm = () => {
             direction="row"
             spacing={4}
             className={classes.root}
-            style={{ textAlign: 'left' }}
         >
             <Grid
                 item
@@ -163,7 +163,7 @@ const YieldWithdrawConfirm = () => {
                         style={{paddingBottom: '10px'}}
                     >
                         <Grid item className={classes.textsize14}>Reward i</Grid>
-                        <Grid item className={classes.textsize16} style={{color: 'rgba(255, 255, 255, 0.6)'}}>355230  IC</Grid>
+                        <Grid item className={classes.textsize16} style={{opacity: '0.6'}}>355230  IC</Grid>
                     </Grid>
                     <Grid
                         item
@@ -173,7 +173,7 @@ const YieldWithdrawConfirm = () => {
                         style={{paddingBottom: '10px'}}
                     >
                         <Grid item className={classes.textsize14}>Relayer Fee</Grid>
-                        <Grid item className={classes.textsize16} style={{color: 'rgba(255, 255, 255, 0.6)'}}>-299152  IC</Grid>
+                        <Grid item className={classes.textsize16} style={{opacity: '0.6'}}>-299152  IC</Grid>
                     </Grid>
                     <Grid
                         item
