@@ -33,6 +33,7 @@ import MetaMaskDialog from "./components/MetaMaskDialog";
 import WalletManagement from "./components/WalletManagement";
 import YieldRedemptionSetup from "./components/YieldRedemptionSetup";
 import YieldManage from "./components/YieldManage";
+import YieldRedeemConfirm from "./components/YieldRedeemConfirm";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
@@ -453,7 +454,10 @@ function App() {
                       />
                       <Route
                         exact
-                        path="/yieldManage"
+                        path={[
+                          "/yieldManage",
+                          "/yieldRedeemConfirm"
+                        ]}
                         component={() => (
                           <YieldManage />
                         )}
@@ -517,6 +521,13 @@ function App() {
                       path="/inspect"
                       component={() => (
                         <InspectMain handleSetDeployment={handleSetDeployment} />
+                      )}
+                    />
+                    <Route
+                      exact
+                      path="/yieldRedeemConfirm"
+                      component={() => (
+                        <YieldRedeemConfirm />
                       )}
                     />
                   </Grid>

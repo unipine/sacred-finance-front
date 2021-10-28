@@ -20,10 +20,14 @@ import WaitingModal from "./WaitingModal";
 import { useLocation } from "react-router";
 import { InputLabel, MenuItem } from "@material-ui/core";
 import arrow_down from "../images/arrow_down.svg";
+import settingImg from "../images/setting.svg";
 
 const useStyles = makeStyles((theme) => ({
     body: {
         textAlign: "left",
+        fontFamily: [
+            'Montserrat'
+        ],
     },
     formControl: {
     },
@@ -70,6 +74,14 @@ const useStyles = makeStyles((theme) => ({
     textBlack: {
         color: 'black',
     },
+    setting: {
+        marginTop: '1.25rem',
+        border: '4px solid #8CBDE9',
+        borderRadius: '8px',
+        backgroundColor: 'rgba(140, 189, 233, 0.3)',
+        padding: '0.5rem',
+        width: '24px'
+    }
 }));
 
 const YieldManage = () => {
@@ -90,6 +102,10 @@ const YieldManage = () => {
 
     const handleRedeemClick = () => {
         setSelectedWithdraw(false);
+    }
+
+    const handleCalculatePoints = () => {
+        history.push("/yieldRedeemConfirm");
     }
 
     return (
@@ -198,6 +214,7 @@ const YieldManage = () => {
                                                 className={classes.button}
                                                 fullWidth
                                                 style={{ marginTop: '280px', }}
+                                                onClick={handleCalculatePoints}
                                             >
                                                 Calculate Points
                                             </Button>
@@ -209,6 +226,9 @@ const YieldManage = () => {
                     </Grid>
                 </Box>
             </Paper>
+            <div className={classes.setting}>
+                <img src={settingImg}></img>
+            </div>
         </div>
     );
 };
