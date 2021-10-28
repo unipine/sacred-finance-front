@@ -34,6 +34,7 @@ import WalletManagement from "./components/WalletManagement";
 import YieldRedemptionSetup from "./components/YieldRedemptionSetup";
 import YieldManage from "./components/YieldManage";
 import YieldRedeemConfirm from "./components/YieldRedeemConfirm";
+import YieldWithdrawConfirm from "./components/YieldWithdrawConfirm";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
@@ -456,7 +457,10 @@ function App() {
                         exact
                         path={[
                           "/yieldManage",
-                          "/yieldRedeemConfirm"
+                          "/yieldWithdraw",
+                          "/yieldRedeem",
+                          "/yieldRedeemConfirm",
+                          "/yieldWithdrawConfirm"
                         ]}
                         component={() => (
                           <YieldManage />
@@ -528,6 +532,13 @@ function App() {
                       path="/yieldRedeemConfirm"
                       component={() => (
                         <YieldRedeemConfirm />
+                      )}
+                    />
+                    <Route 
+                      exact
+                      path="/yieldWithdrawConfirm"
+                      component={() => (
+                        <YieldWithdrawConfirm />
                       )}
                     />
                   </Grid>
