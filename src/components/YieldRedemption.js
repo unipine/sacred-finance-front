@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme) => ({
     body: {
         paddingTop: '80px',
         paddingBottom: '80px',
+        fontFamily: [
+            'Montserrat'
+        ],
     },
 
     title1: {
@@ -17,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
     title2: {
         background: 'linear-gradient(#92278F, #EF646D)',
         fontSize: '60px',
-        fontWeight: 'bold',
+        fontWeight: 700,
         paddingBottom: '18px',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
     },
 
     content: {
-        color: "#ffffff",
+        color: "#ffffff", 
         fontSize: "18px",
         paddingBottom: '32px',
     },
