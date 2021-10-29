@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
     textBlack: {
         color: 'black',
+        fontWeight: 700,
     },
     setting: {
         marginTop: '1.25rem',
@@ -103,6 +104,10 @@ const YieldManage = () => {
 
     const handleWithrawYield = () => {
         history.push("/yieldWithdrawConfirm");
+    }
+
+    const handleClickRelayerSetting = () => {
+        history.push("/relayerSettings");
     }
 
     return (
@@ -224,9 +229,13 @@ const YieldManage = () => {
                     </Grid>
                 </Box>
             </Paper>
-            <div className={classes.setting}>
-                <img src={settingImg}></img>
-            </div>
+            {
+                !selectedWithdraw && (
+                    <div className={classes.setting} onClick={handleClickRelayerSetting}>
+                        <img src={settingImg}></img>
+                    </div>
+                )
+            }
         </div>
     );
 };

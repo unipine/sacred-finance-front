@@ -35,6 +35,7 @@ import YieldRedemptionSetup from "./components/YieldRedemptionSetup";
 import YieldManage from "./components/YieldManage";
 import YieldRedeemConfirm from "./components/YieldRedeemConfirm";
 import YieldWithdrawConfirm from "./components/YieldWithdrawConfirm";
+import RelayerSettings from "./components/RelayerSettings";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
@@ -466,6 +467,17 @@ function App() {
                           <YieldManage />
                         )}
                       />
+                      <Route
+                        exact
+                        path={[
+                          "/relayerSettings",
+                        ]}
+                        component={() => (
+                          <RelayerSettings />
+                        )}
+                      >
+
+                      </Route>
                     </Switch>
                   </Grid>
 
