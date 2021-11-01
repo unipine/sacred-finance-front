@@ -146,7 +146,6 @@ const WalletManagement = ({
         if (await handleWithdraw({ claim, recipient })) {
             history.push("/withdrawCheck");
         }
-        setWaiting(false);
     }
 
     const withdrawContinueClick = () => {

@@ -27,13 +27,18 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
     for (let i = events.length - 1; i >= events.length - length; i--) {
       depositlist.push(events[i].returnValues.timestamp);
     }
-
     setDepositData(depositlist);
   }
 
   useEffect(() => {
     handleDepositData();
   }, [networkId])
+
+  useEffect(() => {
+    setInterval(() => {
+      handleDepositData();
+    }, 60000);
+  })
 
   const getRemainTimeString = (dep) => {
     if (!dep) return;
@@ -84,7 +89,7 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
               direction="row"
               justify="flex-start"
               alignItems="flex-start"
-              style={{textAlign: 'left'}}
+              style={{ textAlign: 'left' }}
             >
               <Grid item>
                 <div className='deposit-age'>

@@ -1,12 +1,6 @@
 import React from 'react';
 import { Grid, Typography, Box, makeStyles } from '@material-ui/core';
-import logo from "../images/logo.svg";
-import logoS from "../images/sacred_s.svg";
-import logoA from "../images/sacred_a.svg";
-import logoC from "../images/sacred_c.svg";
-import logoR from "../images/sacred_r.svg";
-import logoE from "../images/sacred_e.svg";
-import logoD from "../images/sacred_d.svg";
+import video from "../images/sacred_animated_white";
 
 const useStyles = makeStyles({
     root: {
@@ -31,7 +25,13 @@ const useStyles = makeStyles({
         width: '100%',
         border: 'none',
     },
+    video: {
+        width: '250px',
+        height: '250px',
+        borderRadius: '100%',
+    },
     content: {
+        paddingTop: '1.25rem',
         color: 'white',
         fontSize: 18,
         fontFamily: [
@@ -58,15 +58,7 @@ const WaitingModal = (prop) => {
                         alignItems="center"
                     >
                         <Grid item>
-                            <img src={logo} alt="logo" />
-                        </Grid>
-                        <Grid item>
-                            <img src={logoS} alt="logo" />
-                            <img src={logoA} alt="logo" />
-                            <img src={logoC} alt="logo" />
-                            <img src={logoR} alt="logo" />
-                            <img src={logoE} alt="logo" />
-                            <img src={logoD} alt="logo" />
+                            <img src={video} className={classes.video}></img>
                         </Grid>
                     </Grid>
                 </Grid>
