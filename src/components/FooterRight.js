@@ -7,7 +7,7 @@ const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
 const FooterRight = ({ deployment, depositCount, networkId }) => {
-  const [depositData, setDepositData] = useState([]);
+  const [depositHistory, setDepositHistory] = useState([]);
 
   const handleDepositData = async () => {
     if (!web3) return;
@@ -21,13 +21,25 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
       console.log('There is no related deposit, the note is invalid')
     }
 
-    let depositlist = [];
+    let history = [];
     let length = 0;
     events.length >= 8 ? length = 8 : length = events.length
     for (let i = events.length - 1; i >= events.length - length; i--) {
-      depositlist.push(events[i].returnValues.timestamp);
+      let milisec = parseInt(events[i].returnValues.timestamp) * 1000;
+      let newDate = new Date(milisec);
+      let currentTime = new Date();
+      let countTime = currentTime - newDate;
+      const [days, hours, mins] = [countTime / (3600 * 24 * 1000), countTime / (3600 * 1000), countTime / (60 * 1000)];
+      if (days >= 1) {
+        history.push(parseInt(days.toString()) + " days ago");
+      } else if (hours >= 1) {
+        history.push(parseInt(hours.toString()) + " hours ago");
+      } else {
+        history.push(parseInt(mins.toString()) + " mins ago");
+      }
     }
-    setDepositData(depositlist);
+
+    setDepositHistory(history);
   }
 
   useEffect(() => {
@@ -37,24 +49,8 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
   useEffect(() => {
     setInterval(() => {
       handleDepositData();
-    }, 60000);
-  })
-
-  const getRemainTimeString = (dep) => {
-    if (!dep) return;
-    var milisec = parseInt(dep) * 1000;
-    let newDate = new Date(milisec);
-    let currentTime = new Date();
-    let countTime = currentTime - newDate;
-    const [days, hours, mins] = [countTime / (3600 * 24 * 1000), countTime / (3600 * 1000), countTime / (60 * 1000)];
-    if (days >= 1) {
-      return parseInt(days.toString()) + " days ago";
-    } else if (hours >= 1) {
-      return parseInt(hours.toString()) + " hours ago";
-    } else {
-      return parseInt(mins.toString()) + " mins ago";
-    }
-  }
+    }, 60000)
+  }, [networkId])
 
   return (
     <Grid item xs={3}>
@@ -82,7 +78,7 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
           <div className='deposit-latest'>Latest Deposits</div>
         </Grid>
         {
-          depositData.length > 0 && (
+          depositHistory.length > 0 && (
             <Grid item
               spacing={2}
               container
@@ -94,10 +90,10 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
               <Grid item>
                 <div className='deposit-age'>
                   {
-                    depositData?.map((dep, index) => {
+                    depositHistory?.map((dep, index) => {
                       return index < 4 && (
                         <>
-                          <b className='deposit-id'>{depositCount - index}</b> {getRemainTimeString(dep)} <br />
+                          <b className='deposit-id'>{depositCount - index}</b> {dep} <br />
                         </>
                       )
                     })
@@ -107,10 +103,10 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
               <Grid item>
                 <div className='deposit-age'>
                   {
-                    depositData?.map((dep, index) => {
+                    depositHistory?.map((dep, index) => {
                       return index >= 4 && index < 8 && (
                         <>
-                          <b className='deposit-id'>{depositCount - index}</b> {getRemainTimeString(dep)} <br />
+                          <b className='deposit-id'>{depositCount - index}</b> {dep} <br />
                         </>
                       )
                     })
