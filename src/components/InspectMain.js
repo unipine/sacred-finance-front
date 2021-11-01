@@ -1,6 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { parseNote, toHex, loadDepositData } from "../conflux/utils";
 import { useState } from "react";
@@ -64,7 +65,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const InspectMain = () => {
+const InspectMain = (handleSetDeployment, handleWithdraw) => {
   const classes = useStyles();
   const history = useHistory();
   const { chainId } = useWeb3React();
@@ -121,7 +122,7 @@ const InspectMain = () => {
       toBlock: 'latest'
     })
 
-    const allevents = await sacred.getPastEvents('Deposit', {fromBlock: 0, toBlock: 'latest'})
+    const allevents = await sacred.getPastEvents('Deposit', { fromBlock: 0, toBlock: 'latest' })
 
     if (eventWhenHappened.length === 0) {
       console.log('There is no related deposit, the note is invalid')
@@ -163,6 +164,10 @@ const InspectMain = () => {
       setDisplayDepositInfo(false);
     }
   };
+
+  const handleWithdrawClick = () => {
+    history.push("/inspect");
+  }
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect
   return (
@@ -295,6 +300,22 @@ const InspectMain = () => {
                 >
                   This claim has been layered further by&nbsp;
                   <b>{txLayers} transactions</b>
+                </Grid>
+                <Grid
+                  item
+                  xs={6}
+                  container
+                  direction="row"
+                  justify="flex-start"
+                >
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    fullWidth
+                    onClick={handleWithdrawClick}
+                  >
+                    Withdraw Claim
+                  </Button>
                 </Grid>
                 {/* 
                 <Grid item xs={12}
