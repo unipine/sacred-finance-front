@@ -81,7 +81,7 @@ const InspectMain = () => {
 
   //TODO code duplication in this function
   const handleInspect = async (e) => {
-    if(chainId === undefined) return;
+    if (chainId === undefined) return;
 
     let claim = e.target.value;
     let parsedNote;
@@ -113,13 +113,29 @@ const InspectMain = () => {
     const deposit = parsedNote.deposit;
 
     const sacred = new web3.eth.Contract(deployment.abi, deployment.address)
-    const events = await sacred.getPastEvents('Deposit', { fromBlock: 0, toBlock: 'latest' })
-    const leaves = events
+    const eventWhenHappened = await sacred.getPastEvents('Deposit', {
+      filter: {
+        commitment: deposit.commitmentHex
+      },
+      fromBlock: 0,
+      toBlock: 'latest'
+    })
+
+    const allevents = await sacred.getPastEvents('Deposit', {fromBlock: 0, toBlock: 'latest'})
+
+    if (eventWhenHappened.length === 0) {
+      console.log('There is no related deposit, the note is invalid')
+    }
+
+    const leaves = allevents
       .sort((a, b) => a.returnValues.leafIndex - b.returnValues.leafIndex) // Sort events in chronological order
       .map(e => e.returnValues.commitment)
 
+    console.log("leaves", leaves);
+
     // Find current commitment in the tree
-    const depositEvent = events[0];
+
+    const depositEvent = eventWhenHappened[0];
 
     const leafIndex = depositEvent ? depositEvent.returnValues.leafIndex : -1
 
