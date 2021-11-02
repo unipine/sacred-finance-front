@@ -54,7 +54,7 @@ const DepositClaim = ({ deposit, deployment }) => {
   };
 
   const handleDepositRoute = () => {
-    history.push("/walletmanagement");
+    history.push("/deposit");
   };
 
   return (

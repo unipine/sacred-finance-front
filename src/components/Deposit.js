@@ -86,7 +86,7 @@ const Deposit = ({
   };
 
   const handleWithdrawRoute = () => {
-    history.push("/walletmanagement");
+    history.push("/withdraw");
   };
 
   useEffect(() => {

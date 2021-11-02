@@ -44,7 +44,7 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
           historyString = parseInt(hours.toString()) + " hours ago"
         }
       } else {
-        if(parseInt(mins) === 1){
+        if(parseInt(mins) <= 1){
           historyString = parseInt(mins.toString()) + " minute ago"
         } else {
           historyString = parseInt(mins.toString()) + " minutes ago"

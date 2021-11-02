@@ -30,7 +30,6 @@ import { parseNote, toHex, generateClaim } from "./conflux/utils";
 import AlertWindow from "./components/AlertWindow";
 import Theme from "./theme";
 import MetaMaskDialog from "./components/MetaMaskDialog";
-import WalletManagement from "./components/WalletManagement";
 import YieldRedemptionSetup from "./components/YieldRedemptionSetup";
 import YieldManage from "./components/YieldManage";
 import YieldRedeemConfirm from "./components/YieldRedeemConfirm";
@@ -339,16 +338,13 @@ function App() {
                       />
                       <Route
                         exact
-                        path="/walletmanagement"
+                        path="/deposit"
                         component={() => (
-                          <WalletManagement
+                          <Deposit
                             deployment={deployment}
                             handleGenerateClaim={handleGenerateClaim}
                             handleSetToken={handleSetToken}
                             handleSetAmount={handleSetAmount}
-                            handleWithdraw={handleWithdraw}
-                            handleRelayer={handleRelayer}
-                            relayerOption={relayer}
                           />
                         )}
                       />
@@ -387,6 +383,21 @@ function App() {
                           <DepositSuccess
                             txReceipt={txReceipt}
                             deployment={deployment}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path={[
+                          "/withdraw",
+                          "/inspectWithdraw"
+                        ]}
+                        component={() => (
+                          <Withdraw
+                            handleWithdraw={handleWithdraw}
+                            deployment={deployment}
+                            handleRelayer={handleRelayer}
+                            relayerOption={relayer}
                           />
                         )}
                       />
@@ -486,10 +497,11 @@ function App() {
                       exact
                       path={[
                         "/",
-                        "/walletmanagement",
+                        "/deposit",
                         "/depositClaim",
                         "/depositConfirm",
                         "/depositWorking",
+                        "/withdraw"
                       ]}
                       component={Title}
                     />
@@ -534,7 +546,10 @@ function App() {
                     />
                     <Route
                       exact
-                      path="/inspect"
+                      path={[
+                        "/inspect",
+                        "/inspectWithdraw"
+                      ]}
                       component={() => (
                         <InspectMain handleSetDeployment={handleSetDeployment} />
                       )}

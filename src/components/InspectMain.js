@@ -8,6 +8,7 @@ import { useState } from "react";
 import { deployments } from "../conflux/config";
 import arrowReturn from "../images/arrow_return.svg";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useWeb3React } from "@web3-react/core";
 import DepositInfo from "./DepositInfo";
 
@@ -68,6 +69,7 @@ const CssTextField = withStyles({
 const InspectMain = (handleSetDeployment, handleWithdraw) => {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
   const { chainId } = useWeb3React();
 
   const [status, setStatus] = useState();
@@ -77,7 +79,7 @@ const InspectMain = (handleSetDeployment, handleWithdraw) => {
   const [txLayers, setTxLayers] = useState();
 
   const handleWithdrawRoute = () => {
-    history.push("/walletmanagement");
+    history.push("/withdraw");
   };
 
   //TODO code duplication in this function
@@ -125,14 +127,13 @@ const InspectMain = (handleSetDeployment, handleWithdraw) => {
     const allevents = await sacred.getPastEvents('Deposit', { fromBlock: 0, toBlock: 'latest' })
 
     if (eventWhenHappened.length === 0) {
-      console.log('There is no related deposit, the note is invalid')
+      console.log('There is no related deposit, the note is invalid');
+      return;
     }
 
     const leaves = allevents
       .sort((a, b) => a.returnValues.leafIndex - b.returnValues.leafIndex) // Sort events in chronological order
       .map(e => e.returnValues.commitment)
-
-    console.log("leaves", leaves);
 
     // Find current commitment in the tree
 
@@ -166,12 +167,12 @@ const InspectMain = (handleSetDeployment, handleWithdraw) => {
   };
 
   const handleWithdrawClick = () => {
-    history.push("/inspect");
+    history.push("/inspectWithdraw");
   }
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect
   return (
-    <div className={classes.inspect}>
+    <div className={location.pathname === "/inspect" ? classes.inspect : ''}>
       <Grid
         container
         direction="column"
@@ -219,7 +220,6 @@ const InspectMain = (handleSetDeployment, handleWithdraw) => {
                   xs={12}
                   container
                   direction="row"
-                  // justify="space-between"
                   spacing={3}
                   alignItems="center"
                 >

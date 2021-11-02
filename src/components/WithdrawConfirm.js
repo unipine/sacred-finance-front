@@ -146,7 +146,7 @@ const WithdrawConfirm = ({
   };
 
   const handleWithdrawRoute = () => {
-    history.push("/walletmanagement");
+    history.push("/withdraw");
   };
 
   return (
