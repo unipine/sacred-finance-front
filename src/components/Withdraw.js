@@ -13,6 +13,9 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import WaitingModal from "./WaitingModal";
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/renderer';
+import svgLogo from "../images/sacred_pdf_logo.png";
 
 const web3Utils = require("web3-utils");
 
@@ -44,6 +47,160 @@ const isLikeBase32Address = (addr) => {
     addr
   );
 };
+
+// Font.register({
+//   family: 'Montserrat',
+//   fonts: [
+//     {
+//       src: `https://fonts.googleapis.com/css2?family=Montserrat&display=swap`
+//     },
+//     {
+//       src: `https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap`,
+//       fontWeight: 'bold'
+//     },
+//     {
+//       src: `https://fonts.googleapis.com/css2?family=Montserrat:ital@1&display=swap`,
+//       fontWeight: 'normal',
+//       fontStyle: 'italic'
+//     },
+//     {
+//       src: `https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,700&display=swap`,
+//       fontWeight: 'bold',
+//       fontStyle: 'italic'
+//     }
+//   ]
+// })
+
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'column',
+    backgroundColor: '#FFFFFF',
+    // fontFamily: 'Montserrat',
+    textAlign: 'center',
+  },
+  section1: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+    paddingTop: '32px',
+  },
+  title: {
+    paddingTop: '17px',
+    fontWeight: 'bold',
+    fontSize: "21.3px",
+  },
+  claimView: {
+    paddingTop: '27px',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  depositView: {
+    paddingTop: '28px',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    marginRight: '100px',
+    marginLeft: '100px',
+  },
+  warningView: {
+    paddingTop: '40px',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    textAlign: 'left',
+    marginRight: '94px',
+    marginLeft: '94px',
+  },
+  depositVerify: {
+    paddingTop: '10px',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    fontSize: '24px',
+  },
+  depositContent: {
+    paddingTop: '14px',
+    flexDirection: 'row',
+    textAlign: 'left',
+  },
+  field: {
+    width: '25%', 
+    textAlign: 'right',
+    fontSize: '12px',
+    fontWeight: 'bold',
+    paddingRight: '14px',
+  },
+  value: {
+    width: '75%', 
+    textAlign: 'left', 
+    overflowWrap: 'break-word',
+    hyphens: 'auto',
+    fontSize: '12px'
+  }
+});
+
+const MyDocument = () => (
+  <Document file="somefile.pdf">
+    <Page size="A4" style={styles.page}>
+      <View style={styles.section1}>
+        <Image src={svgLogo} style={{ width: 200, height: 55 }} />
+        <Text style={styles.title}>Compliance Report</Text>
+      </View>
+      <View style={styles.claimView}>
+        <Text style={{ fontWeight: 700, fontSize: '13.31px', paddingRight: 8 }}>Sacred Claim:</Text>
+        <Text style={{ fontSize: '13.31px' }}>sacred-c72141ikwPJWb28121W28Kdj7HjHioa8sHSDfsef432g342G</Text>
+      </View>
+      <View style={styles.depositView}>
+        <Text style={{ fontSize: '12.42px' }}>Deposit</Text>
+        <View style={styles.depositVerify}>
+          <View style={{width: '50%', textAlign: 'left', overflowWrap: "anywhere"}}><Text>Verified</Text></View>
+          <View style={{width: '50%', textAlign: 'right', overflowWrap: "anywhere"}}><Text>10 CFX</Text></View>
+        </View>
+        <View style={styles.depositContent}>
+          <Text style={styles.field}>Date</Text>
+          <Text style={styles.value}>April 21, 2021 4:55 PM EST</Text>
+        </View>
+        <View style={styles.depositContent}>
+          <Text style={styles.field}>Transaction</Text>
+          <Text style={styles.value}>0xce1424fe02587fa23ff1e7702sdfsdfcb83a360d97e3c1722122742348980267c2512c31</Text>
+        </View>
+        <View style={styles.depositContent}>
+          <Text style={styles.field}>From</Text>
+          <Text style={styles.value}>0x123fs3dfgasy8121W2kAZod8Kdjioa</Text>
+        </View>
+        <View style={styles.depositContent}>
+          <Text style={styles.field}>Commitment</Text>
+          <Text style={styles.value}>0x6a3fe8cadfaf2a30384e0e715ff66d11a4e4e937dc84948c904b76502823edff</Text>
+        </View>
+      </View>
+      <View style={styles.depositView}>
+        <Text style={{ fontSize: '12.42px' }}>Withdrawal</Text>
+        <View style={styles.depositVerify}>
+          <View style={{width: '50%', textAlign: 'left', overflowWrap: "anywhere"}}><Text>Verified</Text></View>
+          <View style={{width: '50%', textAlign: 'right', overflowWrap: "anywhere"}}><Text>-0.02494 CFX</Text></View>
+        </View>
+        <View style={styles.depositContent}>
+          <Text style={styles.field}>Date</Text>
+          <Text style={styles.value}>June 30, 2021 2:27 AM EST</Text>
+        </View>
+        <View style={styles.depositContent}>
+          <Text style={styles.field}>Transaction</Text>
+          <Text style={styles.value}>0xad3351whs131we30384e0e715ff66d11a4e4e937dc8yuaeaw48c904b76502823edff</Text>
+        </View>
+        <View style={styles.depositContent}>
+          <Text style={styles.field}>From</Text>
+          <Text style={styles.value}>0x141ikwPqweqJWb28121W2kAZod8Kdjioa</Text>
+        </View>
+        <View style={styles.depositContent}>
+          <Text style={styles.field}>Commitment</Text>
+          <Text style={styles.value}>0xce1424fe02587fa23ff1e770283a360d97e3c1722122742348980267c2512c31</Text>
+        </View>
+      </View>
+      <View style={styles.warningView}>
+        <Text style={{ fontSize: '14.2px' }}>Warning</Text>
+        <Text style={{ color: '#686868', fontSize: '10.6px', paddingTop: '8px' }}>This Compliance Report is for informational purposes only. You should confirm the validity of this report by using Sacred’s Compliance Tool (https://app.sacred.finance/compliance) or with any other cryptographic software that can compute and verify the information contained herein(the "Sacred Inspect Tool"). Any discrepancies between information found in this report and provided by the above tool indicate that the information in this report is inaccurate and/or fraudulent.</Text>
+        <Text style={{ color: '#686868', fontSize: '10.6px', paddingTop: '8px' }}> THE COMPLIANCE REPORT IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OF THE SACRED COMPLIANCE TOOL BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THIS COMPLIANCE REPORT.</Text>
+      </View>
+    </Page>
+  </Document>
+);
 
 const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelayer, relayerOption }) => {
   const history = useHistory();
@@ -216,6 +373,9 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
               >
                 Continue
               </Button>
+              {/* <PDFDownloadLink document={<MyDocument />} fileName={"sacred_compliance_report"}>
+                <Button variant="contained" color="secondary" style={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth >Generate PDF</Button>
+              </PDFDownloadLink> */}
             </Grid>
             <Grid item>
               <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
