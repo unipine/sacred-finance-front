@@ -59,14 +59,14 @@ const Welcome = ({ handleAgree, handleAlert }) => {
         handleAlert(err);
       });
     } else {
-      history.push("/walletmanagement");
+      history.push("/deposit");
     }
   };
 
   useEffect(() => {
     if (active) {
       handleAgree();
-      history.push("/walletmanagement");
+      history.push("/deposit");
     }
   }, [active, history, handleAgree]);
 

@@ -14,7 +14,7 @@ const Footer = ({ deployment, depositCount }) => {
       >
         <FooterLeft />
         <FooterMid />
-        <FooterRight deployment={deployment} depositCount={depositCount}/>
+        <FooterRight deployment={deployment} depositCount={depositCount} />
       </Grid>
     </div>
   )
