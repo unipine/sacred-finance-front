@@ -30,13 +30,28 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
       let currentTime = new Date();
       let countTime = currentTime - newDate;
       const [days, hours, mins] = [countTime / (3600 * 24 * 1000), countTime / (3600 * 1000), countTime / (60 * 1000)];
+      let historyString = "";
       if (days >= 1) {
-        history.push(parseInt(days.toString()) + " days ago");
+        if(parseInt(days) === 1){
+          historyString = parseInt(days.toString()) + " day ago"
+        } else {
+          historyString = parseInt(days.toString()) + " days ago"
+        }
       } else if (hours >= 1) {
-        history.push(parseInt(hours.toString()) + " hours ago");
+        if(parseInt(hours) === 1){
+          historyString = parseInt(hours.toString()) + " hour ago"
+        } else {
+          historyString = parseInt(hours.toString()) + " hours ago"
+        }
       } else {
-        history.push(parseInt(mins.toString()) + " mins ago");
+        if(parseInt(mins) === 1){
+          historyString = parseInt(mins.toString()) + " minute ago"
+        } else {
+          historyString = parseInt(mins.toString()) + " minutes ago"
+        }
       }
+
+      history.push(historyString);
     }
 
     setDepositHistory(history);
