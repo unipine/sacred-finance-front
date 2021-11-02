@@ -10,7 +10,7 @@ const WithdrawSuccess = ({ parsedNote, txReceipt, claim, deployment }) => {
   const history = useHistory();
 
   const handleDepositRoute = () => {
-    history.push("/walletmanagement");
+    history.push("/deposit");
   }
 
   //TODO: add styling somehow?

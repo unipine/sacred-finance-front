@@ -92,36 +92,6 @@ function parseNote(noteString) {
   };
 }
 
-/**
- * Parses Sacred.cash note
- * @param deposit the note
- */
-
-async function loadDepositData({ deposit }) {
-  try {
-    const eventWhenHappened = await sacred.getPastEvents('Deposit', {
-      filter: {
-        commitment: deposit.commitmentHex
-      },
-      fromBlock: 0,
-      toBlock: 'latest'
-    })
-    if (eventWhenHappened.length === 0) {
-      throw new Error('There is no related deposit, the note is invalid')
-    }
-
-    const { timestamp } = eventWhenHappened[0].returnValues
-    const txHash = eventWhenHappened[0].transactionHash
-    const isSpent = await sacred.methods.isSpent(deposit.nullifierHex).call()
-    const receipt = await web3.eth.getTransactionReceipt(txHash)
-
-    return { timestamp, txHash, isSpent, from: receipt.from, commitment: deposit.commitmentHex }
-  } catch (e) {
-    console.error('loadDepositData', e)
-  }
-  return {}
-}
-
 function fromDecimals({ amount, decimals }) {
   amount = amount.toString()
   let ether = amount.toString()
@@ -448,7 +418,6 @@ export {
   toHex,
   fromDecimals,
   parseNote,
-  loadDepositData,
   generateProof,
   init,
   fromHexString,
