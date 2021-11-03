@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
     textAlignStyle: {
@@ -12,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
 
 const DepositInfo = ({ txReceipt, deposit, amount }) => {
     const classes = useStyles();
+    const { t } = useTranslation();
+
     return (
         <Grid item container xs={12} direction="column" spacing={2}>
             <Grid
@@ -31,10 +34,10 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                         alignItems="flex-start"
                     >
                         <Grid item>
-                            <small>Deposit</small>
+                            <small>{t("Deposit")}</small>
                         </Grid>
                         <Grid item className="blue-text">
-                            Verified
+                            {t("Verified")}
                         </Grid>
                     </Grid>
                 </Grid>
@@ -51,7 +54,7 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 justify="space-between"
                 alignItems="flex-start"
             >
-                <small>Date</small>
+                <small>{t("Date")}</small>
                 {
                     txReceipt && txReceipt.timestamp && (
                         <small className={classes.textAlignStyle}>
@@ -69,7 +72,7 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 justify="space-between"
                 alignItems="flex-start"
             >
-                <small>Transaction</small>
+                <small>{t("Transaction")}</small>
                 {
                     txReceipt && txReceipt.transactionHash && (
                         <small className={classes.textAlignStyle}>
@@ -87,7 +90,7 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 justify="space-between"
                 alignItems="flex-start"
             >
-                <small>From</small>
+                <small>{t("From")}</small>
                 {
                     txReceipt && txReceipt.from && (
                         <small className={classes.textAlignStyle}>
@@ -105,7 +108,7 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 justify="space-between"
                 alignItems="flex-start"
             >
-                <small>Commitment</small>
+                <small>{t("Commitment")}</small>
                 {
                     deposit && deposit.commitmentHex && (
                         <small className={classes.textAlignStyle}>

@@ -161,7 +161,7 @@ const InspectMain = (handleSetDeployment, handleWithdraw) => {
       setDepositData({ timestamp, transactionHash, from: receipt.from });
       setDisplayDepositInfo(true);
     } else {
-      setStatus("This Claim does not exist in Sacred");
+      setStatus(t("This Claim does not exist in Sacred"));
       setDisplayDepositInfo(false);
     }
   };
@@ -181,7 +181,7 @@ const InspectMain = (handleSetDeployment, handleWithdraw) => {
         spacing={2}
       >
         <Grid item xs={12}>
-          <h1>Inspect Claim</h1>
+          <h1>{t("Inspect Claim")}</h1>
         </Grid>
         <div className={classes.return} onClick={handleWithdrawRoute}>
           <img src={arrowReturn} alt="return" />

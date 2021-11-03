@@ -11,6 +11,7 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -69,6 +70,8 @@ const Deposit = ({
   // const [amount, setAmount] = React.useState(deployment.amount);
   const [btnDisabled, setBtnDisabled] = useState(true);
 
+  const { t } = useTranslation();
+
   const handleAmount = async (event, newAmount) => {
     if (!newAmount) return;
     // setAmount(newAmount);
@@ -116,7 +119,7 @@ const Deposit = ({
                   className={classes.headerBtn}
                   style={{ marginLeft: "10px" }}
                 >
-                  <b>Deposit</b>
+                  <b>{t("Deposit")}</b>
                 </Button>
               </Grid>
               <Grid item>
@@ -126,13 +129,13 @@ const Deposit = ({
                   style={{ color: "#A7A9AC", marginRight: "10px" }}
                   onClick={handleWithdrawRoute}
                 >
-                  Withdraw
+                  {t("Withdraw")}
                 </Button>
               </Grid>
             </Grid>
             <Grid item container direction="column" alignItems="flex-start">
               <br />
-              <span style={{ marginLeft: "10px" }}>Token</span>
+              <span style={{ marginLeft: "10px" }}>{t("Token")}</span>
 
               <FormControl variant="outlined" className={classes.formControl}>
                 <Select
@@ -149,7 +152,7 @@ const Deposit = ({
             </Grid>
             <Grid item></Grid>
             <Grid item container direction="column" alignItems="flex-start">
-              <span style={{ marginLeft: "10px" }}>Amount</span>
+              <span style={{ marginLeft: "10px" }}>{t("Amount")}</span>
 
               <Grid item container direction="row" justify="center">
                 <Grid item>
@@ -213,7 +216,7 @@ const Deposit = ({
                 onClick={handleClick}
                 disabled={btnDisabled}
               >
-                Continue
+                {t("Continue")}
               </Button>
             </Grid>
             <Grid item>

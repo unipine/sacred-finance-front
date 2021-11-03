@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
+import { useTranslation } from "react-i18next";
+
 const Web3 = require("web3");
 
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
 const FooterRight = ({ deployment, depositCount, networkId }) => {
   const [depositHistory, setDepositHistory] = useState([]);
+
+  const { t } = useTranslation();
 
   const handleDepositData = async () => {
     if (!web3) return;
@@ -33,21 +37,21 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
       let historyString = "";
       if (days >= 1) {
         if(parseInt(days) === 1){
-          historyString = parseInt(days.toString()) + " day ago"
+          historyString = parseInt(days.toString()) + t(" day ago")
         } else {
-          historyString = parseInt(days.toString()) + " days ago"
+          historyString = parseInt(days.toString()) + t(" days ago")
         }
       } else if (hours >= 1) {
         if(parseInt(hours) === 1){
-          historyString = parseInt(hours.toString()) + " hour ago"
+          historyString = parseInt(hours.toString()) + t(" hour ago")
         } else {
-          historyString = parseInt(hours.toString()) + " hours ago"
+          historyString = parseInt(hours.toString()) + t(" hours ago")
         }
       } else {
         if(parseInt(mins) <= 1){
-          historyString = parseInt(mins.toString()) + " minute ago"
+          historyString = parseInt(mins.toString()) + t(" minute ago")
         } else {
-          historyString = parseInt(mins.toString()) + " minutes ago"
+          historyString = parseInt(mins.toString()) + t(" minutes ago")
         }
       }
 
@@ -90,7 +94,7 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
           </div>
         </Grid>
         <Grid item>
-          <div className='deposit-latest'>Latest Deposits</div>
+          <div className='deposit-latest'>{t("Latest Deposits")}</div>
         </Grid>
         {
           depositHistory.length > 0 && (

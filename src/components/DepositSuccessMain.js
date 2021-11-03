@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 import DepositInfo from "./DepositInfo";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -54,6 +55,8 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
   const history = useHistory();
   const classes = useStyles();
 
+  const { t } = useTranslation();
+
   const handleClick = () => {
     history.push("/withdraw");
   };
@@ -69,7 +72,7 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
         spacing={2}
       >
         <Grid item xs={12}>
-          <h1>This deposit is now in Sacred!</h1>
+          <h1>{t("This deposit is now in Sacred!")}</h1>
         </Grid>
         <Grid item xs={12}>
           <CssTextField
@@ -191,7 +194,7 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
                   fullWidth
                   onClick={handleClick}
                 >
-                  Withdraw Claim
+                  {t("Withdraw Claim")}
                 </Button>
               </Grid>
               {/* 

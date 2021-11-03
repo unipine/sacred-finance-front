@@ -4,6 +4,7 @@ import { makeStyles, withStyles } from "@material-ui/core/styles";
 import DepositInfo from "./DepositInfo";
 import Grid from "@material-ui/core/Grid";
 import arrow from "../images/arrow_right.svg";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -51,6 +52,7 @@ const CssTextField = withStyles({
 
 const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   console.log('txReceipt', txReceipt);
 
@@ -65,7 +67,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
         spacing={2}
       >
         <Grid item xs={12}>
-          <h1>This Claim is Withdrawn!</h1>
+          <h1>{t("This Claim is Withdrawn!")}</h1>
         </Grid>
         <Grid item xs={12}>
           <CssTextField
@@ -105,10 +107,10 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
                     alignItems="flex-start"
                   >
                     <Grid item>
-                      <small>Withdrawal</small>
+                      <small>{t("Withdrawal")}</small>
                     </Grid>
                     <Grid item className="blue-text">
-                      Verified
+                      {t("Verified")}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -127,7 +129,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
                 justify="space-between"
                 alignItems="flex-start"
               >
-                <small>Date</small>
+                <small>{t("Date")}</small>
                 <small className={classes.textAlignStyle}>
                   {new Date(txReceipt.timestamp * 1000).toUTCString()}
                 </small>
@@ -141,7 +143,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
                 justify="space-between"
                 alignItems="flex-start"
               >
-                <small>Transaction</small>
+                <small>{t("Transaction")}</small>
                 <small className={classes.textAlignStyle}>
                   {txReceipt.transactionHash}
                 </small>
@@ -155,7 +157,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
                 justify="space-between"
                 alignItems="flex-start"
               >
-                <small>To</small>
+                <small>{t("To")}</small>
                 <small className={classes.textAlignStyle}>
                   {txReceipt.to.toLowerCase()}
                 </small>
@@ -169,7 +171,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
                 justify="space-between"
                 alignItems="flex-start"
               >
-                <small>Nullifier Hash</small>
+                <small>{t("Nullifier Hash")}</small>
                 <small className={classes.textAlignStyle}>
                   {txReceipt?.events?.Withdrawal?.returnValues?.nullifierHash}
                 </small>

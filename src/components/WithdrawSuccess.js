@@ -9,6 +9,7 @@ import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/
 import svgLogo from "../images/sacred_pdf_logo.png";
 import Mont_Regular from "../fonts/Montserrat-Regular.ttf";
 import Mont_Bold from "../fonts/Montserrat-Bold.ttf";
+import { useTranslation } from "react-i18next";
 
 Font.register({
   family: 'Montserrat',
@@ -111,6 +112,8 @@ const WithdrawSuccess = ({ parsedNote, txReceipt, claim, deployment }) => {
     history.push("/deposit");
   }
 
+  const { t } = useTranslation();
+
   //TODO: add styling somehow?
 
   const claimText = claim.substr(0, Math.floor(claim.length / 3)) + ' ' + claim.substr( Math.floor(claim.length / 3),  Math.floor(claim.length / 3) * 2) ;
@@ -191,31 +194,31 @@ const WithdrawSuccess = ({ parsedNote, txReceipt, claim, deployment }) => {
           >
             <Grid item>
               <br />
-              <b>Success!</b>
+              <b>{t("Success!")}</b>
             </Grid>
             <Grid item>
               <br />
-              Your withdrawal of
+              {t("Your withdrawal of")}{t("confirmed")}
             </Grid>
             <Grid item>
               <span className='blue-text'><b>{`${deployment.amount} ${deployment.symbol}`}</b></span>
             </Grid>
             <Grid item>
-              has been confirmed.
+              {t("has been confirmed.")}
             </Grid>
             <Grid item>
-              <a href={`https://kovan.etherscan.io/tx/${txReceipt.transactionHash.toLowerCase()}`} className='blue-text' target="_blank" rel="noopener noreferrer"><b>View on EtherScan</b></a>
+              <a href={`https://kovan.etherscan.io/tx/${txReceipt.transactionHash.toLowerCase()}`} className='blue-text' target="_blank" rel="noopener noreferrer"><b>{t("View on EtherScan")}</b></a>
             </Grid>
 
             <Grid item>
               <br />
               <PDFDownloadLink document={<MyDocument />} fileName={"sacred_compliance_report"} style={{textDecoration: 'none'}}>
-                <Button variant="contained" color="secondary" style={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth >Generate PDF</Button>
+                <Button variant="contained" color="secondary" style={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth >{t("Generate PDF")}</Button>
               </PDFDownloadLink>
             </Grid>
             <Grid item>
               <br />
-              <Button variant="outlined" color="secondary" style={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth onClick={handleDepositRoute}>Done</Button>
+              <Button variant="outlined" color="secondary" style={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth onClick={handleDepositRoute}>{t("Done")}</Button>
             </Grid>
             <Grid item>
               <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace('.', '')}.sacred.eth`}</small>

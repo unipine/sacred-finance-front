@@ -10,6 +10,7 @@ import { useRef, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -26,6 +27,8 @@ const DepositClaim = ({ deposit, deployment }) => {
   const history = useHistory();
 
   const classes = useStyles();
+
+  const { t } = useTranslation();
 
   const [copySuccess, setCopySuccess] = useState();
   const textAreaRef = useRef(null);
@@ -76,16 +79,15 @@ const DepositClaim = ({ deposit, deployment }) => {
                   startIcon={<ArrowBackIosIcon />}
                   onClick={handleDepositRoute}
                 >
-                  <b>Back</b>
+                  <b>{t("Back")}</b>
                 </Button>
               </Grid>
             </Grid>
             <Grid item>
-              <b>Before you Deposit</b>
+              <b>{t("Before you Deposit")}</b>
             </Grid>
             <Grid item>
-              In order to withdraw your deposit, you will have to enter this
-              Claim:
+              {t("In order to withdraw your deposit, you will have to enter this Claim:")}
             </Grid>
             <Grid item>
               <TextField
@@ -127,8 +129,7 @@ const DepositClaim = ({ deposit, deployment }) => {
               </Grid>
             </Grid>
             <Grid item>
-              <b>Important: </b>Store this Claim somewhere safe before
-              continuing.
+              <b>{t("Important:")} </b>{t("Store this Claim somewhere safe before continuing.")}
             </Grid>
             <Grid item>
               <br />
@@ -139,7 +140,7 @@ const DepositClaim = ({ deposit, deployment }) => {
                 fullWidth
                 onClick={handleClick}
               >
-                I saved the Claim
+                {t("I saved the Claim")}
               </Button>
             </Grid>
             <Grid item>

@@ -82,20 +82,20 @@ const Welcome = ({ handleAgree, handleAlert }) => {
               <h3>{t("welcome_to_sacred")}</h3>
             </Grid>
             <Grid item>
-              Send private transactions using the Ethereum network.
+              {t("Send private transactions using the Conflux network.")}
             </Grid>
             <Grid item>
               <img src={logo} alt="logo" />
             </Grid>
             <Grid item>
-              By clicking "Agree & Connect" you agree to our
+              {t("By clicking “Agree & Connect” you agree to our ")}
               <Button
                 variant="text"
                 color="secondary"
                 style={{ textTransform: "none", fontWeight: "bold" }}
                 onClick={handleOpen}
               >
-                Terms.
+                {t("Terms")}
               </Button>
             </Grid>
             <Grid item>
@@ -106,7 +106,7 @@ const Welcome = ({ handleAgree, handleAlert }) => {
                 onClick={onConnectClick}
                 fullWidth
               >
-                Agree & Connect
+                {t("Agree & Connect")}
               </Button>
             </Grid>
           </Grid>

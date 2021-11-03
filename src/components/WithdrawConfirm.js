@@ -17,6 +17,7 @@ import {
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { useState } from "react";
 import WaitingModal from "./WaitingModal";
+import { useTranslation } from "react-i18next";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
@@ -47,6 +48,7 @@ const WithdrawConfirm = ({
 }) => {
   const { activate, active, account } = useWeb3React();
   const history = useHistory();
+  const { t } = useTranslation();
 
   const [btnDisable, setBtnDisable] = useState(false);
   const [waiting, setWaiting] = useState(false);
@@ -170,7 +172,7 @@ const WithdrawConfirm = ({
                   style={{ color: "#A7A9AC" }}
                   onClick={handleWithdrawRoute}
                 >
-                  <b>Back</b>
+                  <b>{t("Back")}</b>
                 </Button>
               </Grid>
             </Grid>
@@ -179,9 +181,9 @@ const WithdrawConfirm = ({
               <br />
               <br />
               <br />
-              <b>You are about to...</b>
+              <b>{t("You are about to...")}</b>
             </Grid>
-            <Grid item>Withdraw</Grid>
+            <Grid item>{t("Withdraw")}</Grid>
             <Grid item>
               <span style={{ fontSize: "23px" }} className="blue-text">
                 <b>{`${deployment.amount} ${deployment.symbol}`}</b>
@@ -201,7 +203,7 @@ const WithdrawConfirm = ({
                 onClick={handleClick}
                 disabled={btnDisable}
               >
-                Confirm Withdraw
+                {t("Confirm Withdraw")}
               </Button>
             </Grid>
             <Grid item>

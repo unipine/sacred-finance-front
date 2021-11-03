@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { deployments } from "../conflux/config";
 import DepositInfo from "./DepositInfo";
 import { useWeb3React } from "@web3-react/core";
+import { useTranslation } from "react-i18next";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
@@ -60,6 +61,7 @@ const WithdrawCheckMain = ({
 }) => {
   const classes = useStyles();
   const { chainId } = useWeb3React();
+  const { t } = useTranslation();
 
   let titleText = "";
 
@@ -112,7 +114,7 @@ const WithdrawCheckMain = ({
   } else if (!isExist) {
     titleText = <h1>This Claim does not exist in Sacred</h1>;
   } else {
-    titleText = <h1>This Claim is in Sacred</h1>;
+    titleText = <h1>{t("This Claim is in Sacred")}</h1>;
   }
 
   useEffect(() => {
