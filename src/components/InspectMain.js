@@ -152,19 +152,20 @@ const InspectMain = (handleSetDeployment, handleWithdraw) => {
 
     if (isSpent) {
       setStatus("This Claim has been Withdrawn");
+      history.push("/withdrawSuccess");
       setDisplayDepositInfo(false);
       return;
-    }
-
-    if (leafIndex >= 0) {
-      setStatus("This Claim is in Sacred");
-      setParsedNote(parsedNote);
-      setTxLayers(leaves.length - leafIndex - 1);
-      setDepositData({ timestamp, transactionHash, from: receipt.from });
-      setDisplayDepositInfo(true);
     } else {
-      setStatus(t("This Claim does not exist in Sacred"));
-      setDisplayDepositInfo(false);
+      if (leafIndex >= 0) {
+        setStatus("This Claim is in Sacred");
+        setParsedNote(parsedNote);
+        setTxLayers(leaves.length - leafIndex - 1);
+        setDepositData({ timestamp, transactionHash, from: receipt.from });
+        setDisplayDepositInfo(true);
+      } else {
+        setStatus(t("This Claim does not exist in Sacred"));
+        setDisplayDepositInfo(false);
+      }
     }
   };
 
