@@ -14,6 +14,7 @@ import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { useEffect } from "react";
 import Terms from "./Terms";
+import { useTranslation } from "react-i18next";
 
 const injectedConnector = new InjectedConnector({
   supportedChainIds: [
@@ -42,6 +43,8 @@ const Welcome = ({ handleAgree, handleAlert }) => {
   const classes = useStyles();
   const { activate, active } = useWeb3React();
   const history = useHistory();
+
+  const { t } = useTranslation();
 
   const [open, setOpen] = React.useState(false);
 
@@ -76,7 +79,7 @@ const Welcome = ({ handleAgree, handleAlert }) => {
         <Box p={5}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
-              <h3>Welcome to Sacred</h3>
+              <h3>{t("welcome_to_sacred")}</h3>
             </Grid>
             <Grid item>
               Send private transactions using the Ethereum network.

@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import Grid from "@material-ui/core/Grid";
 import Connect from "./Connect";
 import Version from "./Version";
+import LanguageSelect from "./LanguageSelect";
 
 const Header = ({ handleAlert, handleNetworkId, networkId }) => {
   return (
@@ -21,6 +22,7 @@ const Header = ({ handleAlert, handleNetworkId, networkId }) => {
           handleAlert={handleAlert}
         />
         <Connect handleAlert={handleAlert} networkId={networkId}/>
+        <LanguageSelect />
         <Nav />
       </Grid>
     </div>
