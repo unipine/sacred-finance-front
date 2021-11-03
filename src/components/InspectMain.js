@@ -10,6 +10,7 @@ import arrowReturn from "../images/arrow_return.svg";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router";
 import { useWeb3React } from "@web3-react/core";
+import { useTranslation } from "react-i18next";
 import DepositInfo from "./DepositInfo";
 
 const { format } = require("js-conflux-sdk");
@@ -69,6 +70,7 @@ const CssTextField = withStyles({
 const InspectMain = (handleSetDeployment, handleWithdraw) => {
   const classes = useStyles();
   const history = useHistory();
+  const { t } = useTranslation();
   const location = useLocation();
   const { chainId } = useWeb3React();
 
