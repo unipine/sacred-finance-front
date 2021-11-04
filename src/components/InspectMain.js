@@ -67,7 +67,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const InspectMain = (handleSetDeployment, handleWithdraw) => {
+const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim, handleTransaction}) => {
   const classes = useStyles();
   const history = useHistory();
   const { t } = useTranslation();
@@ -141,18 +141,45 @@ const InspectMain = (handleSetDeployment, handleWithdraw) => {
 
     const depositEvent = eventWhenHappened[0];
 
+    console.log('eventWhenHappened', eventWhenHappened);
+
     const leafIndex = depositEvent ? depositEvent.returnValues.leafIndex : -1
 
     const { timestamp } = depositEvent.returnValues
     const transactionHash = depositEvent.transactionHash
     const receipt = await web3.eth.getTransactionReceipt(transactionHash)
 
+    const recipient = receipt.from;
+
     // Validate that our data is correct
     const isSpent = await sacred.methods.isSpent(toHex(deposit.nullifierHash)).call()
 
     if (isSpent) {
       setStatus("This Claim has been Withdrawn");
-      history.push("/withdrawSuccess");
+      handleSetParsedNote(parsedNote);
+      handleSetClaim(claim);
+
+      const events = await sacred.getPastEvents('Withdrawal', {
+        fromBlock: 0,
+        toBlock: 'latest'
+      });
+
+      const withdrawEvent = events.filter((event) => {
+        return event.returnValues.nullifierHash === deposit.nullifierHex
+      })[0]
+
+      const blockInfo = await web3.eth.getBlock(withdrawEvent.blockNumber);
+
+      console.log('withdrawEvent', withdrawEvent  )
+
+      receipt.timestamp = timestamp;
+      receipt.withdrawTimestamp = blockInfo.timestamp;
+      receipt.withdrawTransactionHash = withdrawEvent.transactionHash;
+      receipt.returnValues = withdrawEvent.returnValues;
+
+      console.log('receipt', receipt);
+      handleTransaction(receipt);
+      history.push("/inspectSuccess");
       setDisplayDepositInfo(false);
       return;
     } else {

@@ -10,7 +10,6 @@ import svgLogo from "../images/sacred_pdf_logo.png";
 import Mont_Regular from "../fonts/Montserrat-Regular.ttf";
 import Mont_Bold from "../fonts/Montserrat-Bold.ttf";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router";
 
 Font.register({
   family: 'Montserrat',
@@ -106,17 +105,14 @@ const styles = StyleSheet.create({
   }
 });
 
-const WithdrawSuccess = ({ parsedNote, txReceipt, claim, deployment, depReceipt }) => {
+const InspectSuccess = ({ parsedNote, txReceipt, claim, deployment }) => {
   const history = useHistory();
 
   const handleDepositRoute = () => {
     history.push("/deposit");
   }
 
-  console.log('txReceipt', txReceipt);
-
   const { t } = useTranslation();
-  const location = useLocation();
 
   //TODO: add styling somehow?
 
@@ -141,15 +137,15 @@ const WithdrawSuccess = ({ parsedNote, txReceipt, claim, deployment, depReceipt 
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>Date</Text>
-            <Text style={styles.value}>{location.pathname === "/inspectSuccess" ? new Date(txReceipt?.timestamp * 1000).toUTCString() : new Date(depReceipt?.timestamp * 1000).toUTCString()}</Text>
+            <Text style={styles.value}>{new Date(txReceipt.timestamp * 1000).toUTCString()}</Text>
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>Transaction</Text>
-            <Text style={styles.value}>{location.pathname === "/inspectSuccess" ? txReceipt?.transactionHash : depReceipt?.transactionHash}</Text>
+            <Text style={styles.value}>{txReceipt.transactionHash}</Text>
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>From</Text>
-            <Text style={styles.value}>{location.pathname === "/inspectSuccess" ? txReceipt?.from?.toLowerCase() : depReceipt?.from?.toLowerCase()}</Text>
+            <Text style={styles.value}>{txReceipt.from.toLowerCase()}</Text>
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>Commitment</Text>
@@ -160,15 +156,15 @@ const WithdrawSuccess = ({ parsedNote, txReceipt, claim, deployment, depReceipt 
           <Text style={{ fontSize: '12.42px' }}>Withdrawal</Text>
           <View style={styles.depositVerify}>
             <View style={{width: '50%', textAlign: 'left'}}><Text style={{fontWeight: 'bold'}}>Verified</Text></View>
-            <View style={{ width: '50%', textAlign: 'right'}}><Text style={{fontWeight: 'bold'}}>- {location.pathname === "/inspectSuccess" ? txReceipt?.returnValues?.fee : txReceipt?.events?.Withdrawal?.returnValues?.fee} {parsedNote.currency.toUpperCase()}</Text></View>
+            <View style={{ width: '50%', textAlign: 'right'}}><Text style={{fontWeight: 'bold'}}>- {txReceipt?.events?.Withdrawal?.returnValues?.fee} {parsedNote.currency.toUpperCase()}</Text></View>
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>Date</Text>
-            <Text style={styles.value}>{location.pathname === "/inspectSuccess" ? new Date(txReceipt.withdrawTimestamp * 1000).toUTCString() : new Date(txReceipt.timestamp * 1000).toUTCString()}</Text>
+            <Text style={styles.value}>{new Date(txReceipt.timestamp * 1000).toUTCString()}</Text>
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>Transaction</Text>
-            <Text style={styles.value}>{location.pathname === "/inspectSuccess" ? txReceipt.withdrawTransactionHash : txReceipt.transactionHash}</Text>
+            <Text style={styles.value}>{txReceipt.transactionHash}</Text>
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>To</Text>
@@ -176,7 +172,7 @@ const WithdrawSuccess = ({ parsedNote, txReceipt, claim, deployment, depReceipt 
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>Nullifier Hash</Text>
-            <Text style={styles.value}>{parsedNote?.deposit?.nullifierHex}</Text>
+            <Text style={styles.value}>{txReceipt?.events?.Withdrawal?.returnValues?.nullifierHash}</Text>
           </View>
         </View>
         <View style={styles.warningView}>
@@ -198,7 +194,7 @@ const WithdrawSuccess = ({ parsedNote, txReceipt, claim, deployment, depReceipt 
           >
             <Grid item>
               <br />
-              <b>{location.pathname === "/withdrawSuccess" ? t("Success!") : t("Receipt")}</b>
+              <b>{t("Receipt")}</b>
             </Grid>
             <Grid item>
               <br />
@@ -234,62 +230,4 @@ const WithdrawSuccess = ({ parsedNote, txReceipt, claim, deployment, depReceipt 
   )
 }
 
-export default WithdrawSuccess
-
-
-
-// doc.setFontSize(20);
-// doc.text("SACRED", 20, 15);
-// // doc.addImage("../images/sacred_logo_png.PNG", "png", 20, 15, 50, 50);
-// doc.text("Compliance Report", 20, 30);
-
-// doc.setFontSize(10);
-// doc.text("Sacred Claim:", 20, 40);
-// doc.text("sacred-c72141ikwPJWb28121W28Kdj7HjHioa8sHSDfsef432g342G", 45, 40);
-
-// doc.setFontSize(14);
-// doc.text("Deposit Verified", 20, 50);
-// doc.setFontSize(16);
-// doc.text("0.1 CFX", 20, 60);
-// doc.setFontSize(10);
-// doc.text("Date", 20, 70);
-// doc.text("April 21, 2021 4:55 PM EST", 20, 75);
-// doc.text("Transaction", 20, 85);
-// doc.text("0xce1424fe02587fa23ff1e7702sdfsdfcb83a360d97e3c1722122742348980267c2512c31", 20, 90);
-// doc.text("From", 20, 100);
-// doc.text("0x123fs3dfgasy8121W2kAZod8Kdjioa", 20, 105);
-// doc.text("Commitment", 20, 115);
-// doc.text("0x6a3fe8cadfaf2a30384e0e715ff66d11a4e4e937dc84948c904b76502823edff", 20, 120);
-
-// doc.setFontSize(14);
-// doc.text("Withdrawal Verified", 20, 140);
-// doc.setFontSize(16);
-// doc.text("0.1 CFX", 20, 150);
-// doc.setFontSize(10);
-// doc.text("Date", 20, 160);
-// doc.text("April 21, 2021 4:55 PM EST", 20, 165);
-// doc.text("Transaction", 20, 175);
-// doc.text("0xce1424fe02587fa23ff1e7702sdfsdfcb83a360d97e3c1722122742348980267c2512c31", 20, 180);
-// doc.text("From", 20, 190);
-// doc.text("0x123fs3dfgasy8121W2kAZod8Kdjioa", 20, 195);
-// doc.text("Commitment", 20, 205);
-// doc.text("0x6a3fe8cadfaf2a30384e0e715ff66d11a4e4e937dc84948c904b76502823edff", 20, 210);
-
-// doc.setFontSize(14);
-// doc.text("Warning", 20, 230);
-// doc.setFontSize(10);
-// doc.text("This Compliance Report is for informational purposes only. You should confirm the", 20, 235);
-// doc.text("validity of this report by using Sacred’s Compliance Tool", 20, 240);
-// doc.text("[https://app.sacred.finance/compliance] or with any other cryptographic software", 20, 245);
-// doc.text("that can compute and verify the information contained herein[the 'Sacred Inspect", 20, 250);
-// doc.text("Tool']. Any discrepancies between information found in this report and provided by", 20, 255);
-// doc.text("the above tool indicate that the information in this report is inaccurate and/or fraudulent.", 20, 260);
-// doc.text("THE COMPLIANCE REPORT IS PROVIDED 'AS IS,' WITHOUT WARRANTY OF ANY KIND, EXPRESS OR", 20, 265);
-// doc.text("IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS", 20, 270);
-// doc.text("FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OF THE", 20, 275);
-// doc.text("SACRED COMPLIANCE TOOL BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER", 20, 280);
-// doc.text("IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION", 20, 285);
-// doc.text("WITH THIS COMPLIANCE REPORT.", 20, 290);
-
-
-// doc.save("sacred_compliance_report.pdf");
+export default InspectSuccess

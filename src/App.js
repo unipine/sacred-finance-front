@@ -91,6 +91,7 @@ function App() {
   const [amount, setAmount] = useState("0.1");
   const [deposit, setDeposit] = useState();
   const [depositCount, setDepositCount] = useState();
+  const [depReceipt, setDepReceipt] = useState();
   const [txReceipt, setTxReceipt] = useState();
   const [claim, setClaim] = useState();
   const [recipient, setRecipient] = useState();
@@ -130,6 +131,14 @@ function App() {
   useEffect(() => {
     handleDepositCount();
   });
+
+  const handleSetParsedNote = (parseNote) => {
+    setParsedNote(parseNote);
+  };
+
+  const handleSetClaim = (claim) => {
+    setClaim(claim);
+  }
 
   const handleSetDeployment = (amount, currency) => {
     let _deployment =
@@ -197,6 +206,10 @@ function App() {
 
   const handleTransaction = (txReceipt) => {
     setTxReceipt(txReceipt);
+  };
+
+  const handleDepReceipt = (dep) => {
+    setDepReceipt(dep);
   };
 
   const handleDepositCount = async () => {
@@ -426,6 +439,7 @@ function App() {
                             deployment={deployment}
                             handleAlert={handleAlert}
                             relayerOption={relayer}
+                            handleDepReceipt={handleDepReceipt}
                           />
                         )}
                       />
@@ -438,13 +452,17 @@ function App() {
                       />
                       <Route
                         exact
-                        path="/withdrawSuccess"
+                        path={[
+                          "/inspectSuccess",
+                          "/withdrawSuccess"
+                        ]}
                         component={() => (
                           <WithdrawSuccess
                             parsedNote={parsedNote}
                             txReceipt={txReceipt}
                             claim={claim}
                             deployment={deployment}
+                            depReceipt={depReceipt}
                           />
                         )}
                       />
@@ -458,7 +476,7 @@ function App() {
                           />
                         )}
                       />
-                      <Route 
+                      <Route
                         exact
                         path="/yieldSetup"
                         component={() => (
@@ -535,12 +553,16 @@ function App() {
                     />
                     <Route
                       exact
-                      path="/withdrawSuccess"
+                      path={[
+                        "/withdrawSuccess",
+                        "/inspectSuccess"
+                      ]}
                       component={() => (
                         <WithdrawSuccessMain
                           claim={claim}
                           parsedNote={parsedNote}
                           txReceipt={txReceipt}
+                          depReceipt={depReceipt}
                         />
                       )}
                     />
@@ -551,7 +573,12 @@ function App() {
                         "/inspectWithdraw"
                       ]}
                       component={() => (
-                        <InspectMain handleSetDeployment={handleSetDeployment} />
+                        <InspectMain
+                          handleSetDeployment={handleSetDeployment}
+                          handleSetParsedNote={handleSetParsedNote}
+                          handleSetClaim={handleSetClaim}
+                          handleTransaction={handleTransaction}
+                        />
                       )}
                     />
                     <Route
@@ -561,7 +588,7 @@ function App() {
                         <YieldRedeemConfirm />
                       )}
                     />
-                    <Route 
+                    <Route
                       exact
                       path="/yieldWithdrawConfirm"
                       component={() => (
@@ -571,7 +598,7 @@ function App() {
                   </Grid>
                 </Grid>
               </div>
-              <Footer deployment={deployment} depositCount={depositCount} networkId={networkId}/>
+              <Footer deployment={deployment} depositCount={depositCount} networkId={networkId} />
             </div>
           </MuiThemeProvider>
         </Web3ReactProvider>

@@ -5,6 +5,7 @@ import DepositInfo from "./DepositInfo";
 import Grid from "@material-ui/core/Grid";
 import arrow from "../images/arrow_right.svg";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -50,11 +51,13 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
+const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
+
   const classes = useStyles();
   const { t } = useTranslation();
+  const location = useLocation();
 
-  console.log('txReceipt', txReceipt);
+  console.log('depReceipt', depReceipt);
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect
   return (
@@ -83,7 +86,14 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
 
         <Grid item container xs={12} direction="row" spacing={2}>
           <Grid item xs={5}>
-            <DepositInfo txReceipt={txReceipt} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()} />
+            {
+              location.pathname === "/inspectSuccess" ? (
+                <DepositInfo txReceipt={txReceipt} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()} />
+              ) : (
+                <DepositInfo txReceipt={depReceipt} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()} />
+              )
+            }
+
           </Grid>
           <Grid item xs={1} container justify="center" alignItems="center">
             <img src={arrow} alt="arrow" />
@@ -116,7 +126,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
                 </Grid>
                 <Grid item className="blue-text">
                   <h2>
-                    - {txReceipt?.events?.Withdrawal?.returnValues?.fee} {parsedNote.currency.toUpperCase()}
+                    - {location.pathname === "/inspectSuccess" ? txReceipt?.returnValues?.fee : txReceipt?.events?.Withdrawal?.returnValues?.fee} {parsedNote.currency.toUpperCase()}
                   </h2>
                 </Grid>
               </Grid>
@@ -131,7 +141,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
               >
                 <small>{t("Date")}</small>
                 <small className={classes.textAlignStyle}>
-                  {new Date(txReceipt.timestamp * 1000).toUTCString()}
+                  {location.pathname === "/inspectSuccess" ? new Date(txReceipt.withdrawTimestamp * 1000).toUTCString() : new Date(txReceipt.timestamp * 1000).toUTCString()}
                 </small>
               </Grid>
 
@@ -145,7 +155,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
               >
                 <small>{t("Transaction")}</small>
                 <small className={classes.textAlignStyle}>
-                  {txReceipt.transactionHash}
+                  {location.pathname === "/inspectSuccess" ? txReceipt.withdrawTransactionHash : txReceipt.transactionHash}
                 </small>
               </Grid>
 
@@ -173,7 +183,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
               >
                 <small>{t("Nullifier Hash")}</small>
                 <small className={classes.textAlignStyle}>
-                  {txReceipt?.events?.Withdrawal?.returnValues?.nullifierHash}
+                  {parsedNote?.deposit?.nullifierHex}
                 </small>
               </Grid>
             </Grid>

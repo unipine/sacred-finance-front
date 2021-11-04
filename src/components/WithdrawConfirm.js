@@ -45,6 +45,7 @@ const WithdrawConfirm = ({
   deployment,
   handleAlert,
   relayerOption,
+  handleDepReceipt
 }) => {
   const { activate, active, account } = useWeb3React();
   const history = useHistory();
@@ -70,7 +71,7 @@ const WithdrawConfirm = ({
     await init(deployment);
     const { proof, args } = await generateProof({ deposit, recipient, refund });
 
-    const contract = new web3.eth.Contract(deployment.abi, deployment.address);
+    const contract = new web3.eth.Contract(deployment.abi, deployment.address);    
 
     // const _fee = parseInt(args[4], 16);
     // const _refund = parseInt(args[5], 16);
@@ -97,6 +98,25 @@ const WithdrawConfirm = ({
       tx.timestamp = blockInfo.timestamp;
 
       handleTransaction(tx);
+
+      const eventWhenHappened = await contract.getPastEvents('Deposit', {
+        filter: {
+          commitment: deposit.commitmentHex
+        },
+        fromBlock: 0,
+        toBlock: 'latest'
+      })
+  
+      if (eventWhenHappened.length === 0) {
+        console.log('There is no related deposit, the note is invalid');
+        return;
+      }
+  
+      const depositEvent = eventWhenHappened[0];
+      const { timestamp } = depositEvent.returnValues
+      const transactionHash = depositEvent.transactionHash
+      const receipt = await web3.eth.getTransactionReceipt(transactionHash)
+      handleDepReceipt({ timestamp, transactionHash, from: receipt.from });
 
       history.push("/withdrawSuccess");
 
