@@ -196,15 +196,6 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item container direction="row" justify="flex-start">
-              <FormGroup>
-                <FormControlLabel
-                  control={<Checkbox checked={relayerOption} onChange={handleRelayerOption} />}
-                  label="Use Sacred Relayer"
-                  disabled={true}
-                />
-              </FormGroup>
-            </Grid>
             <Grid item>
               <br />
               <br />
