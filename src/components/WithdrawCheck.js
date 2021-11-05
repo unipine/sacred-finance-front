@@ -96,15 +96,6 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
                 />
               </Grid>
             </Grid>
-            <Grid item container direction="row" justify="flex-start">
-              <FormGroup>
-                <FormControlLabel
-                  control={<Checkbox checked={relayerOption} />}
-                  label="Use Sacred Relayer"
-                  disabled={true}
-                />
-              </FormGroup>
-            </Grid>
             <Grid item>
               <br />
               <br />
