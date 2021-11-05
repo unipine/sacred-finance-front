@@ -1,8 +1,11 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import DepositInfo from "./DepositInfo";
 import Grid from "@material-ui/core/Grid";
 import arrow from "../images/arrow_right.svg";
+import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -18,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
     color: "#ffffff",
     fontSize: "23px",
     fontFamily: "Montserrat",
+  },
+  textAlignStyle: {
+    paddingTop: '4px',
+    textAlign: 'left',
+    overflowWrap: "anywhere"
   },
 }));
 
@@ -43,8 +51,13 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
+const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
+
   const classes = useStyles();
+  const { t } = useTranslation();
+  const location = useLocation();
+
+  console.log('depReceipt', depReceipt);
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect
   return (
@@ -57,7 +70,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
         spacing={2}
       >
         <Grid item xs={12}>
-          <h1>This Claim is Withdrawn!</h1>
+          <h1>{t("This Claim is Withdrawn!")}</h1>
         </Grid>
         <Grid item xs={12}>
           <CssTextField
@@ -71,156 +84,22 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
           />
         </Grid>
 
-        <Grid item container xs={12} direction="row" spacing={0}>
+        <Grid item container xs={12} direction="row" spacing={2}>
           <Grid item xs={5}>
-            <Grid item container xs={12} direction="column" spacing={4}>
-              <Grid
-                item
-                xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-              >
-                <Grid item>
-                  <Grid
-                    item
-                    container
-                    direction="column"
-                    spacing={0}
-                    alignItems="flex-start"
-                  >
-                    <Grid item>
-                      <small>Deposit</small>
-                    </Grid>
-                    <Grid item className="blue-text">
-                      Verified
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item className="blue-text">
-                  <h2>
-                    {parsedNote.amount} {parsedNote.currency.toUpperCase()}
-                  </h2>
-                </Grid>
-              </Grid>
+            {
+              location.pathname === "/inspectSuccess" ? (
+                <DepositInfo txReceipt={txReceipt} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()} />
+              ) : (
+                <DepositInfo txReceipt={depReceipt} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()} />
+              )
+            }
 
-              {/* <Grid item xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-              >
-                <Grid item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>Date</small>
-                </Grid>
-                <Grid item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small>Jan 20, 2021, 4:03 PM EST</small>
-                </Grid>
-              </Grid> */}
-
-              {/* <Grid item xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-              >
-                <Grid item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>Transaction</small>
-                </Grid>
-                <Grid item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small>0x23g45g59fm30vm40504l34m942j</small>
-                </Grid>
-              </Grid> */}
-
-              {/* <Grid item xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-              >
-                <Grid item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>From</small>
-                </Grid>
-                <Grid item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small>0x23g45g59fm30vm40504l34m942j</small>
-                </Grid>
-              </Grid> */}
-
-              <Grid
-                item
-                xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="flex-start"
-              >
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>Commitment</small>
-                </Grid>
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small style={{ overflowWrap: "anywhere" }}>
-                    {parsedNote.deposit.commitmentHex}
-                  </small>
-                </Grid>
-              </Grid>
-            </Grid>
           </Grid>
           <Grid item xs={1} container justify="center" alignItems="center">
             <img src={arrow} alt="arrow" />
           </Grid>
           <Grid item xs={5}>
-            <Grid item container xs={12} direction="column" spacing={4}>
+            <Grid item container xs={12} direction="column" spacing={2}>
               <Grid
                 item
                 xs={12}
@@ -238,16 +117,16 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
                     alignItems="flex-start"
                   >
                     <Grid item>
-                      <small>Withdrawal</small>
+                      <small>{t("Withdrawal")}</small>
                     </Grid>
                     <Grid item className="blue-text">
-                      Verified
+                      {t("Verified")}
                     </Grid>
                   </Grid>
                 </Grid>
                 <Grid item className="blue-text">
                   <h2>
-                    {parsedNote.amount} {parsedNote.currency.toUpperCase()}
+                    - {location.pathname === "/inspectSuccess" ? txReceipt?.returnValues?.fee : txReceipt?.events?.Withdrawal?.returnValues?.fee} {parsedNote.currency.toUpperCase()}
                   </h2>
                 </Grid>
               </Grid>
@@ -256,129 +135,56 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt }) => {
                 item
                 xs={12}
                 container
-                direction="row"
+                direction="column"
                 justify="space-between"
-                alignItems="center"
+                alignItems="flex-start"
               >
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>Date</small>
-                </Grid>
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small>
-                    {new Date(txReceipt.timestamp * 1000).toUTCString()}
-                  </small>
-                </Grid>
+                <small>{t("Date")}</small>
+                <small className={classes.textAlignStyle}>
+                  {location.pathname === "/inspectSuccess" ? new Date(txReceipt.withdrawTimestamp * 1000).toUTCString() : new Date(txReceipt.timestamp * 1000).toUTCString()}
+                </small>
               </Grid>
 
               <Grid
                 item
                 xs={12}
                 container
-                direction="row"
+                direction="column"
                 justify="space-between"
                 alignItems="flex-start"
               >
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>Transaction</small>
-                </Grid>
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small style={{ overflowWrap: "anywhere" }}>
-                    {txReceipt.transactionHash}
-                  </small>
-                </Grid>
+                <small>{t("Transaction")}</small>
+                <small className={classes.textAlignStyle}>
+                  {location.pathname === "/inspectSuccess" ? txReceipt.withdrawTransactionHash : txReceipt.transactionHash}
+                </small>
               </Grid>
 
               <Grid
                 item
                 xs={12}
                 container
-                direction="row"
+                direction="column"
                 justify="space-between"
                 alignItems="flex-start"
               >
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  alignItems="flex-start"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>From</small>
-                </Grid>
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small style={{ overflowWrap: "anywhere" }}>
-                    {txReceipt.from.toLowerCase()}
-                  </small>
-                </Grid>
+                <small>{t("To")}</small>
+                <small className={classes.textAlignStyle}>
+                  {txReceipt.to.toLowerCase()}
+                </small>
               </Grid>
 
               <Grid
                 item
                 xs={12}
                 container
-                direction="row"
+                direction="column"
                 justify="space-between"
                 alignItems="flex-start"
               >
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>Commitment</small>
-                </Grid>
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small style={{ overflowWrap: "anywhere" }}>
-                    {parsedNote.deposit.commitmentHex}
-                  </small>
-                </Grid>
+                <small>{t("Nullifier Hash")}</small>
+                <small className={classes.textAlignStyle}>
+                  {parsedNote?.deposit?.nullifierHex}
+                </small>
               </Grid>
             </Grid>
           </Grid>

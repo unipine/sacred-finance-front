@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayerOption }) => {
   const history = useHistory();
-
+  const { t } = useTranslation();
   const classes = useStyles();
 
   const handleClick = () => {
@@ -63,13 +64,13 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
                 style={{ color: "#A7A9AC" }}
                 onClick={handleWithdrawRoute}
               >
-                <b>Back</b>
+                <b>{t("Back")}</b>
               </Button>
             </Grid>
             <Grid item container direction="row" justify="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
                 <br />
-                <span style={{ marginLeft: "10px" }}>Sacred Claim</span>
+                <span style={{ marginLeft: "10px" }}>{t("Sacred Claim")}</span>
                 <TextField
                   className={classes.textField}
                   value={claim}
@@ -83,7 +84,7 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
             </Grid>
             <Grid item container direction="row" justify="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
-                <span style={{ marginLeft: "10px" }}>Recipient Address</span>
+                <span style={{ marginLeft: "10px" }}>{t("Recipient Address")}</span>
                 <TextField
                   className={classes.textField}
                   value={recipient}
@@ -117,7 +118,7 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
                 disabled={(isSpent && isExist) || !isExist}
                 onClick={handleClick}
               >
-                Withdraw
+                {t("Withdraw")}
               </Button>
             </Grid>
             <Grid item>

@@ -2,6 +2,14 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import { useState, useEffect } from "react";
+import { deployments } from "../conflux/config";
+import DepositInfo from "./DepositInfo";
+import { useWeb3React } from "@web3-react/core";
+import { useTranslation } from "react-i18next";
+
+const Web3 = require("web3");
+const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -52,16 +60,66 @@ const WithdrawCheckMain = ({
   txLayers,
 }) => {
   const classes = useStyles();
+  const { chainId } = useWeb3React();
+  const { t } = useTranslation();
 
   let titleText = "";
+
+  const [depositData, setDepositData] = useState();
+
+  const getDepositData = async() => {
+    let _deployment =
+      deployments.eth_deployments[`netId${chainId}`][
+      parsedNote.currency.toLowerCase()
+      ];
+
+    const deployment = {
+      address: _deployment.instanceAddress[parsedNote.amount],
+      abi: _deployment.abi,
+      symbol: _deployment.symbol,
+      amount: parsedNote.amount,
+    };
+
+    // Get all deposit events from smart contract and assemble merkle tree from them
+    console.log('Getting current state from sacred contract')
+    const deposit = parsedNote.deposit;
+
+    const sacred = new web3.eth.Contract(deployment.abi, deployment.address)
+
+    try {
+      const eventWhenHappened = await sacred.getPastEvents('Deposit', {
+        filter: {
+          commitment: deposit.commitmentHex
+        },
+        fromBlock: 0,
+        toBlock: 'latest'
+      })
+
+      if (eventWhenHappened.length === 0) {
+        console.log('There is no related deposit, the note is invalid')
+      }
+
+      const { timestamp } = eventWhenHappened[0].returnValues
+      const transactionHash = eventWhenHappened[0].transactionHash
+      const receipt = await web3.eth.getTransactionReceipt(transactionHash)
+  
+      setDepositData({ timestamp, transactionHash, from: receipt.from });
+    } catch (e) {
+      console.error('loadDepositData', e)
+    }
+  }
 
   if (isSpent) {
     titleText = <h1>This Claim has been Withdrawn</h1>;
   } else if (!isExist) {
     titleText = <h1>This Claim does not exist in Sacred</h1>;
   } else {
-    titleText = <h1>This Claim is in Sacred</h1>;
+    titleText = <h1>{t("This Claim is in Sacred")}</h1>;
   }
+
+  useEffect(() => {
+    getDepositData();
+  }, [])
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect
   return (
@@ -90,154 +148,13 @@ const WithdrawCheckMain = ({
         </Grid>
 
         {!((isSpent && isExist) || !isExist) && (
-          <Grid item container xs={12} direction="row" spacing={0}>
-            <Grid item xs={5}>
-              <Grid item container xs={12} direction="column" spacing={4}>
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item>
-                    <Grid
-                      item
-                      container
-                      direction="column"
-                      spacing={0}
-                      alignItems="flex-start"
-                    >
-                      <Grid item>
-                        <small>Deposit</small>
-                      </Grid>
-                      <Grid item className="blue-text">
-                        Verified
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item className="blue-text">
-                    <h2>
-                      {parsedNote.amount} {parsedNote.currency.toUpperCase()}
-                    </h2>
-                  </Grid>
-                </Grid>
-
-                {/* <Grid item xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={2}
-                    xs={3}
-                  >
-                    <small>Date</small>
-                  </Grid>
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    spacing={2}
-                    xs={9}
-                  >
-                    <small>Jan 20, 2021, 4:03 PM EST</small>
-                  </Grid>
-                </Grid> */}
-
-                {/* <Grid item xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={2}
-                    xs={3}
-                  >
-                    <small>Transaction</small>
-                  </Grid>
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    spacing={2}
-                    xs={9}
-                  >
-                    <small>0x23g45g59fm30vm40504l34m942j</small>
-                  </Grid>
-                </Grid> */}
-
-                {/* <Grid item xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={2}
-                    xs={3}
-                  >
-                    <small>From</small>
-                  </Grid>
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    spacing={2}
-                    xs={9}
-                  >
-                    <small>0x23g45g59fm30vm40504l34m942j</small>
-                  </Grid>
-                </Grid> */}
-
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="flex-start"
-                >
-                  <Grid
-                    item
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={2}
-                    xs={3}
-                  >
-                    <small>Commitment</small>
-                  </Grid>
-                  <Grid
-                    item
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    spacing={2}
-                    xs={9}
-                  >
-                    <small style={{ overflowWrap: "anywhere" }}>
-                      {parsedNote.deposit.commitmentHex}
-                    </small>
-                  </Grid>
-                </Grid>
-              </Grid>
+          <Grid item container xs={12} direction="row" spacing={2}>
+            <Grid item xs={6}>
+              <DepositInfo txReceipt={depositData} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()}/>
             </Grid>
 
-            <Grid item xs={5}>
-              <Grid item container xs={12} direction="column" spacing={4}>
+            <Grid item xs={6}>
+              <Grid item container xs={12} direction="column" spacing={2}>
                 <Grid
                   item
                   xs={12}
@@ -351,7 +268,6 @@ const WithdrawCheckMain = ({
                     <small>asdf</small>
                   </Grid>
                 </Grid>
-
                 <Grid item xs={12}
                   container
                   direction="row"

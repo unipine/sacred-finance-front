@@ -4,8 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import WaitingModal from "./WaitingModal";
+import { useTranslation } from "react-i18next";
 
 const WithdrawWorking = ({ deployment }) => {
+  const { t } = useTranslation();
   return (
     <div>
       <Paper>
@@ -16,10 +18,10 @@ const WithdrawWorking = ({ deployment }) => {
           >
             <Grid item>
               <br />
-              <b>Working...</b>
+              <b>{t("Working...")}</b>
             </Grid>
             <Grid item>
-              One moment while we take care of that...
+              {t("One moment while we take care of that...")}
             </Grid>
             <Grid item>
               <br />

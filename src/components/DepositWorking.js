@@ -4,9 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import WaitingModal from "./WaitingModal";
+import { useTranslation } from "react-i18next";
 
 const DepositWorking = ({ deployment }) => {
-
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -18,10 +19,10 @@ const DepositWorking = ({ deployment }) => {
           >
             <Grid item>
               <br />
-              <b>Working...</b>
+              <b>{t("Working...")}</b>
             </Grid>
             <Grid item>
-              One moment while we take care of that...
+              {t("One moment while we take care of that...")}
             </Grid>
             <Grid item>
               <br />
@@ -32,7 +33,7 @@ const DepositWorking = ({ deployment }) => {
             </Grid>
             <Grid item>
               <br />
-              Your <span className='blue-text'><b>{`${deployment.amount} ${deployment.symbol}`}</b></span> deposit is being confirmed on the blockchain.
+              {t("Your ")}<span className='blue-text'><b>{`${deployment.amount} ${deployment.symbol}`}</b></span>{t(" deposit is being confirmed on the blockchain.")}
             </Grid>
             <Grid item>
               <br />

@@ -3,14 +3,37 @@
   src: local('Timeline'), url(./fonts/Timeline.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  src:  url(./fonts/Montserrat-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url(./fonts/Montserrat-Bold.ttf) format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url(./fonts/Montserrat-Italic.ttf) format('truetype');
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url(./fonts/Montserrat-BoldItalic.ttf) format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
 .App {
   text-align: center;
   background: linear-gradient(#2F2F53, #57223E);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
-
+  font-family: 'Montserrat';
 }
 
 .App-logo {
@@ -91,6 +114,11 @@
 
 }
 
+.select {
+  color: #828282 !important;
+  font-size: 20px !important;
+  border: 0px !important;
+}
 
 .transition-modal-title {
   margin: auto;
@@ -99,4 +127,4 @@
 .inline-icon {
    vertical-align: bottom;
    font-size: 18px !important;
-}
+} 

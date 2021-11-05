@@ -4,9 +4,12 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const DepositSuccess = ({ txReceipt, deployment }) => {
   const history = useHistory();
+
+  const { t } = useTranslation();
 
   const handleClick = () => {
     history.push("/deposit");
@@ -23,26 +26,26 @@ const DepositSuccess = ({ txReceipt, deployment }) => {
             <Grid item>
               <br />
               <br />
-              <b>Success!</b>
+              <b>{t("Success!")}</b>
               <br />
               <br />
             </Grid>
             <Grid item>
-              Your deposit of
+              {t("Your deposit of")}
             </Grid>
             <Grid item>
               <span style={{ fontSize: '23px' }} className="blue-text"><b>{`${deployment.amount} ${deployment.symbol}`}</b></span>
             </Grid>
             <Grid item>
-              has been confirmed.
+              {t("has been confirmed.")}
             </Grid>
             <Grid item>
-              <a href={`https://kovan.etherscan.io/tx/${txReceipt.transactionHash.toLowerCase()}`} className='blue-text' target="_blank" rel="noopener noreferrer"><b>View on EtherScan</b></a>
+              <a href={`https://kovan.etherscan.io/tx/${txReceipt.transactionHash.toLowerCase()}`} className='blue-text' target="_blank" rel="noopener noreferrer"><b>{t("View on EtherScan")}</b></a>
             </Grid>
             <Grid item>
               <br />
               <br />
-              <Button variant="contained" color="secondary" style={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth onClick={handleClick}>Done</Button>
+              <Button variant="contained" color="secondary" style={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth onClick={handleClick}>{t("Done")}</Button>
             </Grid>
             <Grid item>
               <br />

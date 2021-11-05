@@ -1,16 +1,21 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import { parseNote, toHex } from "../conflux/utils";
+import { parseNote, toHex, loadDepositData } from "../conflux/utils";
 import { useState } from "react";
 import { deployments } from "../conflux/config";
 import arrowReturn from "../images/arrow_return.svg";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useWeb3React } from "@web3-react/core";
+import { useTranslation } from "react-i18next";
+import DepositInfo from "./DepositInfo";
+
 const { format } = require("js-conflux-sdk");
 const Web3 = require("web3");
-const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null;
+const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -62,13 +67,16 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const InspectMain = () => {
+const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim, handleTransaction}) => {
   const classes = useStyles();
   const history = useHistory();
+  const { t } = useTranslation();
+  const location = useLocation();
   const { chainId } = useWeb3React();
 
   const [status, setStatus] = useState();
   const [displayDepositInfo, setDisplayDepositInfo] = useState(false);
+  const [depositData, setDepositData] = useState();
   const [parsedNote, setParsedNote] = useState();
   const [txLayers, setTxLayers] = useState();
 
@@ -78,8 +86,9 @@ const InspectMain = () => {
 
   //TODO code duplication in this function
   const handleInspect = async (e) => {
-    let claim = e.target.value;
+    if (chainId === undefined) return;
 
+    let claim = e.target.value;
     let parsedNote;
 
     try {
@@ -94,7 +103,7 @@ const InspectMain = () => {
 
     let _deployment =
       deployments.eth_deployments[`netId${chainId}`][
-        parsedNote.currency.toLowerCase()
+      parsedNote.currency.toLowerCase()
       ];
 
     const deployment = {
@@ -107,40 +116,93 @@ const InspectMain = () => {
     // Get all deposit events from smart contract and assemble merkle tree from them
     console.log('Getting current state from sacred contract')
     const deposit = parsedNote.deposit;
+
     const sacred = new web3.eth.Contract(deployment.abi, deployment.address)
-    const events = await sacred.getPastEvents('Deposit', { fromBlock: 0, toBlock: 'latest' })
-    const leaves = events
+    const eventWhenHappened = await sacred.getPastEvents('Deposit', {
+      filter: {
+        commitment: deposit.commitmentHex
+      },
+      fromBlock: 0,
+      toBlock: 'latest'
+    })
+
+    const allevents = await sacred.getPastEvents('Deposit', { fromBlock: 0, toBlock: 'latest' })
+
+    if (eventWhenHappened.length === 0) {
+      console.log('There is no related deposit, the note is invalid');
+      return;
+    }
+
+    const leaves = allevents
       .sort((a, b) => a.returnValues.leafIndex - b.returnValues.leafIndex) // Sort events in chronological order
       .map(e => e.returnValues.commitment)
-    
+
     // Find current commitment in the tree
-    const depositEvent = events.find(e => e.returnValues.commitment === toHex(deposit.commitment))
+
+    const depositEvent = eventWhenHappened[0];
+
+    console.log('eventWhenHappened', eventWhenHappened);
+
     const leafIndex = depositEvent ? depositEvent.returnValues.leafIndex : -1
+
+    const { timestamp } = depositEvent.returnValues
+    const transactionHash = depositEvent.transactionHash
+    const receipt = await web3.eth.getTransactionReceipt(transactionHash)
+
+    const recipient = receipt.from;
 
     // Validate that our data is correct
     const isSpent = await sacred.methods.isSpent(toHex(deposit.nullifierHash)).call()
 
     if (isSpent) {
       setStatus("This Claim has been Withdrawn");
+      handleSetParsedNote(parsedNote);
+      handleSetClaim(claim);
+
+      const events = await sacred.getPastEvents('Withdrawal', {
+        fromBlock: 0,
+        toBlock: 'latest'
+      });
+
+      const withdrawEvent = events.filter((event) => {
+        return event.returnValues.nullifierHash === deposit.nullifierHex
+      })[0]
+
+      const blockInfo = await web3.eth.getBlock(withdrawEvent.blockNumber);
+
+      console.log('withdrawEvent', withdrawEvent  )
+
+      receipt.timestamp = timestamp;
+      receipt.withdrawTimestamp = blockInfo.timestamp;
+      receipt.withdrawTransactionHash = withdrawEvent.transactionHash;
+      receipt.returnValues = withdrawEvent.returnValues;
+
+      console.log('receipt', receipt);
+      handleTransaction(receipt);
+      history.push("/inspectSuccess");
       setDisplayDepositInfo(false);
       return;
-    }
-
-    if (leafIndex >= 0) {
-      setStatus("This Claim is in Sacred");
-      setParsedNote(parsedNote);
-      setTxLayers(leaves.length - leafIndex - 1);
-      setDisplayDepositInfo(true);
     } else {
-      setStatus("This Claim does not exist in Sacred");
-      setDisplayDepositInfo(false);
+      if (leafIndex >= 0) {
+        setStatus("This Claim is in Sacred");
+        setParsedNote(parsedNote);
+        setTxLayers(leaves.length - leafIndex - 1);
+        setDepositData({ timestamp, transactionHash, from: receipt.from });
+        setDisplayDepositInfo(true);
+      } else {
+        setStatus(t("This Claim does not exist in Sacred"));
+        setDisplayDepositInfo(false);
+      }
     }
-
   };
+
+  const handleWithdrawClick = () => {
+    history.push("/inspectWithdraw");
+  }
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect
   return (
-    <div className={classes.inspect}>
+    <div className={location.pathname === "/inspect" ? classes.inspect : ''}>
       <Grid
         container
         direction="column"
@@ -149,7 +211,7 @@ const InspectMain = () => {
         spacing={2}
       >
         <Grid item xs={12}>
-          <h1>Inspect Claim</h1>
+          <h1>{t("Inspect Claim")}</h1>
         </Grid>
         <div className={classes.return} onClick={handleWithdrawRoute}>
           <img src={arrowReturn} alt="return" />
@@ -176,160 +238,18 @@ const InspectMain = () => {
         </Grid>
 
         {displayDepositInfo && (
-          <Grid item container xs={12} direction="row" spacing={0}>
-            <Grid item xs={5}>
-              <Grid item container xs={12} direction="column" spacing={4}>
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item>
-                    <Grid
-                      item
-                      container
-                      direction="column"
-                      spacing={0}
-                      alignItems="flex-start"
-                    >
-                      <Grid item>
-                        <small>Deposit</small>
-                      </Grid>
-                      <Grid item className="blue-text">
-                        Verified
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item className="blue-text">
-                    <h2>
-                      {parsedNote.amount} {parsedNote.currency.toUpperCase()}
-                    </h2>
-                  </Grid>
-                </Grid>
-
-                {/* <Grid item xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={2}
-                    xs={3}
-                  >
-                    <small>Date</small>
-                  </Grid>
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    spacing={2}
-                    xs={9}
-                  >
-                    <small>Jan 20, 2021, 4:03 PM EST</small>
-                  </Grid>
-                </Grid> */}
-
-                {/* <Grid item xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={2}
-                    xs={3}
-                  >
-                    <small>Transaction</small>
-                  </Grid>
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    spacing={2}
-                    xs={9}
-                  >
-                    <small>0x23g45g59fm30vm40504l34m942j</small>
-                  </Grid>
-                </Grid> */}
-
-                {/* <Grid item xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={2}
-                    xs={3}
-                  >
-                    <small>From</small>
-                  </Grid>
-                  <Grid item
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    spacing={2}
-                    xs={9}
-                  >
-                    <small>0x23g45g59fm30vm40504l34m942j</small>
-                  </Grid>
-                </Grid> */}
-
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="flex-start"
-                >
-                  <Grid
-                    item
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={2}
-                    xs={3}
-                  >
-                    <small>Commitment</small>
-                  </Grid>
-                  <Grid
-                    item
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    spacing={2}
-                    xs={9}
-                  >
-                    <small style={{ overflowWrap: "anywhere" }}>
-                      {parsedNote.deposit.commitmentHex}
-                    </small>
-                  </Grid>
-                </Grid>
-              </Grid>
+          <Grid item container xs={12} direction="row" spacing={4}>
+            <Grid item xs={6}>
+              <DepositInfo txReceipt={depositData} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()} />
             </Grid>
 
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <Grid item container xs={12} direction="column" spacing={4}>
                 <Grid
                   item
                   xs={12}
                   container
                   direction="row"
-                  // justify="space-between"
                   spacing={3}
                   alignItems="center"
                 >
@@ -410,6 +330,22 @@ const InspectMain = () => {
                 >
                   This claim has been layered further by&nbsp;
                   <b>{txLayers} transactions</b>
+                </Grid>
+                <Grid
+                  item
+                  xs={6}
+                  container
+                  direction="row"
+                  justify="flex-start"
+                >
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    fullWidth
+                    onClick={handleWithdrawClick}
+                  >
+                    Withdraw Claim
+                  </Button>
                 </Grid>
                 {/* 
                 <Grid item xs={12}

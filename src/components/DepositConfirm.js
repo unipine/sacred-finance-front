@@ -15,6 +15,7 @@ import { useWeb3React } from "@web3-react/core";
 import { format } from "js-conflux-sdk";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Web3Utils = require("web3-utils");
 const Web3 = require("web3");
@@ -35,6 +36,7 @@ const DepositConfirm = ({
   const history = useHistory();
   const { activate, active, account } = useWeb3React();
   const [btnDisable, setBtnDisable] = useState(false);
+  const { t } = useTranslation();
 
   const handleClick = async () => {
     if (!active) {
@@ -59,7 +61,6 @@ const DepositConfirm = ({
         .deposit(toHex(deposit.commitment))
         .send({ value, from: account })
         .on("transactionHash", function (hash) {
-          console.log("transactionHash: ", hash);
 
           // Loading screen
           history.push("/depositWorking");
@@ -68,7 +69,6 @@ const DepositConfirm = ({
         //   console.log("confirmationNumber: ", confirmationNumber);
         // })
         .on("receipt", function (receipt) {
-          console.log("receipt: ", receipt);
         });
 
       const blockInfo = await web3.eth.getBlock(tx.blockNumber);
@@ -134,17 +134,17 @@ const DepositConfirm = ({
                   startIcon={<ArrowBackIosIcon />}
                   onClick={handleDepositRoute}
                 >
-                  <b>Back</b>
+                  <b>{t("Back")}</b>
                 </Button>
               </Grid>
             </Grid>
             <Grid item>
               <br />
-              <b>All set!</b>
+              <b>{t("All set!")}</b>
             </Grid>
             <Grid item>
               <br />
-              You are about to Deposit
+              {t("You are about to Deposit")}
               <br />
               <br />
               <span style={{ fontSize: "23px" }} className="blue-text">
@@ -152,12 +152,12 @@ const DepositConfirm = ({
               </span>
               <br />
               <br />
-              into Sacred Box
+              {t("into Sacred Box")}
             </Grid>
             <Grid item>
               <br />
-              Ensure you have saved your Sacred Claim somewhere safe.{" "}
-              <b>It is required to retrieve your funds.</b>
+              {t("Ensure you have saved your Sacred Claim somewhere safe.")}{" "}
+              <b>{t("It is required to retrieve your funds.")}</b>
             </Grid>
             <Grid item>
               <br />
@@ -169,7 +169,7 @@ const DepositConfirm = ({
                 onClick={handleClick}
                 disabled={btnDisable}
               >
-                Deposit
+                {t("Deposit")}
               </Button>
             </Grid>
             <Grid item>

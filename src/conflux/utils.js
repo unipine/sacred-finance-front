@@ -14,8 +14,9 @@ const websnarkUtils = require("websnark/src/utils");
 
 const assert = require("assert");
 const { poseidonHash2, getExtWithdrawAssetArgsHash } = require("./utils2");
-const Web3 = require("web3");
-const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null;
+
+const Web3 = require("web3")
+const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null
 
 // const confluxJS = new Conflux({
 //   url: "https://test.confluxrpc.com",
@@ -90,6 +91,36 @@ function parseNote(noteString) {
     netId,
     deposit,
   };
+}
+
+/**
+ * Parses Sacred.cash note
+ * @param deposit the note
+ */
+
+async function loadDepositData({ deposit }) {
+  try {
+    const eventWhenHappened = await sacred.getPastEvents('Deposit', {
+      filter: {
+        commitment: deposit.commitmentHex
+      },
+      fromBlock: 0,
+      toBlock: 'latest'
+    })
+    if (eventWhenHappened.length === 0) {
+      throw new Error('There is no related deposit, the note is invalid')
+    }
+
+    const { timestamp } = eventWhenHappened[0].returnValues
+    const txHash = eventWhenHappened[0].transactionHash
+    const isSpent = await sacred.methods.isSpent(deposit.nullifierHex).call()
+    const receipt = await web3.eth.getTransactionReceipt(txHash)
+
+    return { timestamp, txHash, isSpent, from: receipt.from, commitment: deposit.commitmentHex }
+  } catch (e) {
+    console.error('loadDepositData', e)
+  }
+  return {}
 }
 
 function fromDecimals({ amount, decimals }) {
@@ -418,6 +449,7 @@ export {
   toHex,
   fromDecimals,
   parseNote,
+  loadDepositData,
   generateProof,
   init,
   fromHexString,

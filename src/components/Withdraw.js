@@ -13,6 +13,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import WaitingModal from "./WaitingModal";
+import { useTranslation } from "react-i18next";
 
 const web3Utils = require("web3-utils");
 
@@ -50,6 +51,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
   const classes = useStyles();
   const location = useLocation();
   const { account } = useWeb3React();
+  const { t } = useTranslation();
 
   const [claim, setClaim] = useState("");
   const [recipient, setRecipient] = useState("");
@@ -140,7 +142,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
                   style={{ color: "#A7A9AC", marginLeft: "10px" }}
                   onClick={handleDepositRoute}
                 >
-                  Deposit
+                  {t("Deposit")}
                 </Button>
               </Grid>
               <Grid item>
@@ -149,14 +151,14 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
                   className={classes.headerBtn}
                   style={{ marginRight: "10px" }}
                 >
-                  <b>Withdraw</b>
+                  <b>{t("Withdraw")}</b>
                 </Button>
               </Grid>
             </Grid>
             <Grid item container direction="row" justify="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
                 <br />
-                <span style={{ marginLeft: "10px" }}>Sacred Claim</span>
+                <span style={{ marginLeft: "10px" }}>{t("Sacred Claim")}</span>
                 <TextField
                   className={classes.textField}
                   variant="filled"
@@ -171,7 +173,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
             </Grid>
             <Grid item container direction="row" justify="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
-                <span style={{ marginLeft: "10px" }}>Recipient Address</span>
+                <span style={{ marginLeft: "10px" }}>{t("Recipient Address")}</span>
                 <TextField
                   className={classes.textField}
                   variant="filled"
@@ -214,7 +216,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
                 onClick={handleClick}
                 disabled={btnDisabled}
               >
-                Continue
+                {t("Continue")}
               </Button>
             </Grid>
             <Grid item>

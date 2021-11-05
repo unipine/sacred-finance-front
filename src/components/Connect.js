@@ -5,6 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
+const Web3 = require("web3");
+const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
+
 const CssTextField = withStyles({
   root: {
     "& label.Mui-focused": {
@@ -43,20 +46,36 @@ const useStyles = makeStyles((theme) => ({
 
 const injectedConnector = new InjectedConnector({
   supportedChainIds: [
-    1, // Ethereum Mainnet
     42, // Kovan Testnet
   ],
 });
 
-const Connect = ({ handleAlert }) => {
+const Connect = ({ handleAlert, networkId }) => {
   const classes = useStyles();
 
-  const { active, account, activate } = useWeb3React();
+  const { active, account, activate, chainId } = useWeb3React();
 
-  const onConnectClick = () => {
-    activate(injectedConnector, (err) => {
-      handleAlert(err);
-    });
+  const changeNetworkId = async () => {
+    let sacredChainId = '0x' + parseInt(networkId).toString(16);
+    await window.ethereum
+      .request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: sacredChainId }],
+      })
+      .then(res => console.log(res))
+      .then(err => console.log(err));
+  }
+
+  const onConnectClick = async () => {
+    if (!web3) {
+      activate(injectedConnector, (err) => {});
+    }
+    else {
+      if (chainId === undefined || (chainId !== undefined && networkId !== chainId)){
+        changeNetworkId();
+        activate(injectedConnector, (err) => {});
+      }
+    }
   };
 
   return (

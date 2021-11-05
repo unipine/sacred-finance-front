@@ -17,6 +17,7 @@ import WithdrawWorking from "./components/WithdrawWorking";
 import WithdrawSuccess from "./components/WithdrawSuccess";
 import WithdrawSuccessMain from "./components/WithdrawSuccessMain";
 import InspectMain from "./components/InspectMain";
+import YieldRedemption from "./components/YieldRedemption";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { MemoryRouter as Router, Route, Switch } from "react-router-dom";
@@ -29,8 +30,13 @@ import { parseNote, toHex, generateClaim } from "./conflux/utils";
 import AlertWindow from "./components/AlertWindow";
 import Theme from "./theme";
 import MetaMaskDialog from "./components/MetaMaskDialog";
-const Web3 = require("web3");
+import YieldRedemptionSetup from "./components/YieldRedemptionSetup";
+import YieldManage from "./components/YieldManage";
+import YieldRedeemConfirm from "./components/YieldRedeemConfirm";
+import YieldWithdrawConfirm from "./components/YieldWithdrawConfirm";
+import RelayerSettings from "./components/RelayerSettings";
 
+const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
 const connectMeta = !web3 ? true : false;
@@ -85,6 +91,7 @@ function App() {
   const [amount, setAmount] = useState("0.1");
   const [deposit, setDeposit] = useState();
   const [depositCount, setDepositCount] = useState();
+  const [depReceipt, setDepReceipt] = useState();
   const [txReceipt, setTxReceipt] = useState();
   const [claim, setClaim] = useState();
   const [recipient, setRecipient] = useState();
@@ -92,7 +99,7 @@ function App() {
   const [parsedNote, setParsedNote] = useState();
   const [isExist, setIsExist] = useState(false);
   const [txLayers, setTxLayers] = useState();
-  const [relayer, setRelayer] = useState(false)
+  const [relayer, setRelayer] = useState(false);
   const [deployment, setDeployment] = useState({
     address:
       deployments.eth_deployments[`netId42`][`eth`].instanceAddress[`0.1`],
@@ -124,6 +131,14 @@ function App() {
   useEffect(() => {
     handleDepositCount();
   });
+
+  const handleSetParsedNote = (parseNote) => {
+    setParsedNote(parseNote);
+  };
+
+  const handleSetClaim = (claim) => {
+    setClaim(claim);
+  }
 
   const handleSetDeployment = (amount, currency) => {
     let _deployment =
@@ -186,12 +201,15 @@ function App() {
 
     depositClaim.networkId = +window.ethereum.chainId;
     setDeposit(depositClaim);
-
     return true;
   };
 
   const handleTransaction = (txReceipt) => {
     setTxReceipt(txReceipt);
+  };
+
+  const handleDepReceipt = (dep) => {
+    setDepReceipt(dep);
   };
 
   const handleDepositCount = async () => {
@@ -310,6 +328,15 @@ function App() {
                   justify="center"
                   alignItems="center"
                 >
+                  <Grid item xs={12}>
+                    <Route
+                      exact
+                      path="/yield"
+                      component={() => (
+                        <YieldRedemption />
+                      )}
+                    />
+                  </Grid>
                   <Grid item md={3} xs={8}>
                     <Switch>
                       <Route
@@ -374,7 +401,10 @@ function App() {
                       />
                       <Route
                         exact
-                        path="/withdraw"
+                        path={[
+                          "/withdraw",
+                          "/inspectWithdraw"
+                        ]}
                         component={() => (
                           <Withdraw
                             handleWithdraw={handleWithdraw}
@@ -409,6 +439,7 @@ function App() {
                             deployment={deployment}
                             handleAlert={handleAlert}
                             relayerOption={relayer}
+                            handleDepReceipt={handleDepReceipt}
                           />
                         )}
                       />
@@ -421,13 +452,17 @@ function App() {
                       />
                       <Route
                         exact
-                        path="/withdrawSuccess"
+                        path={[
+                          "/inspectSuccess",
+                          "/withdrawSuccess"
+                        ]}
                         component={() => (
                           <WithdrawSuccess
                             parsedNote={parsedNote}
                             txReceipt={txReceipt}
                             claim={claim}
                             deployment={deployment}
+                            depReceipt={depReceipt}
                           />
                         )}
                       />
@@ -441,6 +476,37 @@ function App() {
                           />
                         )}
                       />
+                      <Route
+                        exact
+                        path="/yieldSetup"
+                        component={() => (
+                          <YieldRedemptionSetup />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path={[
+                          "/yieldManage",
+                          "/yieldWithdraw",
+                          "/yieldRedeem",
+                          "/yieldRedeemConfirm",
+                          "/yieldWithdrawConfirm"
+                        ]}
+                        component={() => (
+                          <YieldManage />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path={[
+                          "/relayerSettings",
+                        ]}
+                        component={() => (
+                          <RelayerSettings />
+                        )}
+                      >
+
+                      </Route>
                     </Switch>
                   </Grid>
 
@@ -453,7 +519,7 @@ function App() {
                         "/depositClaim",
                         "/depositConfirm",
                         "/depositWorking",
-                        "/withdraw",
+                        "/withdraw"
                       ]}
                       component={Title}
                     />
@@ -487,26 +553,52 @@ function App() {
                     />
                     <Route
                       exact
-                      path="/withdrawSuccess"
+                      path={[
+                        "/withdrawSuccess",
+                        "/inspectSuccess"
+                      ]}
                       component={() => (
                         <WithdrawSuccessMain
                           claim={claim}
                           parsedNote={parsedNote}
                           txReceipt={txReceipt}
+                          depReceipt={depReceipt}
                         />
                       )}
                     />
                     <Route
                       exact
-                      path="/inspect"
+                      path={[
+                        "/inspect",
+                        "/inspectWithdraw"
+                      ]}
                       component={() => (
-                        <InspectMain handleSetDeployment={handleSetDeployment} />
+                        <InspectMain
+                          handleSetDeployment={handleSetDeployment}
+                          handleSetParsedNote={handleSetParsedNote}
+                          handleSetClaim={handleSetClaim}
+                          handleTransaction={handleTransaction}
+                        />
+                      )}
+                    />
+                    <Route
+                      exact
+                      path="/yieldRedeemConfirm"
+                      component={() => (
+                        <YieldRedeemConfirm />
+                      )}
+                    />
+                    <Route
+                      exact
+                      path="/yieldWithdrawConfirm"
+                      component={() => (
+                        <YieldWithdrawConfirm />
                       )}
                     />
                   </Grid>
                 </Grid>
               </div>
-              <Footer deployment={deployment} depositCount={depositCount} />
+              <Footer deployment={deployment} depositCount={depositCount} networkId={networkId} />
             </div>
           </MuiThemeProvider>
         </Web3ReactProvider>

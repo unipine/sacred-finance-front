@@ -1,10 +1,11 @@
 import Grid from '@material-ui/core/Grid';
 // import getIPs from '../utils/webrc-ip';
 import { useState, useEffect } from 'react';
-
+import { useTranslation } from "react-i18next";
 
 
 const FooterLeft = () => {
+  const { t } = useTranslation();
 
   const [ip, setIp] = useState();
   const [location, setLocation] = useState()
@@ -29,7 +30,7 @@ const FooterLeft = () => {
 
     <Grid item xs={3}>
       <p className='ip-display'>
-        <b>Your IP: </b> {ip}, {location}
+        <b>{t("Your IP: ")}</b> {ip}, {location}
       </p>
 
     </Grid>

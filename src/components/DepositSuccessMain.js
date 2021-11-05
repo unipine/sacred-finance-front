@@ -4,6 +4,8 @@ import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
+import DepositInfo from "./DepositInfo";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -20,6 +22,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "23px",
     fontFamily: "Montserrat",
   },
+  textAlignStyle: {
+    paddingTop: '4px',
+    textAlign: 'left',
+    overflowWrap: "anywhere"
+  }
 }));
 
 const CssTextField = withStyles({
@@ -48,6 +55,8 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
   const history = useHistory();
   const classes = useStyles();
 
+  const { t } = useTranslation();
+
   const handleClick = () => {
     history.push("/withdraw");
   };
@@ -63,7 +72,7 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
         spacing={2}
       >
         <Grid item xs={12}>
-          <h1>This deposit is now in Sacred!</h1>
+          <h1>{t("This deposit is now in Sacred!")}</h1>
         </Grid>
         <Grid item xs={12}>
           <CssTextField
@@ -82,164 +91,7 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
 
         <Grid item container xs={12} direction="row" spacing={2}>
           <Grid item xs={6}>
-            <Grid item container xs={12} direction="column" spacing={4}>
-              <Grid
-                item
-                xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-              >
-                <Grid item>
-                  <Grid
-                    item
-                    container
-                    direction="column"
-                    spacing={0}
-                    alignItems="flex-start"
-                  >
-                    <Grid item>
-                      <small>Deposit</small>
-                    </Grid>
-                    <Grid item className="blue-text">
-                      Verified
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item className="blue-text">
-                  <h2>{`${deployment.amount} ${deployment.symbol}`}</h2>
-                </Grid>
-              </Grid>
-
-              <Grid
-                item
-                xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="flex-start"
-              >
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>Date</small>
-                </Grid>
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small style={{ overflowWrap: "anywhere" }}>
-                    {new Date(txReceipt.timestamp * 1000).toUTCString()}
-                  </small>
-                </Grid>
-              </Grid>
-
-              <Grid
-                item
-                xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="flex-start"
-              >
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>Transaction</small>
-                </Grid>
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small style={{ overflowWrap: "anywhere" }}>
-                    {txReceipt.transactionHash}
-                  </small>
-                </Grid>
-              </Grid>
-
-              <Grid
-                item
-                xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="flex-start"
-              >
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>From</small>
-                </Grid>
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small style={{ overflowWrap: "anywhere" }}>
-                    {txReceipt.from.toLowerCase()}
-                  </small>
-                </Grid>
-              </Grid>
-
-              <Grid
-                item
-                xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="flex-start"
-              >
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-end"
-                  spacing={2}
-                  xs={3}
-                >
-                  <small>Commitment</small>
-                </Grid>
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  spacing={2}
-                  xs={9}
-                >
-                  <small style={{ overflowWrap: "anywhere" }}>
-                    {deposit.commitmentHex}
-                  </small>
-                </Grid>
-              </Grid>
-            </Grid>
+            <DepositInfo txReceipt={txReceipt} deposit={deposit} amount={deployment.amount + ' ' + deployment.symbol}/>
           </Grid>
 
           <Grid item xs={6}>
@@ -342,7 +194,7 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
                   fullWidth
                   onClick={handleClick}
                 >
-                  Withdraw Claim
+                  {t("Withdraw Claim")}
                 </Button>
               </Grid>
               {/* 
