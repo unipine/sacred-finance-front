@@ -82,7 +82,7 @@ const Welcome = ({ handleAgree, handleAlert }) => {
               <h3>{t("welcome_to_sacred")}</h3>
             </Grid>
             <Grid item>
-              {t("Send private transactions using the Conflux network.")}
+              {t("Send private transactions using the Ethereum network.")}
             </Grid>
             <Grid item>
               <img src={logo} alt="logo" />

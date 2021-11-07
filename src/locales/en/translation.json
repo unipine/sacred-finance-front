@@ -1,6 +1,6 @@
 {
     "welcome_to_sacred": "Welcome to Sacred",
-    "Send private transactions using the Conflux network.": "Send private transactions using the Conflux network.",
+    "Send private transactions using the Ethereum network.": "Send private transactions using the Ethereum network.",
     "By clicking “Agree & Connect” you agree to our ": "By clicking “Agree & Connect” you agree to our ",
     "Terms": "Terms.",
     "Agree & Connect": "Agree & Connect",
@@ -25,7 +25,7 @@
     "Important:": "Important:",
     "Store this Claim somewhere safe before continuing.": "Store this Claim somewhere safe before continuing.",
     "I saved the Claim": "I saved the Claim",
-    "All set!" : "All set!",
+    "All set!": "All set!",
     "You are about to Deposit": "You are about to Deposit",
     "into Sacred Box": "into Sacred Box",
     "Ensure you have saved your Sacred Claim somewhere safe.": "Ensure you have saved your Sacred Claim somewhere safe.",
