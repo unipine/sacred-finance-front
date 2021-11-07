@@ -21,8 +21,8 @@ const Header = ({ handleAlert, handleNetworkId, networkId }) => {
           networkId={networkId}
           handleAlert={handleAlert}
         />
-        <Connect handleAlert={handleAlert} networkId={networkId} />
-        {/* <LanguageSelect /> */}
+        <Connect handleAlert={handleAlert} networkId={networkId}/>
+        <LanguageSelect />
         <Nav />
       </Grid>
     </div>

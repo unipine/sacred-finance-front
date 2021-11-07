@@ -27,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
     },
 
     content: {
-        color: "#ffffff",
+        color: "#ffffff", 
         fontSize: "18px",
         paddingBottom: '32px',
     },
-
+    
     button: {
         textTransform: "none",
         fontWeight: "bold",
@@ -59,9 +59,8 @@ const YieldRedemption = () => {
                 color="secondary"
                 className={classes.button}
                 onClick={handleClick}
-                disabled={true}
             >
-                Coming Soon!
+                Get Started
             </Button>
         </Grid>
     );
