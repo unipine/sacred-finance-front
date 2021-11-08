@@ -1,6 +1,6 @@
 import Logo from "./Logo";
 import Nav from "./Nav";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import Connect from "./Connect";
 import Version from "./Version";
 import LanguageSelect from "./LanguageSelect";
@@ -12,7 +12,7 @@ const Header = ({ handleAlert, handleNetworkId, networkId }) => {
         container
         spacing={0}
         direction="row"
-        justify="space-between"
+        justifyContent="space-between"
         alignItems="center"
       >
         <Logo />

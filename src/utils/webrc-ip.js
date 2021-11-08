@@ -228,7 +228,7 @@ function getIPTypes(timer) {
       // Resolving the promise.
       resolve(finalIpArray)
     }).catch(reject)
-  })
+  });
 }
 
 // Filters out IPv4 addresses.

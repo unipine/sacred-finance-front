@@ -1,8 +1,9 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import TextField from "@mui/material/TextField";
+import makeStyles from '@mui/styles/makeStyles';
+import withStyles from '@mui/styles/withStyles';
 import DepositInfo from "./DepositInfo";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import arrow from "../images/arrow_right.svg";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
@@ -65,7 +66,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
       <Grid
         container
         direction="column"
-        justify="center"
+        justifyContent="center"
         alignItems="center"
         spacing={2}
       >
@@ -95,7 +96,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
             }
 
           </Grid>
-          <Grid item xs={1} container justify="center" alignItems="center">
+          <Grid item xs={1} container justifyContent="center" alignItems="center">
             <img src={arrow} alt="arrow" />
           </Grid>
           <Grid item xs={5}>
@@ -105,7 +106,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
                 xs={12}
                 container
                 direction="row"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="center"
               >
                 <Grid item>
@@ -136,7 +137,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
                 xs={12}
                 container
                 direction="column"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="flex-start"
               >
                 <small>{t("Date")}</small>
@@ -150,7 +151,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
                 xs={12}
                 container
                 direction="column"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="flex-start"
               >
                 <small>{t("Transaction")}</small>
@@ -164,7 +165,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
                 xs={12}
                 container
                 direction="column"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="flex-start"
               >
                 <small>{t("To")}</small>
@@ -178,7 +179,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
                 xs={12}
                 container
                 direction="column"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="flex-start"
               >
                 <small>{t("Nullifier Hash")}</small>

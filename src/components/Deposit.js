@@ -1,14 +1,14 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import makeStyles from '@mui/styles/makeStyles';
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -110,7 +110,7 @@ const Deposit = ({
               container
               direction="row"
               spacing={0}
-              justify="space-between"
+              justifyContent="space-between"
               alignItems="center"
             >
               <Grid item>
@@ -154,7 +154,7 @@ const Deposit = ({
             <Grid item container direction="column" alignItems="flex-start">
               <span style={{ marginLeft: "10px" }}>{t("Amount")}</span>
 
-              <Grid item container direction="row" justify="center">
+              <Grid item container direction="row" justifyContent="center">
                 <Grid item>
                   <ToggleButtonGroup
                     className={classes.toggleButtonGroup}

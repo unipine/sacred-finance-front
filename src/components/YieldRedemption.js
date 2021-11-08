@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/styles";
-import { Grid, Button, LinearProgress } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
+import { Grid, Button, LinearProgress } from "@mui/material";
 import { useHistory, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({

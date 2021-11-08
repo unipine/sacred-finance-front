@@ -1,8 +1,9 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
+import TextField from "@mui/material/TextField";
+import makeStyles from '@mui/styles/makeStyles';
+import withStyles from '@mui/styles/withStyles';
+import { Button } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import { parseNote, toHex, loadDepositData } from "../conflux/utils";
 import { useState } from "react";
 import { deployments } from "../conflux/config";
@@ -206,7 +207,7 @@ const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim,
       <Grid
         container
         direction="column"
-        justify="center"
+        justifyContent="center"
         alignItems="center"
         spacing={2}
       >
@@ -291,14 +292,14 @@ const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim,
                   xs={12}
                   container
                   direction="row"
-                  justify="space-between"
+                  justifyContent="space-between"
                   alignItems="center"
                 >
                   <Grid
                     item
                     container
                     direction="row"
-                    justify="flex-start"
+                    justifyContent="flex-start"
                     spacing={2}
                     xs={5}
                   >
@@ -310,7 +311,7 @@ const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim,
                     item
                     container
                     direction="row"
-                    justify="flex-start"
+                    justifyContent="flex-start"
                     spacing={2}
                     xs={7}
                   >
@@ -325,7 +326,7 @@ const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim,
                   xs={12}
                   container
                   direction="row"
-                  justify="flex-start"
+                  justifyContent="flex-start"
                   alignItems="center"
                 >
                   This claim has been layered further by&nbsp;
@@ -336,7 +337,7 @@ const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim,
                   xs={6}
                   container
                   direction="row"
-                  justify="flex-start"
+                  justifyContent="flex-start"
                 >
                   <Button
                     variant="contained"

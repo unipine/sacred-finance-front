@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import { useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { useTranslation } from "react-i18next";
@@ -79,7 +79,7 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
         container
         spacing={2}
         direction="column"
-        justify="flex-end"
+        justifyContent="flex-end"
         alignItems="flex-start"
       >
         <Grid item>
@@ -102,7 +102,7 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
               spacing={2}
               container
               direction="row"
-              justify="flex-start"
+              justifyContent="flex-start"
               alignItems="flex-start"
               style={{ textAlign: 'left' }}
             >

@@ -1,7 +1,8 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+import Grid from "@mui/material/Grid";
+import makeStyles from '@mui/styles/makeStyles';
+import withStyles from '@mui/styles/withStyles';
+import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
 import { deployments } from "../conflux/config";
 import DepositInfo from "./DepositInfo";
@@ -127,7 +128,7 @@ const WithdrawCheckMain = ({
       <Grid
         container
         direction="column"
-        justify="center"
+        justifyContent="center"
         alignItems="center"
         spacing={2}
       >
@@ -202,14 +203,14 @@ const WithdrawCheckMain = ({
                   xs={12}
                   container
                   direction="row"
-                  justify="space-between"
+                  justifyContent="space-between"
                   alignItems="center"
                 >
                   <Grid
                     item
                     container
                     direction="row"
-                    justify="flex-start"
+                    justifyContent="flex-start"
                     spacing={2}
                     xs={5}
                   >
@@ -221,7 +222,7 @@ const WithdrawCheckMain = ({
                     item
                     container
                     direction="row"
-                    justify="flex-start"
+                    justifyContent="flex-start"
                     spacing={2}
                     xs={7}
                   >
@@ -236,7 +237,7 @@ const WithdrawCheckMain = ({
                   xs={12}
                   container
                   direction="row"
-                  justify="flex-start"
+                  justifyContent="flex-start"
                   alignItems="center"
                 >
                   This claim has been layered further by&nbsp;

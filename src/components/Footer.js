@@ -1,7 +1,7 @@
 import FooterLeft from './FooterLeft';
 import FooterRight from './FooterRight';
 import FooterMid from './FooterMid';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 
 const Footer = ({ deployment, depositCount, networkId }) => {
   return (
@@ -9,7 +9,7 @@ const Footer = ({ deployment, depositCount, networkId }) => {
       <Grid container
         spacing={0}
         direction="row"
-        justify="space-between"
+        justifyContent="space-between"
         alignItems="flex-end"
       >
         <FooterLeft />
@@ -17,7 +17,7 @@ const Footer = ({ deployment, depositCount, networkId }) => {
         <FooterRight deployment={deployment} depositCount={depositCount} networkId={networkId}/>
       </Grid>
     </div>
-  )
+  );
 }
 
 export default Footer

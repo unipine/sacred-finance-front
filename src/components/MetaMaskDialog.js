@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Box, Typography, Modal, Link } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
+import { Box, Typography, Modal, Link } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles({
   box: {

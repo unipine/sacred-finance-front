@@ -1,8 +1,8 @@
 import React from 'react'
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import LinearProgress from '@mui/material/LinearProgress';
 import WaitingModal from "./WaitingModal";
 import { useTranslation } from "react-i18next";
 

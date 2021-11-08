@@ -1,9 +1,10 @@
 import React from "react";
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import TextField from "@mui/material/TextField";
+import makeStyles from '@mui/styles/makeStyles';
+import withStyles from '@mui/styles/withStyles';
+import Button from "@mui/material/Button";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;

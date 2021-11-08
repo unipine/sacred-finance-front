@@ -1,17 +1,17 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import makeStyles from '@mui/styles/makeStyles';
 import { useHistory, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { parseNote } from "../conflux/utils";
 import { useWeb3React } from "@web3-react/core";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import WaitingModal from "./WaitingModal";
 import { useTranslation } from "react-i18next";
 
@@ -132,7 +132,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
               container
               direction="row"
               spacing={0}
-              justify="space-between"
+              justifyContent="space-between"
               alignItems="center"
             >
               <Grid item>
@@ -155,7 +155,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
                 </Button>
               </Grid>
             </Grid>
-            <Grid item container direction="row" justify="flex-start">
+            <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
                 <br />
                 <span style={{ marginLeft: "10px" }}>{t("Sacred Claim")}</span>
@@ -171,7 +171,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
                 />
               </Grid>
             </Grid>
-            <Grid item container direction="row" justify="flex-start">
+            <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
                 <span style={{ marginLeft: "10px" }}>{t("Recipient Address")}</span>
                 <TextField
@@ -183,7 +183,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
                   fullWidth
                   value={recipient}
                 />
-                <Grid item container justify="flex-end">
+                <Grid item container justifyContent="flex-end">
                   <span
                     className="blue-text"
                     onClick={handleCurrentAddress}

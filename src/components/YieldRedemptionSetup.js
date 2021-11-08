@@ -1,16 +1,16 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import { InputLabel } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { InputLabel } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import { useHistory, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import WaitingModal from "./WaitingModal";
-import { Radio, RadioGroup, FormControl } from "@material-ui/core";
+import { Radio, RadioGroup, FormControl } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
     body: {

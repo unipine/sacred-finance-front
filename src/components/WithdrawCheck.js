@@ -1,15 +1,15 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import makeStyles from '@mui/styles/makeStyles';
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useHistory } from "react-router-dom";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +54,7 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
               container
               direction="row"
               spacing={0}
-              justify="flex-start"
+              justifyContent="flex-start"
               alignItems="center"
             >
               <Button
@@ -67,7 +67,7 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
                 <b>{t("Back")}</b>
               </Button>
             </Grid>
-            <Grid item container direction="row" justify="flex-start">
+            <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
                 <br />
                 <span style={{ marginLeft: "10px" }}>{t("Sacred Claim")}</span>
@@ -82,7 +82,7 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
                 />
               </Grid>
             </Grid>
-            <Grid item container direction="row" justify="flex-start">
+            <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
                 <span style={{ marginLeft: "10px" }}>{t("Recipient Address")}</span>
                 <TextField

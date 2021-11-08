@@ -1,8 +1,9 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
+import TextField from "@mui/material/TextField";
+import makeStyles from '@mui/styles/makeStyles';
+import withStyles from '@mui/styles/withStyles';
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 import { useHistory } from "react-router-dom";
 import DepositInfo from "./DepositInfo";
 import { useTranslation } from "react-i18next";
@@ -67,7 +68,7 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
       <Grid
         container
         direction="column"
-        justify="center"
+        justifyContent="center"
         alignItems="center"
         spacing={2}
       >
@@ -141,14 +142,14 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
                 xs={12}
                 container
                 direction="row"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="center"
               >
                 <Grid
                   item
                   container
                   direction="row"
-                  justify="flex-start"
+                  justifyContent="flex-start"
                   spacing={2}
                   xs={5}
                 >
@@ -160,7 +161,7 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
                   item
                   container
                   direction="row"
-                  justify="flex-start"
+                  justifyContent="flex-start"
                   spacing={2}
                   xs={7}
                 >
@@ -175,7 +176,7 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
                 xs={12}
                 container
                 direction="row"
-                justify="flex-start"
+                justifyContent="flex-start"
                 alignItems="center"
               >
                 This claim has been layered further by&nbsp;

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Grid, Typography, Box, makeStyles } from '@material-ui/core';
+import { Grid, Typography, Box } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import video from "../images/sacred_animated_white";
 
 const useStyles = makeStyles({
@@ -54,7 +55,7 @@ const WaitingModal = (prop) => {
                         container
                         spacing={2}
                         direction="row"
-                        justify="center"
+                        justifyContent="center"
                         alignItems="center"
                     >
                         <Grid item>

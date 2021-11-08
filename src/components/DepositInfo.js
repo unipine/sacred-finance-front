@@ -1,6 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from "@mui/material/Grid";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +22,7 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 xs={12}
                 container
                 direction="row"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="center"
             >
                 <Grid item>
@@ -51,7 +51,7 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 xs={12}
                 container
                 direction="column"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="flex-start"
             >
                 <small>{t("Date")}</small>
@@ -69,7 +69,7 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 xs={12}
                 container
                 direction="column"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="flex-start"
             >
                 <small>{t("Transaction")}</small>
@@ -87,7 +87,7 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 xs={12}
                 container
                 direction="column"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="flex-start"
             >
                 <small>{t("From")}</small>
@@ -105,7 +105,7 @@ const DepositInfo = ({ txReceipt, deposit, amount }) => {
                 xs={12}
                 container
                 direction="column"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="flex-start"
             >
                 <small>{t("Commitment")}</small>

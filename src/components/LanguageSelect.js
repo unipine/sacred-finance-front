@@ -1,10 +1,10 @@
 import React from "react";
 import i18next from "i18next";
 
-import FormControl from "@material-ui/core/FormControl";
-import { makeStyles } from "@material-ui/core/styles";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import makeStyles from '@mui/styles/makeStyles';
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import { useState, useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({

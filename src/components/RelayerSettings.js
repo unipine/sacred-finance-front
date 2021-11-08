@@ -1,15 +1,15 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import makeStyles from '@mui/styles/makeStyles';
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import { useLocation } from "react-router";
-import { InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
+import { InputLabel, Select, MenuItem, FormControl } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
     body: {
@@ -112,7 +112,7 @@ const RelayerSettings = () => {
                             container
                             direction="row"
                             spacing={0}
-                            justify="space-around"
+                            justifyContent="space-around"
                             alignItems="center"
                         >
                             <Grid item>

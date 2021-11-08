@@ -18,8 +18,8 @@ import WithdrawSuccess from "./components/WithdrawSuccess";
 import WithdrawSuccessMain from "./components/WithdrawSuccessMain";
 import InspectMain from "./components/InspectMain";
 import YieldRedemption from "./components/YieldRedemption";
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
+import { Grid } from "@mui/material";
 import { MemoryRouter as Router, Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Web3ReactProvider } from "@web3-react/core";
@@ -302,11 +302,11 @@ function App() {
     setRelayer(useRelay);
   }
 
-  return (
-    <>
-      <Router>
-        <Web3ReactProvider getLibrary={getLibrary}>
-          <MuiThemeProvider theme={Theme}>
+  return <>
+    <Router>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={Theme}>
             <div className="App">
               <Header
                 handleAlert={handleAlert}
@@ -325,7 +325,7 @@ function App() {
                   container
                   spacing={5}
                   direction="row"
-                  justify="center"
+                  justifyContent="center"
                   alignItems="center"
                 >
                   <Grid item xs={12}>
@@ -600,12 +600,12 @@ function App() {
               </div>
               <Footer deployment={deployment} depositCount={depositCount} networkId={networkId} />
             </div>
-          </MuiThemeProvider>
-        </Web3ReactProvider>
-      </Router>
-      <MetaMaskDialog connectMeta={connectMeta} />
-    </>
-  );
+          </ThemeProvider>
+        </StyledEngineProvider>
+      </Web3ReactProvider>
+    </Router>
+    <MetaMaskDialog connectMeta={connectMeta} />
+  </>;
 }
 
 export default App;

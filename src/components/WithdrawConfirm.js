@@ -1,10 +1,10 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { makeStyles } from "@material-ui/core/styles";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import makeStyles from '@mui/styles/makeStyles';
 import { init, generateProof } from "../conflux/utils";
 import { useWeb3React } from "@web3-react/core";
 import { useHistory } from "react-router-dom";
@@ -181,7 +181,7 @@ const WithdrawConfirm = ({
               container
               direction="row"
               spacing={0}
-              justify="flex-start"
+              justifyContent="flex-start"
               alignItems="center"
             >
               <Grid item>

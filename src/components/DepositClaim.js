@@ -1,15 +1,15 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import TextField from "@material-ui/core/TextField";
-import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import TextField from "@mui/material/TextField";
+import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import { useRef, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import makeStyles from '@mui/styles/makeStyles';
 import { useHistory } from "react-router-dom";
-import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
+import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
@@ -70,7 +70,7 @@ const DepositClaim = ({ deposit, deployment }) => {
               container
               direction="row"
               spacing={0}
-              justify="flex-start"
+              justifyContent="flex-start"
               alignItems="center"
             >
               <Grid item>

@@ -1,9 +1,9 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useHistory } from "react-router-dom";
 import {
   fromHexString,
@@ -125,7 +125,7 @@ const DepositConfirm = ({
               container
               direction="row"
               spacing={0}
-              justify="flex-start"
+              justifyContent="flex-start"
               alignItems="center"
             >
               <Grid item>

@@ -5,8 +5,8 @@ import logoC from "../images/sacred_c.svg";
 import logoR from "../images/sacred_r.svg";
 import logoE from "../images/sacred_e.svg";
 import logoD from "../images/sacred_d.svg";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@mui/material/Grid";
+import makeStyles from '@mui/styles/makeStyles';
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +32,7 @@ const Logo = () => {
         container
         spacing={2}
         direction="row"
-        justify="center"
+        justifyContent="center"
         alignItems="center"
       >
         <Grid item>

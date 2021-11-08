@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Grid, InputLabel, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import { Grid, InputLabel, Button } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
     root: {

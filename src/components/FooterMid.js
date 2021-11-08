@@ -1,5 +1,5 @@
-import Grid from '@material-ui/core/Grid';
-import WarningIcon from '@material-ui/icons/Warning';
+import Grid from '@mui/material/Grid';
+import WarningIcon from '@mui/icons-material/Warning';
 
 
 const FooterMid = () => {
