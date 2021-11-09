@@ -38,10 +38,10 @@ const Nav = () => {
     <Grid item xs={5}>
       <ButtonGroup variant="contained" >
         <Button onClick={() => handleRoute('')}>Sacred App</Button>
-        <Button target="_blank" href="https://sacred.gitbook.io/sacred-finance/">About</Button>
-        <Button onClick={() => handleRoute('yield')}>Yield</Button>
-        <Button onClick={() => handleRoute('inspect')}>Inspect</Button>
-        <Button target="_blank" href="https://sacred.gitbook.io/sacred-finance/tokeneconomics/scrd-token-supply-and-distribution">Token</Button>
+        <Button sx={{borderRadius: 'initial'}} target="_blank" href="https://sacred.gitbook.io/sacred-finance/">About</Button>
+        <Button sx={{borderRadius: 'initial'}} onClick={() => handleRoute('yield')}>Yield</Button>
+        <Button sx={{borderRadius: 'initial'}} onClick={() => handleRoute('inspect')}>Inspect</Button>
+        <Button sx={{borderRadius: 'initial'}} target="_blank" href="https://sacred.gitbook.io/sacred-finance/tokeneconomics/scrd-token-supply-and-distribution">Token</Button>
         <Button target="_blank" href="https://sacred.gitbook.io/sacred-finance/other-important-information/faq">FAQ</Button>
       </ButtonGroup>
     </Grid>
