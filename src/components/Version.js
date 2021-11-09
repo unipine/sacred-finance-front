@@ -11,6 +11,10 @@ const VersionSelect = styled(Select)`
   &.Mui-focused {
     background-color: #ef646d;
     color: #ffffff;
+
+    fieldset {
+      border-color: #ef646d !important;
+    }
   }
   transition: all 0.5s;
 `;
@@ -23,8 +27,8 @@ const VersionLabel = styled(InputLabel)`
 `;
 
 const CustomMenuItem = styled(MenuItem)`
-  &.MuiMenuItem-root Mui-selected,
-  &.Mui-selected, &.Mui-selected:hover {
+  &.Mui-selected,
+  &.Mui-selected:hover {
     background-color: rgba(0, 0, 0, 0.08);
   }
 `;
@@ -49,21 +53,30 @@ const Version = ({ handleNetworkId, networkId, handleAlert }) => {
   };
 
   return (
-    <div>
-      <FormControl variant="outlined">
-        <VersionLabel id="network-select-label">
-          Network
-        </VersionLabel>
-        <VersionSelect
-          labelId="network-select-label"
-          value={versionChainId}
-          onChange={handleChange}
-        >
-          <CustomMenuItem value={1}>Ethereum Mainnet</CustomMenuItem>
-          <CustomMenuItem value={42}>Kovan Testnet</CustomMenuItem>
-        </VersionSelect>
-      </FormControl>
-    </div>
+      <div>
+        <FormControl variant="outlined">
+          <VersionLabel id="network-select-label">Network</VersionLabel>
+          <VersionSelect
+            labelId="network-select-label"
+            value={versionChainId}
+            onChange={handleChange}
+            MenuProps={{
+              anchorOrigin: {
+                vertical: "top",
+                horizontal: "center",
+              },
+              transformOrigin: {
+                vertical: "top",
+                horizontal: "center",
+              },
+              getContentAnchorEl: null,
+            }}
+          >
+            <CustomMenuItem value={1}>Ethereum Mainnet</CustomMenuItem>
+            <CustomMenuItem value={42}>Kovan Testnet</CustomMenuItem>
+          </VersionSelect>
+        </FormControl>
+      </div>
   );
 };
 
