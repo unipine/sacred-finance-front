@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 
 const injectedConnector = new InjectedConnector({
   supportedChainIds: [
-    1, // Ethereum Mainnet
+    // 1, // Ethereum Mainnet
     42, // Kovan Testnet
   ],
 });
