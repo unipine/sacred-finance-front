@@ -2,30 +2,18 @@ import React from "react";
 import i18next from "i18next";
 
 import FormControl from "@mui/material/FormControl";
-import makeStyles from '@mui/styles/makeStyles';
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useState, useEffect } from "react";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme) => ({
-    formControl: {
-        // margin: theme.spacing(1),
-        // minWidth: 120,
-        // width: "95%",
-    },
-    input: {
-        "&.Mui-focused": {
-            backgroundColor: "#EF646D",
-            color: "#FFFFFF",
-            // fontWeight: "bold",
-        },
-        color: "#FFFFFF",
-        borderColor: "white",
-        labelStyle: {
-            color: "#FFFFFF",
-        },
-    },
-}));
+const CustomSelect = styled(Select)`
+  &.Mui-focused {
+    background-color: #ef646d;
+    color: #ffffff;
+  }
+  transition: all 0.5s;
+`;
 
 const languageMap = {
     en: {
@@ -39,7 +27,6 @@ const languageMap = {
 };
 
 const LanguageSelect = () => {
-    const classes = useStyles();
 
     const [language, setLanguage] = useState("en");
 
@@ -52,16 +39,15 @@ const LanguageSelect = () => {
     }, [language]);
 
     return (
-        <FormControl variant="outlined" className={classes.formControl}>
-            <Select
+        <FormControl variant="outlined">
+            <CustomSelect
                 labelId="network-select-label"
                 value={language}
                 onChange={handleChange}
-                className={classes.input}
             >
                 <MenuItem button value="en">{languageMap.en.label}</MenuItem>
                 <MenuItem button value="ch">{languageMap.ch.label}</MenuItem>
-            </Select>
+            </CustomSelect>
         </FormControl>
     );
 };
