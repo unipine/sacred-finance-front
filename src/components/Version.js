@@ -22,6 +22,13 @@ const VersionLabel = styled(InputLabel)`
   color: #ffffff;
 `;
 
+const CustomMenuItem = styled(MenuItem)`
+  &.MuiMenuItem-root Mui-selected,
+  &.Mui-selected, &.Mui-selected:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+`;
+
 const Version = ({ handleNetworkId, networkId, handleAlert }) => {
   const [versionChainId, setVersionChainId] = useState(networkId);
   const { chainId } = useWeb3React();
@@ -52,8 +59,8 @@ const Version = ({ handleNetworkId, networkId, handleAlert }) => {
           value={versionChainId}
           onChange={handleChange}
         >
-          <MenuItem value={1}>Ethereum Mainnet</MenuItem>
-          <MenuItem value={42}>Kovan Testnet</MenuItem>
+          <CustomMenuItem value={1}>Ethereum Mainnet</CustomMenuItem>
+          <CustomMenuItem value={42}>Kovan Testnet</CustomMenuItem>
         </VersionSelect>
       </FormControl>
     </div>

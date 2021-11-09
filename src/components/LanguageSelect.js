@@ -15,6 +15,13 @@ const CustomSelect = styled(Select)`
   transition: all 0.5s;
 `;
 
+const CustomMenuItem = styled(MenuItem)`
+  &.MuiMenuItem-root Mui-selected,
+  &.Mui-selected, &.Mui-selected:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+`;
+
 const languageMap = {
     en: {
         label: "English",
@@ -45,8 +52,8 @@ const LanguageSelect = () => {
                 value={language}
                 onChange={handleChange}
             >
-                <MenuItem button value="en">{languageMap.en.label}</MenuItem>
-                <MenuItem button value="ch">{languageMap.ch.label}</MenuItem>
+                <CustomMenuItem button value="en">{languageMap.en.label}</CustomMenuItem>
+                <CustomMenuItem button value="ch">{languageMap.ch.label}</CustomMenuItem>
             </CustomSelect>
         </FormControl>
     );
