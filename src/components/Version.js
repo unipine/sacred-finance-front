@@ -1,47 +1,41 @@
 import React from "react";
 import FormControl from "@mui/material/FormControl";
-import makeStyles from '@mui/styles/makeStyles';
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import { useState } from "react";
 import { useWeb3React } from "@web3-react/core";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    // margin: theme.spacing(1),
-    // minWidth: 120,
-    // width: "95%",
-  },
-  input: {
-    "&.Mui-focused": {
-      backgroundColor: "#EF646D",
-      color: "#FFFFFF",
-      // fontWeight: "bold",
-    },
-    color: "#FFFFFF",
-    borderColor: "white",
-    labelStyle: {
-      color: "#FFFFFF",
-    },
-  },
-}));
+const VersionSelect = styled(Select)`
+  &.Mui-focused {
+    background-color: #ef646d;
+    color: #ffffff;
+  }
+  transition: all 0.5s;
+`;
+
+const VersionLabel = styled(InputLabel)`
+  &.Mui-focused {
+    color: #ffffff;
+  }
+  color: #ffffff;
+`;
 
 const Version = ({ handleNetworkId, networkId, handleAlert }) => {
-  const classes = useStyles();
   const [versionChainId, setVersionChainId] = useState(networkId);
   const { chainId } = useWeb3React();
 
   const handleChange = async (event) => {
     if (chainId !== undefined) {
-      let sacredChainId = '0x' + parseInt(event.target.value).toString(16);
+      let sacredChainId = "0x" + parseInt(event.target.value).toString(16);
       await window.ethereum
         .request({
-          method: 'wallet_switchEthereumChain',
+          method: "wallet_switchEthereumChain",
           params: [{ chainId: sacredChainId }],
         })
-        .then(res => console.log(res))
-        .then(err => console.log(err));
+        .then((res) => console.log(res))
+        .then((err) => console.log(err));
     }
     setVersionChainId(event.target.value);
     handleNetworkId(event.target.value);
@@ -49,19 +43,18 @@ const Version = ({ handleNetworkId, networkId, handleAlert }) => {
 
   return (
     <div>
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="network-select-label" style={{ color: "white" }}>
+      <FormControl variant="outlined">
+        <VersionLabel id="network-select-label">
           Network
-        </InputLabel>
-        <Select
+        </VersionLabel>
+        <VersionSelect
           labelId="network-select-label"
           value={versionChainId}
           onChange={handleChange}
-          className={classes.input}
         >
           <MenuItem value={1}>Ethereum Mainnet</MenuItem>
           <MenuItem value={42}>Kovan Testnet</MenuItem>
-        </Select>
+        </VersionSelect>
       </FormControl>
     </div>
   );

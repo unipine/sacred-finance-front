@@ -4,6 +4,7 @@ const Theme = createTheme({
   palette: {
     primary: {
       main: "#EF646D",
+      light: "#bdbdbd"
     },
     secondary: {
       main: "#EF646D",
@@ -13,7 +14,6 @@ const Theme = createTheme({
     },
   },
   components: {
-    
     MuiPaper: {
       styleOverrides: {
         rounded: {
@@ -33,6 +33,7 @@ const Theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: "35px",
+          color: "#ffffff"
         },
         input: {
           // marginLeft: "10px",
