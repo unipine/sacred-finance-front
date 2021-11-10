@@ -22,51 +22,27 @@ const CustomButton = styled(Button)`
   fontweight: bold;
 `;
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    width: "95%",
-  },
-  input: {
-    paddingTop: theme.spacing(0.5),
-    "&.Mui-focused": {
-      backgroundColor: "#EF646D",
-      color: "#FFFFFF",
-      fontWeight: "bold",
-    },
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  toggleButtonGroup: {
-    minWidth: 120,
-    margin: theme.spacing(1),
-    height: theme.spacing(8),
-    //width: '95%'
-  },
-  toggleButtonLeft: {
-    borderBottomLeftRadius: "25px",
-    borderTopLeftRadius: "25px",
-  },
-  toggleButtonRight: {
-    borderBottomRightRadius: "25px",
-    borderTopRightRadius: "25px",
-  },
-  buttonColor: {
-    // "&.Mui-selected": {
-    //   backgroundColor: "#EF646D",
-    //   color: "#FFFFFF",
-    // },
-  },
-  headerBtn: {
-    // marginTop: "-10px",
-    // fontSize: "20px",
-    // fontFamily: "Montserrat",
-    // textTransform: "none",
-    // fontWeight: "bold",
-  },
-}));
+const CustomToggleButtonGroup = styled(ToggleButtonGroup)`
+  min-width: 120px;
+  margin: ${(props) => props.theme.spacing(1)};
+  height: ${(props) => props.theme.spacing(8)};
+`;
+
+const CustomFormControl = styled(FormControl)`
+  margin: ${(props) => props.theme.spacing(1)};
+  minwidth: 120px;
+  width: 95%;
+`;
+
+const CustomSelect = styled(Select)`
+  padding-top: ${props => props.theme.spacing(0.5)};
+  color: rgba(0, 0, 0, 0.87);
+  &.Mui-focused {
+    background-color: #ef646d;
+    color: #ffffff;
+  }
+  transition: all 0.5s;
+`;
 
 const Deposit = ({
   deployment,
@@ -75,7 +51,6 @@ const Deposit = ({
   handleSetAmount,
 }) => {
   const history = useHistory();
-  const classes = useStyles();
   // const [token, setToken] = React.useState(deployment.symbol);
   // const [amount, setAmount] = React.useState(deployment.amount);
   const [btnDisabled, setBtnDisabled] = useState(true);
@@ -124,17 +99,14 @@ const Deposit = ({
               alignItems="center"
             >
               <Grid item>
-                <CustomButton
-                  variant="text"
-                  sx={{ marginLeft: "10px" }}
-                >
+                <CustomButton variant="text darkBlack" sx={{ ml: "10px" }}>
                   <b>{t("Deposit")}</b>
                 </CustomButton>
               </Grid>
               <Grid item>
                 <CustomButton
-                  variant="text"
-                  sx={{ color: "#A7A9AC", marginRight: "10px" }}
+                  variant="text darkBlack"
+                  sx={{mr: "10px" }}
                   onClick={handleWithdrawRoute}
                 >
                   {t("Withdraw")}
@@ -143,13 +115,12 @@ const Deposit = ({
             </Grid>
             <Grid item container direction="column" alignItems="flex-start">
               <br />
-              <span style={{ marginLeft: "10px" }}>{t("Token")}</span>
+              <span style={{ ml: "10px" }}>{t("Token")}</span>
 
-              <FormControl variant="outlined" className={classes.formControl}>
-                <Select
+              <CustomFormControl variant="outlined">
+                <CustomSelect
                   value={deployment.symbol}
                   onChange={handleChange}
-                  className={classes.input}
                   MenuProps={{
                     anchorOrigin: {
                       vertical: "top",
@@ -161,24 +132,26 @@ const Deposit = ({
                   {/* <MenuItem value={'cBTC'}>cBTC</MenuItem>
                   <MenuItem value={'cUSDT'}>cUSDT</MenuItem>
                   <MenuItem value={'cETH'}>cETH</MenuItem> */}
-                </Select>
-              </FormControl>
+                </CustomSelect>
+              </CustomFormControl>
             </Grid>
             <Grid item></Grid>
             <Grid item container direction="column" alignItems="flex-start">
-              <span style={{ marginLeft: "10px" }}>{t("Amount")}</span>
+              <span sx={{ ml: "10px" }}>{t("Amount")}</span>
 
               <Grid item container direction="row" justifyContent="center">
                 <Grid item>
-                  <ToggleButtonGroup
-                    className={classes.toggleButtonGroup}
+                  <CustomToggleButtonGroup
                     value={deployment.amount}
                     exclusive
                     onChange={handleAmount}
                     aria-label="text amount"
                   >
                     <ToggleButton
-                      className={`${classes.toggleButtonLeft}`}
+                      sx={{
+                        borderBottomLeftRadius: "25px",
+                        borderTopLeftRadius: "25px",
+                      }}
                       value={deployment.denominations[0]}
                       aria-label={deployment.denominations[0]}
                     >
@@ -203,7 +176,10 @@ const Deposit = ({
                     </ToggleButton>
 
                     <ToggleButton
-                      className={`${classes.toggleButtonRight}`}
+                      sx={{
+                        borderBottomRightRadius: "25px",
+                        borderTopRightRadius: "25px",
+                      }}
                       value={deployment.denominations[3]}
                       aria-label={deployment.denominations[3]}
                       disabled={true}
@@ -211,7 +187,7 @@ const Deposit = ({
                       <strong>{deployment.denominations[3]}</strong>&nbsp;
                       {deployment.symbol}
                     </ToggleButton>
-                  </ToggleButtonGroup>
+                  </CustomToggleButtonGroup>
                 </Grid>
               </Grid>
             </Grid>
