@@ -3,15 +3,24 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from "@mui/styles/makeStyles";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { styled } from "@mui/material/styles";
+
+const CustomButton = styled(Button)`
+  margin-top: -10px;
+  font-size: 20px;
+  font-family: Montserrat;
+  texttransform: none;
+  fontweight: bold;
+`;
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -20,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     width: "95%",
   },
   input: {
+    paddingTop: theme.spacing(0.5),
     "&.Mui-focused": {
       backgroundColor: "#EF646D",
       color: "#FFFFFF",
@@ -44,17 +54,17 @@ const useStyles = makeStyles((theme) => ({
     borderTopRightRadius: "25px",
   },
   buttonColor: {
-    "&.Mui-selected": {
-      backgroundColor: "#EF646D",
-      color: "#FFFFFF",
-    },
+    // "&.Mui-selected": {
+    //   backgroundColor: "#EF646D",
+    //   color: "#FFFFFF",
+    // },
   },
   headerBtn: {
-    marginTop: "-10px",
-    fontSize: "20px",
-    fontFamily: "Montserrat",
-    textTransform: "none",
-    fontWeight: "bold",
+    // marginTop: "-10px",
+    // fontSize: "20px",
+    // fontFamily: "Montserrat",
+    // textTransform: "none",
+    // fontWeight: "bold",
   },
 }));
 
@@ -114,23 +124,21 @@ const Deposit = ({
               alignItems="center"
             >
               <Grid item>
-                <Button
+                <CustomButton
                   variant="text"
-                  className={classes.headerBtn}
-                  style={{ marginLeft: "10px" }}
+                  sx={{ marginLeft: "10px" }}
                 >
                   <b>{t("Deposit")}</b>
-                </Button>
+                </CustomButton>
               </Grid>
               <Grid item>
-                <Button
+                <CustomButton
                   variant="text"
-                  className={classes.headerBtn}
-                  style={{ color: "#A7A9AC", marginRight: "10px" }}
+                  sx={{ color: "#A7A9AC", marginRight: "10px" }}
                   onClick={handleWithdrawRoute}
                 >
                   {t("Withdraw")}
-                </Button>
+                </CustomButton>
               </Grid>
             </Grid>
             <Grid item container direction="column" alignItems="flex-start">
@@ -142,6 +150,12 @@ const Deposit = ({
                   value={deployment.symbol}
                   onChange={handleChange}
                   className={classes.input}
+                  MenuProps={{
+                    anchorOrigin: {
+                      vertical: "top",
+                      horizontal: "center",
+                    },
+                  }}
                 >
                   <MenuItem value={"ETH"}>ETH</MenuItem>
                   {/* <MenuItem value={'cBTC'}>cBTC</MenuItem>
@@ -164,7 +178,7 @@ const Deposit = ({
                     aria-label="text amount"
                   >
                     <ToggleButton
-                      className={`${classes.toggleButtonLeft} ${classes.buttonColor}`}
+                      className={`${classes.toggleButtonLeft}`}
                       value={deployment.denominations[0]}
                       aria-label={deployment.denominations[0]}
                     >
@@ -172,7 +186,6 @@ const Deposit = ({
                       {deployment.symbol}
                     </ToggleButton>
                     <ToggleButton
-                      className={classes.buttonColor}
                       value={deployment.denominations[1]}
                       aria-label={deployment.denominations[1]}
                       disabled={true}
@@ -181,7 +194,6 @@ const Deposit = ({
                       {deployment.symbol}
                     </ToggleButton>
                     <ToggleButton
-                      className={classes.buttonColor}
                       value={deployment.denominations[2]}
                       aria-label={deployment.denominations[2]}
                       disabled={true}
@@ -191,7 +203,7 @@ const Deposit = ({
                     </ToggleButton>
 
                     <ToggleButton
-                      className={`${classes.toggleButtonRight} ${classes.buttonColor}`}
+                      className={`${classes.toggleButtonRight}`}
                       value={deployment.denominations[3]}
                       aria-label={deployment.denominations[3]}
                       disabled={true}
