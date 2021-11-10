@@ -106,7 +106,7 @@ const Deposit = ({
               <Grid item>
                 <CustomButton
                   variant="text darkBlack"
-                  sx={{mr: "10px" }}
+                  sx={{  color: "#A7A9AC",mr: "10px" }}
                   onClick={handleWithdrawRoute}
                 >
                   {t("Withdraw")}
@@ -115,7 +115,7 @@ const Deposit = ({
             </Grid>
             <Grid item container direction="column" alignItems="flex-start">
               <br />
-              <span style={{ ml: "10px" }}>{t("Token")}</span>
+              <span style={{ ml: "10px", }}>{t("Token")}</span>
 
               <CustomFormControl variant="outlined">
                 <CustomSelect

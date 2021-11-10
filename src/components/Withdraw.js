@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from "@mui/styles/makeStyles";
 import { useHistory, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { parseNote } from "../conflux/utils";
@@ -14,30 +14,31 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import WaitingModal from "./WaitingModal";
 import { useTranslation } from "react-i18next";
+import { styled } from "@mui/material/styles";
 
 const web3Utils = require("web3-utils");
 
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    margin: theme.spacing(1),
-    "& .MuiInputBase-input": {
-      marginLeft: "10px",
-      marginBottom: "10px",
-    },
-  },
-  headerBtn: {
-    marginTop: "-10px",
-    fontSize: "20px",
-    fontFamily: "Montserrat",
-    textTransform: "none",
-    fontWeight: "bold",
-  },
-  inspect: {
-    position: "relative",
-    left: "-100%",
-    cursor: "pointer",
-  },
-}));
+const CustomButton = styled(Button)`
+  margin-top: -10px;
+  font-size: 20px;
+  font-family: Montserrat;
+  texttransform: none;
+  fontweight: bold;
+`;
+
+const CustomTextField = styled(TextField)`
+  margin: ${(props) => props.theme.spacing(1)};
+  & .MuiInputBase-input {
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+`;
+
+const inspect = {
+  position: "relative",
+  left: "-100%",
+  cursor: "pointer",
+};
 
 const isLikeBase32Address = (addr) => {
   // this won't return false when there's net1029, net1
@@ -46,9 +47,14 @@ const isLikeBase32Address = (addr) => {
   );
 };
 
-const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelayer, relayerOption }) => {
+const Withdraw = ({
+  handleWithdraw,
+  deployment,
+  handleSetDeployment,
+  handleRelayer,
+  relayerOption,
+}) => {
   const history = useHistory();
-  const classes = useStyles();
   const location = useLocation();
   const { account } = useWeb3React();
   const { t } = useTranslation();
@@ -91,13 +97,13 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
 
   const handleRelayerOption = (event) => {
     handleRelayer(event.target.checked);
-  }
+  };
 
   useEffect(() => {
     if (waiting) {
       sendWithdraw();
     }
-  }, [waiting])
+  }, [waiting]);
 
   //TODO optimize this as there's time lag to parse the note
   useEffect(() => {
@@ -122,7 +128,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
   return (
     <div
       onClick={handleWithdrawRoute}
-      className={location.pathname === "/inspect" ? classes.inspect : ""}
+      sx={location.pathname === "/inspect" ? inspect : ""}
     >
       <Paper>
         <Box p={3}>
@@ -136,31 +142,28 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
               alignItems="center"
             >
               <Grid item>
-                <Button
-                  variant="text"
-                  className={classes.headerBtn}
-                  style={{ color: "#A7A9AC", marginLeft: "10px" }}
+                <CustomButton
+                  variant="text darkBlack"
+                  sx={{ color: "#A7A9AC", ml: "10px" }}
                   onClick={handleDepositRoute}
                 >
                   {t("Deposit")}
-                </Button>
+                </CustomButton>
               </Grid>
               <Grid item>
-                <Button
-                  variant="text"
-                  className={classes.headerBtn}
-                  style={{ marginRight: "10px" }}
+                <CustomButton
+                  variant="text darkBlack"
+                  sx={{ mr: "10px", color: "rgba(0, 0, 0, 0.87)" }}
                 >
                   <b>{t("Withdraw")}</b>
-                </Button>
+                </CustomButton>
               </Grid>
             </Grid>
             <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
                 <br />
-                <span style={{ marginLeft: "10px" }}>{t("Sacred Claim")}</span>
-                <TextField
-                  className={classes.textField}
+                <span sx={{ ml: "10px" }}>{t("Sacred Claim")}</span>
+                <CustomTextField
                   variant="filled"
                   size="small"
                   onChange={handleClaim}
@@ -173,9 +176,8 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
             </Grid>
             <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
-                <span style={{ marginLeft: "10px" }}>{t("Recipient Address")}</span>
-                <TextField
-                  className={classes.textField}
+                <span sx={{ ml: "10px" }}>{t("Recipient Address")}</span>
+                <CustomTextField
                   variant="filled"
                   size="small"
                   onChange={handleRecipient}
@@ -187,7 +189,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
                   <span
                     className="blue-text"
                     onClick={handleCurrentAddress}
-                    style={{ cursor: "pointer" }}
+                    sx={{ cursor: "pointer" }}
                   >
                     <small>
                       <b>Use current address</b>
@@ -202,7 +204,7 @@ const Withdraw = ({ handleWithdraw, deployment, handleSetDeployment, handleRelay
               <Button
                 variant="contained"
                 color="secondary"
-                style={{ textTransform: "none", fontWeight: "bold" }}
+                sx={{ textTransform: "none", fontWeight: "bold" }}
                 fullWidth
                 onClick={handleClick}
                 disabled={btnDisabled}
