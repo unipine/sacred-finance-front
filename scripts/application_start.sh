@@ -14,6 +14,8 @@ export NVM_DIR="$HOME/.nvm"
 #install node modules
 npm install
 
+nvm install --lts
+
 #build
 npm run build
 
