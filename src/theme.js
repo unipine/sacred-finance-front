@@ -12,6 +12,9 @@ const Theme = createTheme({
     third: {
       main: "#5B5A99",
     },
+    darkBlack: {
+      main: "#000000",
+    }
   },
   components: {
     MuiPaper: {
@@ -44,11 +47,28 @@ const Theme = createTheme({
         },
       },
     },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          "&.Mui-selected": {
+            backgroundColor: "#EF646D",
+            color: "#FFFFFF",
+            fontWeight: "bold",
+          },
+          transition: "all 0.5s",
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {
           borderRadius: "35px",
-          color: "#ffffff"
+          color: "rgba(0,0,0,0.87)",
+          "&.Mui-selected": {
+            backgroundColor: "#EF646D",
+            color: "#FFFFFF",
+            fontWeight: "bold",
+          },
         },
         input: {
           // marginLeft: "10px",
