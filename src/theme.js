@@ -29,6 +29,7 @@ const Theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: "35px",
+          textTransform: "none",
           "&.Mui-selected": {
             backgroundColor: "#EF646D",
             color: "#FFFFFF",
