@@ -1,69 +1,71 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@mui/styles";
 import { Grid, Button, LinearProgress } from "@mui/material";
 import { useHistory, useLocation } from "react-router-dom";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme) => ({
-    body: {
-        paddingTop: '80px',
-        paddingBottom: '80px',
-        fontFamily: [
-            'Montserrat'
-        ],
-    },
+const CustomGrid = styled(Grid)`
+  padding-top: 80px;
+  padding-bottom: 80px;
+  font-family: "Montserrat";
+  color: #ffffff;
+`;
 
-    title1: {
-        color: '#ffffff',
-        fontSize: '51px',
-    },
+const Title = styled("div")`
+  color: inherit;
+  font-size: 51px;
+`;
 
-    title2: {
-        background: 'linear-gradient(#92278F, #EF646D)',
-        fontSize: '60px',
-        fontWeight: 700,
-        paddingBottom: '18px',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-    },
+const YieldTitle = styled("div")`
+  background: linear-gradient(#92278f, #ef646d);
+  font-size: 60px;
+  font-weight: 700;
+  padding-bottom: 18px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
 
-    content: {
-        color: "#ffffff", 
-        fontSize: "18px",
-        paddingBottom: '32px',
-    },
-    
-    button: {
-        textTransform: "none",
-        fontWeight: "bold",
-        fontSize: '24px',
-        width: '20%'
-    }
-}));
+const Content = styled("div")`
+  color: inherit;
+  font-size: 18px;
+  padding-bottom: 32px;
+`;
+
+const CustomButton = styled(Button)`
+  font-weight: bold;
+  font-size: 24px;
+  width: 20%;
+`;
 
 const YieldRedemption = () => {
-    const classes = useStyles();
-    const history = useHistory();
-    const location = useLocation();
+  const history = useHistory();
+  const location = useLocation();
 
-    const handleClick = () => {
-        history.push("/yieldSetup");
-    };
+  const handleClick = () => {
+    history.push("/yieldSetup");
+  };
 
-    return (
-        <Grid item direction="column" alignItems="center" justifyContent="center" className={classes.body}>
-            <div className={classes.title1}>Sacred.Finance</div>
-            <div className={classes.title2}>Yield Redemption</div>
-            <div className={classes.content}>Create a Shielded Account and calculate your<br /> Yield Points to privately redeem your Yield</div>
-            <Button
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                onClick={handleClick}
-            >
-                Get Started
-            </Button>
-        </Grid>
-    );
+  return (
+    <CustomGrid
+      item
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Title>Sacred.Finance</Title>
+      <YieldTitle>Yield Redemption</YieldTitle>
+      <Content>
+        Create a Shielded Account and calculate your
+        <br /> Yield Points to privately redeem your Yield
+      </Content>
+      <CustomButton
+        variant="contained"
+        color="secondary"
+        onClick={handleClick}
+      >
+        Get Started
+      </CustomButton>
+    </CustomGrid>
+  );
 };
 
 export default YieldRedemption;
