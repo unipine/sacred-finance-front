@@ -36,7 +36,7 @@ const CustomFormControl = styled(FormControl)`
 
 const CustomSelect = styled(Select)`
   padding-top: ${props => props.theme.spacing(0.5)};
-  color: rgba(0, 0, 0, 0.87);
+  color: #ffffff;
   &.Mui-focused {
     background-color: #ef646d;
     color: #ffffff;
