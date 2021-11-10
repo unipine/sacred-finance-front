@@ -15,5 +15,5 @@ else
 fi
 
 #install pm2
-npm install -g server
+npm install -g serve
 npm install -g pm2
