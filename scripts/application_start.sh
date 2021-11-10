@@ -16,6 +16,8 @@ npm install
 
 nvm install --lts
 
+pm2 kill
+
 #build
 npm run build
 
