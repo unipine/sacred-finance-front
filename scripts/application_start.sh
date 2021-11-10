@@ -16,10 +16,5 @@ npm install
 
 nvm install --lts
 
-pm2 kill
-
 #build
 npm run build
-
-#start our node app in the background
-pm2 serve build 3000 --spa

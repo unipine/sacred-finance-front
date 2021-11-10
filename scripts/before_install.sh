@@ -14,7 +14,3 @@ else
   echo "Creating ${DIR} directory"
   mkdir ${DIR}
 fi
-
-#install pm2
-npm install -g serve
-npm install -g pm2
