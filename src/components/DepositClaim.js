@@ -7,26 +7,22 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import TextField from "@mui/material/TextField";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import { useRef, useState } from "react";
-import makeStyles from '@mui/styles/makeStyles';
 import { useHistory } from "react-router-dom";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import { useTranslation } from "react-i18next";
 
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    margin: theme.spacing(1),
-    width: "95%",
-    "& .MuiInputBase-input": {
-      marginLeft: "10px",
-      marginBottom: "10px",
-    },
-  },
-}));
+import { styled } from "@mui/material/styles";
+
+const CustomTextField = styled(TextField)`
+  margin: ${(props) => props.theme.spacing(1)};
+  & .MuiInputBase-input {
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+`;
 
 const DepositClaim = ({ deposit, deployment }) => {
   const history = useHistory();
-
-  const classes = useStyles();
 
   const { t } = useTranslation();
 
@@ -75,7 +71,8 @@ const DepositClaim = ({ deposit, deployment }) => {
             >
               <Grid item>
                 <Button
-                  variant="text"
+                  variant="text darkBlack"
+                  sx={{ml: "-10px"}}
                   startIcon={<ArrowBackIosIcon />}
                   onClick={handleDepositRoute}
                 >
@@ -90,8 +87,7 @@ const DepositClaim = ({ deposit, deployment }) => {
               {t("In order to withdraw your deposit, you will have to enter this Claim:")}
             </Grid>
             <Grid item>
-              <TextField
-                className={classes.textField}
+              <CustomTextField
                 multiline
                 ref={textAreaRef}
                 value={deposit.note}
@@ -108,7 +104,7 @@ const DepositClaim = ({ deposit, deployment }) => {
                   variant="outlined"
                   startIcon={<FileCopyOutlinedIcon />}
                   color="secondary"
-                  style={{ textTransform: "none", fontWeight: "bold" }}
+                  sx={{ textTransform: "none", fontWeight: "bold" }}
                   fullWidth
                   onClick={copyToClipboard}
                 >
@@ -120,7 +116,7 @@ const DepositClaim = ({ deposit, deployment }) => {
                   variant="outlined"
                   startIcon={<SaveOutlinedIcon />}
                   color="secondary"
-                  style={{ textTransform: "none", fontWeight: "bold" }}
+                  sx={{ textTransform: "none", fontWeight: "bold" }}
                   fullWidth
                   onClick={downloadClaim}
                 >
@@ -136,7 +132,7 @@ const DepositClaim = ({ deposit, deployment }) => {
               <Button
                 variant="contained"
                 color="secondary"
-                style={{ textTransform: "none", fontWeight: "bold" }}
+                sx={{ textTransform: "none", fontWeight: "bold" }}
                 fullWidth
                 onClick={handleClick}
               >
