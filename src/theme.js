@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material/styles";
 const Theme = createTheme({
   palette: {
     primary: {
-      main: "#EF646D",
+      main: "#bdbdbd",
       light: "#bdbdbd"
     },
     secondary: {
@@ -26,6 +26,21 @@ const Theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: "35px",
+          "&.Mui-selected": {
+            backgroundColor: "#EF646D",
+            color: "#FFFFFF",
+          },
+        },
+      },
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: "35px",
+          "&.Mui-selected": {
+            backgroundColor: "#EF646D",
+            color: "#FFFFFF",
+          },
         },
       },
     },
