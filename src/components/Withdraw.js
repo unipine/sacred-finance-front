@@ -144,7 +144,7 @@ const Withdraw = ({
               <Grid item>
                 <CustomButton
                   variant="text darkBlack"
-                  sx={{ color: "#A7A9AC", ml: "10px" }}
+                  sx={{ color: "#A7A9AC", ml: 0.5 }}
                   onClick={handleDepositRoute}
                 >
                   {t("Deposit")}
@@ -153,7 +153,7 @@ const Withdraw = ({
               <Grid item>
                 <CustomButton
                   variant="text darkBlack"
-                  sx={{ mr: "10px", color: "rgba(0, 0, 0, 0.87)" }}
+                  sx={{ mr: 0.5, color: "rgba(0, 0, 0, 0.87)" }}
                 >
                   <b>{t("Withdraw")}</b>
                 </CustomButton>
@@ -162,7 +162,7 @@ const Withdraw = ({
             <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
                 <br />
-                <span sx={{ ml: "10px" }}>{t("Sacred Claim")}</span>
+                <span sx={{ ml: 0.5 }}>{t("Sacred Claim")}</span>
                 <CustomTextField
                   variant="filled"
                   size="small"
@@ -176,7 +176,7 @@ const Withdraw = ({
             </Grid>
             <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
-                <span sx={{ ml: "10px" }}>{t("Recipient Address")}</span>
+                <span sx={{ ml: 0.5 }}>{t("Recipient Address")}</span>
                 <CustomTextField
                   variant="filled"
                   size="small"
