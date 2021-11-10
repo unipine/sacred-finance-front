@@ -13,3 +13,7 @@ else
   echo "Creating ${DIR} directory"
   mkdir ${DIR}
 fi
+
+#install pm2
+npm install -g server
+npm install -g pm2
