@@ -5,124 +5,132 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { InputLabel } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
 import { useHistory, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import WaitingModal from "./WaitingModal";
 import { Radio, RadioGroup, FormControl } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme) => ({
-    body: {
-        textAlign: 'left',
-    },
-    fontItalic: {
-        fontStyle: 'italic',
-    },
-    copy: {
-        color: '#EF646D',
-        textDecoration: 'underline',
-    },
-    textField: {
-        margin: theme.spacing(1),
-        borderRadius: "22px",
-        "& .MuiInputBase-input": {
-            marginLeft: "10px",
-            marginBottom: "10px",
-        },
-    },
-    button: {
-        margin: '20px',
-        marginBottom: '0px',
-        fontWeight: "bold",
-        fontSize: '24px',
-    }
-}));
+const CustomButton = styled(Button)`
+  margin: 20px;
+  margin-bottom: 0;
+  font-weight: bold;
+  font-size: 24px;
+`;
+
+const CustomTextField = styled(TextField)`
+  margin: ${(props) => props.theme.spacing(1)};
+  border-radius: 22px;
+  &.MuiInputBase-input {
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+`;
 
 const YieldRedemptionSetup = () => {
-    const classes = useStyles();
-    const history = useHistory();
-    const [value, setValue] = React.useState(0);
+  const history = useHistory();
+  const [value, setValue] = React.useState(0);
 
-    const handleRadioChange = (event) => {
-        setValue(event.target.value);
-    };
+  const handleRadioChange = (event) => {
+    setValue(event.target.value);
+  };
 
-    const handleSetupClick = () => {
-        history.push("/yieldManage");
-    }
+  const handleSetupClick = () => {
+    history.push("/yieldManage");
+  };
 
-    return (
-        <Paper className={classes.body}>
-            <Box p={3}>
-                <Grid container direction="column" >
-                    <Grid item>
-                        <InputLabel style={{ color: '#EF646D', fontWeight: 'bold', paddingBottom: '20px' }}>Account Setup</InputLabel>
-                    </Grid>
-                    <Grid item>
-                        <InputLabel style={{ fontStyle: 'italic', paddingBottom: '20px' }}>
-                            This key is only used to store your incognito points for the mining protocol.<br />
-                            <b>Please back it up and never share it with anyone.</b>
-                        </InputLabel>
-                    </Grid>
-                    <Grid item container direction="row" justifyContent="space-between">
-                        <InputLabel>Recovery Key</InputLabel>
-                        <InputLabel className={classes.copy}><u>Copy</u></InputLabel>
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            className={classes.textField}
-                            multiline
-                            variant="filled"
-                            size="small"
-                            InputProps={{ disableUnderline: true }}
-                            disabled
-                            fullWidth
-                        />
-                        <TextField
-                            className={classes.textField}
-                            multiline
-                            variant="filled"
-                            size="small"
-                            InputProps={{ disableUnderline: true }}
-                            disabled
-                            fullWidth
-                        />
-                    </Grid>
-                    <Grid item>
-                        <FormControl>
-                            <RadioGroup
-                                aria-label="setting"
-                                name="controlled-radio-buttons-group"
-                                value={value}
-                                onChange={handleRadioChange}
-                            >
-                                <FormControlLabel value="0" control={<Radio />} label="I backed up the recovery key" />
-                                <FormControlLabel value="1" control={<Radio />} label="Create Additional on-chain backup of your recovery key with your wallet" />
-                            </RadioGroup>
-                        </FormControl>
-                    </Grid>
-                    <Grid item container direction="column" justifyContent="center">
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            className={classes.button}
-                            onClick={handleSetupClick}
-                        >
-                            Setup
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            color="secondary"
-                            className={classes.button}
-                        >
-                            Cancel
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Box>
-        </Paper>
-    );
+  return (
+    <Paper sx={{ textAlign: "left" }}>
+      <Box p={3}>
+        <Grid container direction="column">
+          <Grid item>
+            <InputLabel
+              sx={{
+                color: "#EF646D",
+                fontWeight: "bold",
+                paddingBottom: "20px",
+              }}
+            >
+              Account Setup
+            </InputLabel>
+          </Grid>
+          <Grid item>
+            <InputLabel
+              sx={{
+                fontStyle: "italic",
+                paddingBottom: "20px",
+                whiteSpace: "pre-wrap",
+              }}
+            >
+              This key is only used to store your incognito points for the
+              mining protocol.
+              <br />
+              <b>Please back it up and never share it with anyone.</b>
+            </InputLabel>
+          </Grid>
+          <Grid item container direction="row" justifyContent="space-between">
+            <InputLabel>Recovery Key</InputLabel>
+            <InputLabel sx={{ color: "#EF646D", textDecoration: "underline" }}>
+              <u>Copy</u>
+            </InputLabel>
+          </Grid>
+          <Grid item>
+            <CustomTextField
+              multiline
+              variant="filled"
+              size="small"
+              InputProps={{ disableUnderline: true }}
+              disabled
+              fullWidth
+            />
+            <CustomTextField
+              multiline
+              variant="filled"
+              size="small"
+              InputProps={{ disableUnderline: true }}
+              disabled
+              fullWidth
+            />
+          </Grid>
+          <Grid item>
+            <FormControl>
+              <RadioGroup
+                aria-label="setting"
+                name="controlled-radio-buttons-group"
+                value={value}
+                onChange={handleRadioChange}
+              >
+                <FormControlLabel
+                  value="0"
+                  control={<Radio color="secondary" />}
+                  label="I backed up the recovery key"
+                  color="secondary"
+                />
+                <FormControlLabel
+                  value="1"
+                  control={<Radio color="secondary" />}
+                  label="Create Additional on-chain backup of your recovery key with your wallet"
+                />
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+          <Grid item container direction="column" justifyContent="center">
+            <CustomButton
+              variant="contained"
+              color="secondary"
+              onClick={handleSetupClick}
+            >
+              Setup
+            </CustomButton>
+            <CustomButton variant="outlined" color="secondary">
+              Cancel
+            </CustomButton>
+          </Grid>
+        </Grid>
+      </Box>
+    </Paper>
+  );
 };
 
 export default YieldRedemptionSetup;
