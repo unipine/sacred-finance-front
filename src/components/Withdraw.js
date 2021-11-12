@@ -128,7 +128,9 @@ const Withdraw = ({
   return (
     <div
       onClick={handleWithdrawRoute}
-      sx={location.pathname === "/inspect" ? inspect : ""}
+      style={location.pathname === "/inspect" ? {position: "relative",
+      left: "-100%",
+      cursor: "pointer"} : {}}
     >
       <Paper>
         <Box p={3}>
@@ -162,7 +164,7 @@ const Withdraw = ({
             <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
                 <br />
-                <span sx={{ ml: 0.5 }}>{t("Sacred Claim")}</span>
+                <span style={{ marginLeft: 0.5 }}>{t("Sacred Claim")}</span>
                 <CustomTextField
                   variant="filled"
                   size="small"
@@ -176,7 +178,7 @@ const Withdraw = ({
             </Grid>
             <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
-                <span sx={{ ml: 0.5 }}>{t("Recipient Address")}</span>
+                <span style={{ marginLeft: 0.5 }}>{t("Recipient Address")}</span>
                 <CustomTextField
                   variant="filled"
                   size="small"
@@ -189,7 +191,7 @@ const Withdraw = ({
                   <span
                     className="blue-text"
                     onClick={handleCurrentAddress}
-                    sx={{ cursor: "pointer" }}
+                    style={{ cursor: "pointer" }}
                   >
                     <small>
                       <b>Use current address</b>

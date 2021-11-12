@@ -1,60 +1,14 @@
 import React from "react";
-import TextField from "@mui/material/TextField";
-import makeStyles from '@mui/styles/makeStyles';
-import withStyles from '@mui/styles/withStyles';
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useHistory } from "react-router-dom";
 import DepositInfo from "./DepositInfo";
 import { useTranslation } from "react-i18next";
 
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    margin: theme.spacing(1),
-    minWidth: 600,
-    width: "100%",
-    "& .MuiInputBase-input": {
-      marginLeft: "10px",
-      marginBottom: "10px",
-    },
-  },
-  input: {
-    color: "#ffffff",
-    fontSize: "23px",
-    fontFamily: "Montserrat",
-  },
-  textAlignStyle: {
-    paddingTop: '4px',
-    textAlign: 'left',
-    overflowWrap: "anywhere"
-  }
-}));
-
-const CssTextField = withStyles({
-  root: {
-    "& label.Mui-focused": {
-      color: "white",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "white",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "white",
-      },
-      "&:hover fieldset": {
-        borderColor: "white",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "white",
-      },
-    },
-  },
-})(TextField);
+import {CustomTextField} from "./InspectMain";
 
 const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
   const history = useHistory();
-  const classes = useStyles();
 
   const { t } = useTranslation();
 
@@ -76,10 +30,8 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
           <h1>{t("This deposit is now in Sacred!")}</h1>
         </Grid>
         <Grid item xs={12}>
-          <CssTextField
-            className={classes.textField}
+          <CustomTextField
             InputProps={{
-              className: classes.input,
               disableUnderline: true,
             }}
             required
@@ -186,7 +138,7 @@ const DepositSuccessMain = ({ deposit, txReceipt, deployment }) => {
                 <Button
                   variant="contained"
                   color="secondary"
-                  style={{
+                  sx={{
                     textTransform: "none",
                     fontWeight: "bold",
                     marginRight: "50px",

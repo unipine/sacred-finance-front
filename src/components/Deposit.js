@@ -137,7 +137,7 @@ const Deposit = ({
             </Grid>
             <Grid item></Grid>
             <Grid item container direction="column" alignItems="flex-start">
-              <span sx={{ ml: 0.5 }}>{t("Amount")}</span>
+              <span style={{ marginLeft: 0.5 }}>{t("Amount")}</span>
 
               <Grid item container direction="row" justifyContent="center">
                 <Grid item>

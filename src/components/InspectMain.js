@@ -1,7 +1,5 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import makeStyles from '@mui/styles/makeStyles';
-import withStyles from '@mui/styles/withStyles';
 import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { parseNote, toHex, loadDepositData } from "../conflux/utils";
@@ -13,63 +11,56 @@ import { useLocation } from "react-router";
 import { useWeb3React } from "@web3-react/core";
 import { useTranslation } from "react-i18next";
 import DepositInfo from "./DepositInfo";
+import { styled } from "@mui/material/styles";
 
 const { format } = require("js-conflux-sdk");
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    margin: theme.spacing(1),
-    minWidth: 600,
-    width: "100%",
-    "& .MuiInputBase-input": {
-      marginLeft: "10px",
-      marginBottom: "10px",
-    },
-  },
-  input: {
-    color: "#ffffff",
-    fontSize: "23px",
-    fontFamily: "Montserrat",
-  },
-  inspect: {
-    position: "relative",
-    left: "-20%",
-  },
-  return: {
-    position: "absolute",
-    right: "100%",
-    fontSize: "23px",
-    fontWeight: "bold",
-    cursor: "pointer",
-  },
-}));
+const ReturnIcon = styled(Grid)`
+  position: absolute;
+  right: 100%;
+  font-size: 23px;
+  fontweight: bold;
+  cursor: pointer;
+`;
 
-const CssTextField = withStyles({
-  root: {
-    "& label.Mui-focused": {
-      color: "white",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "white",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "white",
-      },
-      "&:hover fieldset": {
-        borderColor: "white",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "white",
-      },
-    },
-  },
-})(TextField);
+export const CustomTextField = styled(TextField)`
+  margin: ${(props) => props.theme.spacing(1)};
+  min-width: 600px;
+  width: 100%;
+  & .MuiInputBase-input {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-size: 23px;
+    font-family: Montserrat;
+  }
+  & label.Mui-focused {
+    color: white;
+  }
+  &.MuiInput-underline:after {
+    border-bottom-color: white;
+  }
+  & .MuiOutlinedInput-root {
+    & fieldset {
+      border-color: white;
+    }
+    &:hover fieldset {
+      border-color: white;
+    }
+    &.Mui-focused fieldset {
+      bordercolor: white;
+    }
+  }
+`;
 
-const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim, handleTransaction}) => {
-  const classes = useStyles();
+const InspectMain = ({
+  handleSetDeployment,
+  handleSetParsedNote,
+  handleSetClaim,
+  handleTransaction,
+}) => {
   const history = useHistory();
   const { t } = useTranslation();
   const location = useLocation();
@@ -104,7 +95,7 @@ const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim,
 
     let _deployment =
       deployments.eth_deployments[`netId${chainId}`][
-      parsedNote.currency.toLowerCase()
+        parsedNote.currency.toLowerCase()
       ];
 
     const deployment = {
@@ -115,70 +106,75 @@ const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim,
     };
 
     // Get all deposit events from smart contract and assemble merkle tree from them
-    console.log('Getting current state from sacred contract')
+    console.log("Getting current state from sacred contract");
     const deposit = parsedNote.deposit;
 
-    const sacred = new web3.eth.Contract(deployment.abi, deployment.address)
-    const eventWhenHappened = await sacred.getPastEvents('Deposit', {
+    const sacred = new web3.eth.Contract(deployment.abi, deployment.address);
+    const eventWhenHappened = await sacred.getPastEvents("Deposit", {
       filter: {
-        commitment: deposit.commitmentHex
+        commitment: deposit.commitmentHex,
       },
       fromBlock: 0,
-      toBlock: 'latest'
-    })
+      toBlock: "latest",
+    });
 
-    const allevents = await sacred.getPastEvents('Deposit', { fromBlock: 0, toBlock: 'latest' })
+    const allevents = await sacred.getPastEvents("Deposit", {
+      fromBlock: 0,
+      toBlock: "latest",
+    });
 
     if (eventWhenHappened.length === 0) {
-      console.log('There is no related deposit, the note is invalid');
+      console.log("There is no related deposit, the note is invalid");
       return;
     }
 
     const leaves = allevents
       .sort((a, b) => a.returnValues.leafIndex - b.returnValues.leafIndex) // Sort events in chronological order
-      .map(e => e.returnValues.commitment)
+      .map((e) => e.returnValues.commitment);
 
     // Find current commitment in the tree
 
     const depositEvent = eventWhenHappened[0];
 
-    console.log('eventWhenHappened', eventWhenHappened);
+    console.log("eventWhenHappened", eventWhenHappened);
 
-    const leafIndex = depositEvent ? depositEvent.returnValues.leafIndex : -1
+    const leafIndex = depositEvent ? depositEvent.returnValues.leafIndex : -1;
 
-    const { timestamp } = depositEvent.returnValues
-    const transactionHash = depositEvent.transactionHash
-    const receipt = await web3.eth.getTransactionReceipt(transactionHash)
+    const { timestamp } = depositEvent.returnValues;
+    const transactionHash = depositEvent.transactionHash;
+    const receipt = await web3.eth.getTransactionReceipt(transactionHash);
 
     const recipient = receipt.from;
 
     // Validate that our data is correct
-    const isSpent = await sacred.methods.isSpent(toHex(deposit.nullifierHash)).call()
+    const isSpent = await sacred.methods
+      .isSpent(toHex(deposit.nullifierHash))
+      .call();
 
     if (isSpent) {
       setStatus("This Claim has been Withdrawn");
       handleSetParsedNote(parsedNote);
       handleSetClaim(claim);
 
-      const events = await sacred.getPastEvents('Withdrawal', {
+      const events = await sacred.getPastEvents("Withdrawal", {
         fromBlock: 0,
-        toBlock: 'latest'
+        toBlock: "latest",
       });
 
       const withdrawEvent = events.filter((event) => {
-        return event.returnValues.nullifierHash === deposit.nullifierHex
-      })[0]
+        return event.returnValues.nullifierHash === deposit.nullifierHex;
+      })[0];
 
       const blockInfo = await web3.eth.getBlock(withdrawEvent.blockNumber);
 
-      console.log('withdrawEvent', withdrawEvent  )
+      console.log("withdrawEvent", withdrawEvent);
 
       receipt.timestamp = timestamp;
       receipt.withdrawTimestamp = blockInfo.timestamp;
       receipt.withdrawTransactionHash = withdrawEvent.transactionHash;
       receipt.returnValues = withdrawEvent.returnValues;
 
-      console.log('receipt', receipt);
+      console.log("receipt", receipt);
       handleTransaction(receipt);
       history.push("/inspectSuccess");
       setDisplayDepositInfo(false);
@@ -199,11 +195,17 @@ const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim,
 
   const handleWithdrawClick = () => {
     history.push("/inspectWithdraw");
-  }
+  };
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect
   return (
-    <div className={location.pathname === "/inspect" ? classes.inspect : ''}>
+    <div
+      style={
+        location.pathname === "/inspect"
+          ? { position: "relative", left: "-20%" }
+          : ""
+      }
+    >
       <Grid
         container
         direction="column"
@@ -214,16 +216,14 @@ const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim,
         <Grid item xs={12}>
           <h1>{t("Inspect Claim")}</h1>
         </Grid>
-        <div className={classes.return} onClick={handleWithdrawRoute}>
+        <ReturnIcon onClick={handleWithdrawRoute}>
           <img src={arrowReturn} alt="return" />
           <br></br>return
-        </div>
+        </ReturnIcon>
 
         <Grid item xs={12}>
-          <CssTextField
-            className={classes.textField}
+          <CustomTextField
             InputProps={{
-              className: classes.input,
               disableUnderline: true,
             }}
             placeholder="Paste your Sacred Claim to check status..."
@@ -241,7 +241,13 @@ const InspectMain = ({ handleSetDeployment, handleSetParsedNote, handleSetClaim,
         {displayDepositInfo && (
           <Grid item container xs={12} direction="row" spacing={4}>
             <Grid item xs={6}>
-              <DepositInfo txReceipt={depositData} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()} />
+              <DepositInfo
+                txReceipt={depositData}
+                deposit={parsedNote.deposit}
+                amount={
+                  parsedNote.amount + " " + parsedNote.currency.toUpperCase()
+                }
+              />
             </Grid>
 
             <Grid item xs={6}>
