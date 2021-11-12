@@ -4,10 +4,16 @@ import video from "../images/sacred_animated_white";
 import { styled } from "@mui/material/styles";
 
 const FixedBox = styled(Box)`
-  backgroundcolor: rgba(20, 20, 20, 0.85);
   position: fixed;
   zindex: 1300;
   inset: 0;
+`;
+
+const BodyBox = styled(Box)`
+  position: fixed;
+  inset: 0px;
+  backgroundcolor: rgba(20, 20, 20, 0.85);
+  z-index: -1;
 `;
 
 const ContentBox = styled(Box)`
@@ -36,10 +42,9 @@ const TextContent = styled(Typography)`
 `;
 
 const WaitingModal = (prop) => {
-
   return (
     <FixedBox>
-      <Box sx={{ zIndex: -1 }} />
+      <BodyBox />
       <ContentBox>
         <Grid item xs={12}>
           <Grid
