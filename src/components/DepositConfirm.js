@@ -130,7 +130,7 @@ const DepositConfirm = ({
             >
               <Grid item>
                 <Button
-                  variant="text"
+                  variant="text darkBlack"
                   startIcon={<ArrowBackIosIcon />}
                   onClick={handleDepositRoute}
                 >
@@ -164,7 +164,7 @@ const DepositConfirm = ({
               <Button
                 variant="contained"
                 color="secondary"
-                style={{ textTransform: "none", fontWeight: "bold" }}
+                sx={{ textTransform: "none", fontWeight: "bold" }}
                 fullWidth
                 onClick={handleClick}
                 disabled={btnDisable}
