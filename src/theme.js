@@ -4,7 +4,7 @@ const Theme = createTheme({
   palette: {
     primary: {
       main: "#bdbdbd",
-      light: "#bdbdbd"
+      light: "#bdbdbd",
     },
     secondary: {
       main: "#EF646D",
@@ -14,7 +14,10 @@ const Theme = createTheme({
     },
     darkBlack: {
       main: "#000000",
-    }
+    },
+    lightGrey: {
+      main: "rgba(0,0,0,0.87)",
+    },
   },
   components: {
     MuiPaper: {

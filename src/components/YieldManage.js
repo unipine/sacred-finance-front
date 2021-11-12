@@ -143,6 +143,7 @@ const YieldManage = () => {
               </Grid>
               <Grid item>
                 <HeaderButton
+                  variant="text darkBlack"
                   sx={
                     selectedWithdraw
                       ? { marginLeft: "10px" }
