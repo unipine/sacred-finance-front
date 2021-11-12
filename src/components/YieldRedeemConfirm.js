@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Grid, InputLabel, Button } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import { styled } from "@mui/material/styles";
 
 const Container = styled(Grid)`
@@ -65,7 +64,7 @@ const YieldRedeemConfirm = () => {
   return (
     <Container item container direction="row" spacing={4}>
       <Grid item direction="column" xs={3}>
-        <InputLabel sx={{ fontSize: "1.25rem" }} sx={{ color: "white" }}>
+        <InputLabel sx={{ fontSize: "1.25rem", color: "white" }}>
           Yield Points balance
         </InputLabel>
         <TextBalance>0</TextBalance>
@@ -78,7 +77,7 @@ const YieldRedeemConfirm = () => {
             container
             direction="row"
             justifyContent="space-between"
-            sx={{ paddingBottom: "0.5rem" }}
+            sx={{ pb: "0.5rem" }}
           >
             <GridItem18 item>
               Claim ID
@@ -97,7 +96,7 @@ const YieldRedeemConfirm = () => {
             xs={12}
             container
             direction="row"
-            sx={{ paddingBottom: "10px" }}
+            sx={{ pb: "10px" }}
           >
             <GridItem14 item xs={6}>
               Blocks
@@ -111,7 +110,7 @@ const YieldRedeemConfirm = () => {
             xs={12}
             container
             direction="row"
-            sx={{ paddingBottom: "10px" }}
+            sx={{ pb: "10px" }}
           >
             <GridItem14 item xs={6}>
               Pool Rate
@@ -125,7 +124,7 @@ const YieldRedeemConfirm = () => {
             xs={12}
             container
             direction="row"
-            sx={{ paddingBottom: "10px" }}
+            sx={{ pb: "10px" }}
           >
             <GridItem14 item xs={6}>
               Network fee
@@ -139,7 +138,7 @@ const YieldRedeemConfirm = () => {
             xs={12}
             container
             direction="row"
-            sx={{ paddingBottom: "10px" }}
+            sx={{ pb: "10px" }}
           >
             <GridItem14 item xs={6}>
               Gas Price
@@ -157,7 +156,7 @@ const YieldRedeemConfirm = () => {
             container
             direction="row"
             justifyContent="space-between"
-            sx={{ paddingBottom: "0.5rem" }}
+            sx={{ pb: "0.5rem" }}
           >
             <GridItem18 item>
               TX History
@@ -168,10 +167,10 @@ const YieldRedeemConfirm = () => {
             container
             direction="row"
             justifyContent="space-between"
-            sx={{ paddingBottom: "10px" }}
+            sx={{ pb: "10px" }}
           >
             <GridItem14 item>Reward i</GridItem14>
-            <Grid item sx={{fontSize: "1rem"}} sx={{ opacity: "0.6" }}>
+            <Grid item sx={{fontSize: "1rem", opacity: "0.6" }}>
               355230 IC
             </Grid>
           </Grid>
@@ -180,10 +179,10 @@ const YieldRedeemConfirm = () => {
             container
             direction="row"
             justifyContent="space-between"
-            sx={{ paddingBottom: "10px" }}
+            sx={{ pb: "10px" }}
           >
             <GridItem14 item>Relayer Fee</GridItem14>
-            <Grid item sx={{fontSize: "1rem"}} sx={{ opacity: "0.6" }}>
+            <Grid item sx={{fontSize: "1rem", opacity: "0.6" }}>
               -299152 IC
             </Grid>
           </Grid>
@@ -192,13 +191,12 @@ const YieldRedeemConfirm = () => {
             container
             direction="row"
             justifyContent="space-between"
-            sx={{ paddingBottom: "10px" }}
+            sx={{ pb: "10px" }}
           >
             <GridItem14 item>Total</GridItem14>
             <Grid
               item
-              sx={{fontSize: "1rem"}}
-              sx={{ color: "#8CBDE9", fontWeight: "bold" }}
+              sx={{fontSize: "1rem", color: "#8CBDE9", fontWeight: "bold" }}
             >
               56078 IC
             </Grid>
@@ -208,13 +206,12 @@ const YieldRedeemConfirm = () => {
             container
             direction="row"
             justifyContent="space-between"
-            sx={{ paddingBottom: "10px" }}
+            sx={{ pb: "10px" }}
           >
             <GridItem14 item>Asset</GridItem14>
             <Grid
               item
-              sx={{fontSize: "1rem"}}
-              sx={{ color: "#8CBDE9", fontWeight: "bold" }}
+              sx={{fontSize: "1rem", color: "#8CBDE9", fontWeight: "bold" }}
             >
               USDT
             </Grid>
