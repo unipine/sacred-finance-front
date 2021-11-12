@@ -1,38 +1,27 @@
-import * as React from 'react';
-import { Box, Typography, Modal, Link } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import * as React from "react";
+import { Box, Typography, Modal, Link } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles({
-  box: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    backgroundColor: 'white',
-    border: null,
-    borderRadius: 20,
-    boxShadow: 24,
-    padding: 20,
-  },
+const Content = styled(Box)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 24px;
+  padding: 20px;
+  fontfamily: Montserrat;
+  color: black;
+  font-size: 14px;
+`;
 
-  title: {
-    color: 'black',
-    fontSize: 24,
-    fontWeight: 'bold',
-    fontFamily: [
-      'Montserrat'
-    ]
-  },
-
-  content: {
-    color: 'black',
-    fontSize: 14,
-    fontFamily: [
-      'Montserrat'
-    ]
-  }
-})
+const Title = styled('p')`
+  font-size: 24px;
+  font-weight: bold;
+`;
 
 const MetaMaskDialog = (prop) => {
   const [open, setOpen] = React.useState(prop.connectMeta);
@@ -41,8 +30,6 @@ const MetaMaskDialog = (prop) => {
     setOpen(false);
   };
 
-  const classes = useStyles();
-
   return (
     <Modal
       open={open}
@@ -50,14 +37,15 @@ const MetaMaskDialog = (prop) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box className={classes.box}>
-        <p className={classes.title} >
-          You need to install Metamask.
+      <Content>
+        <Title>You need to install Metamask.</Title>
+        <p>
+          Please visit{" "}
+          <Link href="https://metamask.io/" variant="body2">
+            https://metamask.io/
+          </Link>
         </p>
-        <p className={classes.content} >
-          Please visit <Link href="https://metamask.io/" variant="body2">https://metamask.io/</Link>
-        </p>
-      </Box>
+      </Content>
     </Modal>
   );
 };
