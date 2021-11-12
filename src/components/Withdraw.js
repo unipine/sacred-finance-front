@@ -18,7 +18,7 @@ import { styled } from "@mui/material/styles";
 
 const web3Utils = require("web3-utils");
 
-const CustomButton = styled(Button)`
+const HeaderButton = styled(Button)`
   margin-top: -10px;
   font-size: 20px;
   font-family: Montserrat;
@@ -33,12 +33,6 @@ const CustomTextField = styled(TextField)`
     margin-bottom: 10px;
   }
 `;
-
-const inspect = {
-  position: "relative",
-  left: "-100%",
-  cursor: "pointer",
-};
 
 const isLikeBase32Address = (addr) => {
   // this won't return false when there's net1029, net1
@@ -144,21 +138,21 @@ const Withdraw = ({
               alignItems="center"
             >
               <Grid item>
-                <CustomButton
+                <HeaderButton
                   variant="text darkBlack"
                   sx={{ color: "#A7A9AC", ml: 0.5 }}
                   onClick={handleDepositRoute}
                 >
                   {t("Deposit")}
-                </CustomButton>
+                </HeaderButton>
               </Grid>
               <Grid item>
-                <CustomButton
+                <HeaderButton
                   variant="text darkBlack"
                   sx={{ mr: 0.5, color: "rgba(0, 0, 0, 0.87)" }}
                 >
                   <b>{t("Withdraw")}</b>
-                </CustomButton>
+                </HeaderButton>
               </Grid>
             </Grid>
             <Grid item container direction="row" justifyContent="flex-start">

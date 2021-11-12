@@ -4,37 +4,32 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import makeStyles from '@mui/styles/makeStyles';
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useHistory } from "react-router-dom";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import { useTranslation } from "react-i18next";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    width: "95%",
-    "& .MuiInputBase-input": {
-      marginLeft: "10px",
-      marginBottom: "10px",
-    },
-  },
-  headerBtn: {
-    marginTop: "-10px",
-    fontSize: "20px",
-    fontFamily: "Montserrat",
-    textTransform: "none",
-    fontWeight: "bold",
-  },
-}));
+const HeaderButton = styled(Button)`
+  margin-top: -10px;
+  font-size: 20px;
+  font-family: Montserrat;
+  texttransform: none;
+  fontweight: bold;
+`;
+
+const CustomTextField = styled(TextField)`
+  margin: ${(props) => props.theme.spacing(1)};
+  min-width: 120px;
+  width: 95%;
+  & .MuiInputBase-input {
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+`;
 
 const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayerOption }) => {
   const history = useHistory();
   const { t } = useTranslation();
-  const classes = useStyles();
 
   const handleClick = () => {
     history.push("/withdrawConfirm");
@@ -57,22 +52,20 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
               justifyContent="flex-start"
               alignItems="center"
             >
-              <Button
+              <HeaderButton
                 variant="text"
                 startIcon={<ArrowBackIosIcon />}
-                className={classes.headerBtn}
-                style={{ color: "#A7A9AC" }}
+                sx={{ color: "#A7A9AC" }}
                 onClick={handleWithdrawRoute}
               >
                 <b>{t("Back")}</b>
-              </Button>
+              </HeaderButton>
             </Grid>
             <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
                 <br />
                 <span style={{ marginLeft: "10px" }}>{t("Sacred Claim")}</span>
-                <TextField
-                  className={classes.textField}
+                <CustomTextField
                   value={claim}
                   variant="filled"
                   size="small"
@@ -104,7 +97,7 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
               <Button
                 variant="contained"
                 color="secondary"
-                style={{ textTransform: "none", fontWeight: "bold" }}
+                sx={{ textTransform: "none", fontWeight: "bold" }}
                 fullWidth
                 disabled={(isSpent && isExist) || !isExist}
                 onClick={handleClick}
