@@ -5,7 +5,6 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import makeStyles from '@mui/styles/makeStyles';
 import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
@@ -15,6 +14,7 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { useEffect } from "react";
 import Terms from "./Terms";
 import { useTranslation } from "react-i18next";
+import { styled } from "@mui/material/styles";
 
 const injectedConnector = new InjectedConnector({
   supportedChainIds: [
@@ -23,24 +23,30 @@ const injectedConnector = new InjectedConnector({
   ],
 });
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative",
-    margin: "10%",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(2, 4, 3),
-    height: "100%",
-    overflowY: "scroll",
-  },
-}));
+const TermsModal = styled(Modal)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10%;
+`;
+
+const TermsContent = styled("div")`
+  background-color: ${(props) => props.theme.palette.background.paper};
+  padding-top: ${(props) => props.theme.spacing(2)};
+  padding-left: ${(props) => props.theme.spacing(4)};
+  padding-right: ${(props) => props.theme.spacing(4)};
+  padding-bottom: ${(props) => props.theme.spacing(3)};
+  overflow-y: scroll;
+  z-index: 1301;
+  height: 60vh;
+`;
+
+const TermsButton = styled(Button)`
+  transform: none;
+  font-weight: bold:
+`
 
 const Welcome = ({ handleAgree, handleAlert }) => {
-  const classes = useStyles();
   const { activate, active } = useWeb3React();
   const history = useHistory();
 
@@ -89,33 +95,30 @@ const Welcome = ({ handleAgree, handleAlert }) => {
             </Grid>
             <Grid item>
               {t("By clicking “Agree & Connect” you agree to our ")}
-              <Button
+              <TermsButton
                 variant="text"
                 color="secondary"
-                style={{ textTransform: "none", fontWeight: "bold" }}
                 onClick={handleOpen}
               >
                 {t("Terms")}
-              </Button>
+              </TermsButton>
             </Grid>
             <Grid item>
-              <Button
+              <TermsButton
                 variant="contained"
                 color="secondary"
-                style={{ textTransform: "none", fontWeight: "bold" }}
                 onClick={onConnectClick}
                 fullWidth
               >
                 {t("Agree & Connect")}
-              </Button>
+              </TermsButton>
             </Grid>
           </Grid>
         </Box>
       </Paper>
-      <Modal
+      <TermsModal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        className={classes.modal}
         open={open}
         onClose={handleClose}
         closeAfterTransition
@@ -125,11 +128,11 @@ const Welcome = ({ handleAgree, handleAlert }) => {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>
+          <TermsContent>
             <Terms />
-          </div>
+          </TermsContent>
         </Fade>
-      </Modal>
+      </TermsModal>
     </>
   );
 };
