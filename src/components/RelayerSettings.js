@@ -3,207 +3,215 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import makeStyles from '@mui/styles/makeStyles';
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import TextField from "@mui/material/TextField";
 import { useLocation } from "react-router";
 import { InputLabel, Select, MenuItem, FormControl } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme) => ({
-    body: {
-        textAlign: "left",
-        fontFamily: [
-            'Montserrat'
-        ],
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-        width: "100%",
-    },
-    input: {
-        fontSize: '1.25rem',
-        fontFamily: 'Montserrat',
-        marginBottom: '10rem',
-        "&.Mui-focused": {
-            backgroundColor: "#EF646D",
-            color: "#FFFFFF",
-            fontWeight: 'bold'
-        },
+const BodyBox = styled(Box)`
+  text-align: left;
+  font-family: Montserrat;
+`;
 
-    },
+const HeaderButton = styled(Button)`
+  text-transform: none;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  margin-eft: 0.5rem;
+  font-size: 1.25rem;
+  &.MuiButton-outlinedSecondary {
+    border: 3px;
+  }
+`;
 
-    item: {
-        fontFamily: 'Montserrat',
-        "&.MuiMenuItem-root": {
-            fontSize: '1.25rem',
-            fontWeight: 'bold'
-        },
-        "&.Mui-selected": {
-            color: '#EF646D',
-            backgroundColor: 'white',
-        },
-    },
+const GasText = styled(TextField)`
+  margin-top: ${(props) => props.theme.spacing(1)};
+  padding-top: 1rem;
+  padding-bottom: 1.5rem;
 
-    headerBtn: {
-        marginTop: "-10px",
-        fontSize: "1.25rem",
-        textTransform: "none",
-        fontWeight: "bold",
-        fontFamily: 'Montserrat'
-    },
-    textField: {
-        marginTop: theme.spacing(1),
-        paddingTop: '1rem',
-        paddingBottom: '1.5rem',
-        "& .MuiInputBase-input": {
-            padding: '0.5rem',
-            fontFamily: 'Montserrat',
-            fontWeight: 'bold',
-            fontSize: '1.1rem',
-            lineHeight: '1.4rem',
-            marginLeft: "10px",
-            marginBottom: "10px",
-        },
-    },
+  & textarea.MuiInputBase-input {
+    padding: 0.5rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    line-height: 1.4rem;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+`;
 
-    button: {
-        textTransform: "none",
-        fontWeight: "bold",
-        marginRight: '0.5rem',
-        marginLeft: '0.5rem',
-        fontSize: '1.5rem',
-        fontFamily: 'Montserrat',
-        "&.MuiButton-outlinedSecondary": {
-            borderWidth: '3px',
-        }
-    }
-}));
+const CustomFormControl = styled(FormControl)`
+  margin: ${(props) => props.theme.spacing(1)};
+  min-width: 120px;
+  width: 100%;
+`;
+
+const RelayerSelect = styled(Select)`
+  font-size: 1.25rem;
+  margin-bottom: 10rem;
+  &.Mui-focused {
+    background-color: #ef646d;
+    color: #ffffff;
+    font-weight: bold;
+  }
+`;
+
+const RelayerItem = styled(MenuItem)`
+  font-family: Montserrat;
+  &.MuiMenuItem-root {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  &.Mui-selected {
+    color: #ef646d;
+    background-color: white;
+  }
+`;
+
+const CustomButton = styled(Button)`
+  text-transform: none;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  font-size: 1.5rem;
+  &.MuiButton-outlinedSecondary {
+    border-width: 3px;
+  }
+`;
 
 const RelayerSettings = () => {
-    const history = useHistory();
-    const classes = useStyles();
-    const location = useLocation();
+  const history = useHistory();
+  const location = useLocation();
 
-    const [selectedRelayerI, setSelectedRelayerI] = useState(false);
-    const [layer, setLayer] = useState('');
+  const [selectedRelayerI, setSelectedRelayerI] = useState(false);
+  const [layer, setLayer] = useState("");
 
-    const handleLayerChange = (event) => {
-        setLayer(event.target.value);
-    };
+  const handleLayerChange = (event) => {
+    setLayer(event.target.value);
+  };
 
-    const handleRelayerChange = () => {
-        setSelectedRelayerI(false);
-    }
+  const handleRelayerChange = () => {
+    setSelectedRelayerI(false);
+  };
 
-    const handleWalletChange = () => {
-        setSelectedRelayerI(true);
-    }
+  const handleWalletChange = () => {
+    setSelectedRelayerI(true);
+  };
 
-    return (
-        <div>
-            <Paper>
-                <Box p={3} className={classes.body}>
-                    <Grid container direction="column" spacing={2}>
-                        <Grid
-                            item
-                            container
-                            direction="row"
-                            spacing={0}
-                            justifyContent="space-around"
-                            alignItems="center"
-                        >
-                            <Grid item>
-                                <Button
-                                    variant="text"
-                                    className={classes.headerBtn}
-                                    style={!selectedRelayerI ? { marginLeft: "10px" } : { color: "#A7A9AC", marginRight: "10px" }}
-                                    onClick={handleRelayerChange}
-                                >
-                                    <b>Relayer i</b>
-                                </Button>
-                            </Grid>
-                            <Grid item>
-                                <Button
-                                    variant="text"
-                                    className={classes.headerBtn}
-                                    style={selectedRelayerI ? { marginLeft: "10px" } : { color: "#A7A9AC", marginRight: "10px" }}
-                                    onClick={handleWalletChange}
-                                >
-                                    <b>Wallet i</b>
-                                </Button>
-                            </Grid>
-                        </Grid>
+  return (
+    <div>
+      <Paper>
+        <BodyBox p={3}>
+          <Grid container direction="column" spacing={2}>
+            <Grid
+              item
+              container
+              direction="row"
+              spacing={0}
+              justifyContent="space-around"
+              alignItems="center"
+            >
+              <Grid item>
+                <HeaderButton
+                  variant="text darkBlack"
+                  sx={
+                    !selectedRelayerI
+                      ? { marginLeft: "10px" }
+                      : { color: "#A7A9AC", marginRight: "10px" }
+                  }
+                  onClick={handleRelayerChange}
+                >
+                  <b>Relayer i</b>
+                </HeaderButton>
+              </Grid>
+              <Grid item>
+                <HeaderButton
+                  variant="text darkBlack"
+                  sx={
+                    selectedRelayerI
+                      ? { marginLeft: "10px" }
+                      : { color: "#A7A9AC", marginRight: "10px" }
+                  }
+                  onClick={handleWalletChange}
+                >
+                  <b>Wallet i</b>
+                </HeaderButton>
+              </Grid>
+            </Grid>
 
-                        {
-                            selectedRelayerI ? (
-                                <>
-                                    <Grid item direction="column">
-                                        <Grid item className={classes.balance} style={{ marginTop: '20px' }}>
-                                            <TextField
-                                                className={classes.textField}
-                                                multiline
-                                                variant="filled"
-                                                size="small"
-                                                value="Make sure that ETH used to pay for the gas fee is not linkable to ANY of your addresses. Otherwise, the anonymity of the withdrawal will be comprised. We recommend using a Relayer instead. "
-                                                InputProps={{ disableUnderline: true }}
-                                                fullWidth
-                                                disabled
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                </>
-                            ) : (
-                                <>
-                                    <Grid item direction="column">
-                                        <Grid item>
-                                            <InputLabel style={{ fontFamily: 'Montserrat', margin: '8px' }}>Relayer</InputLabel>
-                                        </Grid>
-                                        <Grid item container>
-                                            <FormControl variant="outlined" className={classes.formControl}>
-                                                <Select
-                                                    value={layer}
-                                                    onChange={handleLayerChange}
-                                                    className={classes.input}
-                                                >
-                                                    <MenuItem className={classes.item} value={'mainnet.t-relay.matic'}>mainnet.t-relay.matic</MenuItem>
-                                                    <MenuItem className={classes.item} value={'noder.t-relay.matic'}>noder.t-relay.matic</MenuItem>
-                                                    <MenuItem className={classes.item} value={'relay2.t-relay.matic'}>relay2.t-relay.matic</MenuItem>
-                                                    <MenuItem className={classes.item} value={'4 mainnet.t-relay.matic'}>4 mainnet.t-relay.matic</MenuItem>
-                                                </Select>
-                                            </FormControl>
-                                        </Grid>
-                                    </Grid>
-                                </>
-                            )
-                        }
-                        <Grid item container>
-                            <Button
-                                variant="outlined"
-                                color="secondary"
-                                className={classes.button}
-                                fullWidth
-                            >
-                                Set as default
-                            </Button>
-                        </Grid>
-                        <Grid item container>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                className={classes.button}
-                                fullWidth
-                            >
-                                Save
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </Paper>
-        </div>
-    );
+            {selectedRelayerI ? (
+              <>
+                <Grid item direction="column">
+                  <Grid item sx={{ marginTop: "20px" }}>
+                    <GasText
+                      multiline
+                      variant="filled"
+                      size="small"
+                      value="Make sure that ETH used to pay for the gas fee is not linkable to ANY of your addresses. Otherwise, the anonymity of the withdrawal will be comprised. We recommend using a Relayer instead. "
+                      InputProps={{ disableUnderline: true }}
+                      fullWidth
+                      disabled
+                    />
+                  </Grid>
+                </Grid>
+              </>
+            ) : (
+              <>
+                <Grid item direction="column">
+                  <Grid item>
+                    <InputLabel
+                      sx={{ fontFamily: "Montserrat", margin: "8px" }}
+                    >
+                      Relayer
+                    </InputLabel>
+                  </Grid>
+                  <Grid item container>
+                    <CustomFormControl variant="outlined">
+                      <RelayerSelect
+                        value={layer}
+                        onChange={handleLayerChange}
+                        MenuProps={{
+                          anchorOrigin: {
+                            vertical: "top",
+                            horizontal: "center",
+                          },
+                        }}
+                      >
+                        <RelayerItem value={"mainnet.t-relay.matic"}>
+                          mainnet.t-relay.matic
+                        </RelayerItem>
+                        <RelayerItem value={"noder.t-relay.matic"}>
+                          noder.t-relay.matic
+                        </RelayerItem>
+                        <RelayerItem value={"relay2.t-relay.matic"}>
+                          relay2.t-relay.matic
+                        </RelayerItem>
+                        <RelayerItem value={"4 mainnet.t-relay.matic"}>
+                          4 mainnet.t-relay.matic
+                        </RelayerItem>
+                      </RelayerSelect>
+                    </CustomFormControl>
+                  </Grid>
+                </Grid>
+              </>
+            )}
+            <Grid item container>
+              <CustomButton variant="outlined" color="secondary" fullWidth>
+                Set as default
+              </CustomButton>
+            </Grid>
+            <Grid item container>
+              <CustomButton variant="contained" color="secondary" fullWidth>
+                Save
+              </CustomButton>
+            </Grid>
+          </Grid>
+        </BodyBox>
+      </Paper>
+    </div>
+  );
 };
 
 export default RelayerSettings;
