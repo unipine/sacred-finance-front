@@ -5,45 +5,37 @@ import TextField from "@mui/material/TextField";
 import makeStyles from '@mui/styles/makeStyles';
 import withStyles from '@mui/styles/withStyles';
 import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
-const CssTextField = withStyles({
-  root: {
-    "& label.Mui-focused": {
-      color: "white",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "white",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "white",
-      },
-      "&:hover fieldset": {
-        borderColor: "white",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "white",
-      },
-    },
-  },
-})(TextField);
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: 200,
-      color: "white",
-    },
-  },
-  input: {
-    color: "#ffffff",
-    fontFamily: "Montserrat",
-  },
-}));
+export const CustomTextField = styled(TextField)`
+  margin: ${(props) => props.theme.spacing(1)};
+  min-width: 200px;
+  color: white;
+  & .MuiInputBase-input {
+    color: #ffffff;
+    font-family: Montserrat;
+  }
+  & label.Mui-focused {
+    color: white;
+  }
+  &.MuiInput-underline:after {
+    border-bottom-color: white;
+  }
+  & .MuiOutlinedInput-root {
+    & fieldset {
+      border-color: white;
+    }
+    &:hover fieldset {
+      border-color: white;
+    }
+    &.Mui-focused fieldset {
+      bordercolor: white;
+    }
+  }
+`;
 
 const injectedConnector = new InjectedConnector({
   supportedChainIds: [
@@ -52,7 +44,7 @@ const injectedConnector = new InjectedConnector({
 });
 
 const Connect = ({ handleAlert, networkId }) => {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const { active, account, activate, chainId } = useWeb3React();
 
@@ -82,14 +74,10 @@ const Connect = ({ handleAlert, networkId }) => {
   return (
     <div>
       {active ? (
-        <CssTextField
+        <CustomTextField
           id="outlined-basic"
           variant="outlined"
           size="small"
-          className={classes.root}
-          InputProps={{
-            className: classes.input,
-          }}
           value={account.substring(0, 22) + "..."}
         />
       ) : (

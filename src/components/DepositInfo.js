@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import { useTranslation } from "react-i18next";
 import { styled } from "@mui/material/styles";
 
-const CustomSmall = styled("small")`
+export const CustomSmall = styled("small")`
   padding-top: 4px;
   text-align: left;
   overflow-wrap: anywhere;

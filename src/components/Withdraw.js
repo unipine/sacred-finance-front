@@ -18,7 +18,7 @@ import { styled } from "@mui/material/styles";
 
 const web3Utils = require("web3-utils");
 
-const HeaderButton = styled(Button)`
+export const HeaderButton = styled(Button)`
   margin-top: -10px;
   font-size: 20px;
   font-family: Montserrat;
