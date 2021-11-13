@@ -6,17 +6,9 @@ import logoR from "../images/sacred_r.svg";
 import logoE from "../images/sacred_e.svg";
 import logoD from "../images/sacred_d.svg";
 import Grid from "@mui/material/Grid";
-import makeStyles from '@mui/styles/makeStyles';
 import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-  logo: {
-    cursor: "pointer",
-  },
-}));
-
 const Logo = () => {
-  const classes = useStyles();
   const history = useHistory();
 
   const handleClick = () => {
@@ -25,7 +17,7 @@ const Logo = () => {
 
   //TODO use text with correct font instead of images?
   return (
-    <Grid item xs={3} className={classes.logo} onClick={handleClick}>
+    <Grid item xs={3} sx={{cursor: "pointer"}} onClick={handleClick}>
       <Grid
         item
         xs
