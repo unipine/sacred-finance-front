@@ -8,29 +8,12 @@ import { deployments } from "../conflux/config";
 import DepositInfo from "./DepositInfo";
 import { useWeb3React } from "@web3-react/core";
 import { useTranslation } from "react-i18next";
+import {CustomTextField} from "./InspectMain";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    margin: theme.spacing(1),
-    minWidth: 600,
-    width: "100%",
-    "& .MuiInputBase-input": {
-      marginLeft: "10px",
-      marginBottom: "10px",
-    },
-  },
-  input: {
-    color: "#ffffff",
-    fontSize: "23px",
-    fontFamily: "Montserrat",
-    borderRadius: "35px",
-  },
-}));
-
-const CssTextField = withStyles({
+const CustomTextField = withStyles({
   root: {
     "& label.Mui-focused": {
       color: "#ffffff",
@@ -60,7 +43,6 @@ const WithdrawCheckMain = ({
   parsedNote,
   txLayers,
 }) => {
-  const classes = useStyles();
   const { chainId } = useWeb3React();
   const { t } = useTranslation();
 
@@ -136,10 +118,8 @@ const WithdrawCheckMain = ({
           {titleText}
         </Grid>
         <Grid item xs={12}>
-          <CssTextField
-            className={classes.textField}
+          <CustomTextField
             InputProps={{
-              className: classes.input,
               disableUnderline: true,
             }}
             value={claim}
