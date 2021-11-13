@@ -83,7 +83,7 @@ const Connect = ({ handleAlert, networkId }) => {
       ) : (
         <Button
           variant="outlined"
-          style={{
+          sx={{
             textTransform: "none",
             backgroundColor: "transparent",
             borderColor: "#fff",
