@@ -1,64 +1,17 @@
 import React from "react";
-import TextField from "@mui/material/TextField";
-import makeStyles from '@mui/styles/makeStyles';
-import withStyles from '@mui/styles/withStyles';
 import DepositInfo from "./DepositInfo";
 import Grid from "@mui/material/Grid";
 import arrow from "../images/arrow_right.svg";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
-
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    margin: theme.spacing(1),
-    minWidth: 600,
-    width: "100%",
-    "& .MuiInputBase-input": {
-      marginLeft: "10px",
-      marginBottom: "10px",
-    },
-  },
-  input: {
-    color: "#ffffff",
-    fontSize: "23px",
-    fontFamily: "Montserrat",
-  },
-  textAlignStyle: {
-    paddingTop: '4px',
-    textAlign: 'left',
-    overflowWrap: "anywhere"
-  },
-}));
-
-const CssTextField = withStyles({
-  root: {
-    "& label.Mui-focused": {
-      color: "white",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "white",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "white",
-      },
-      "&:hover fieldset": {
-        borderColor: "white",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "white",
-      },
-    },
-  },
-})(TextField);
+import { CustomTextField } from "./InspectMain";
+import { CustomSmall } from "./DepositInfo";
 
 const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
-
-  const classes = useStyles();
   const { t } = useTranslation();
   const location = useLocation();
 
-  console.log('depReceipt', depReceipt);
+  console.log("depReceipt", depReceipt);
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect
   return (
@@ -74,10 +27,8 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
           <h1>{t("This Claim is Withdrawn!")}</h1>
         </Grid>
         <Grid item xs={12}>
-          <CssTextField
-            className={classes.textField}
+          <CustomTextField
             InputProps={{
-              className: classes.input,
               disableUnderline: true,
             }}
             value={claim}
@@ -87,16 +38,31 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
 
         <Grid item container xs={12} direction="row" spacing={2}>
           <Grid item xs={5}>
-            {
-              location.pathname === "/inspectSuccess" ? (
-                <DepositInfo txReceipt={txReceipt} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()} />
-              ) : (
-                <DepositInfo txReceipt={depReceipt} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()} />
-              )
-            }
-
+            {location.pathname === "/inspectSuccess" ? (
+              <DepositInfo
+                txReceipt={txReceipt}
+                deposit={parsedNote.deposit}
+                amount={
+                  parsedNote.amount + " " + parsedNote.currency.toUpperCase()
+                }
+              />
+            ) : (
+              <DepositInfo
+                txReceipt={depReceipt}
+                deposit={parsedNote.deposit}
+                amount={
+                  parsedNote.amount + " " + parsedNote.currency.toUpperCase()
+                }
+              />
+            )}
           </Grid>
-          <Grid item xs={1} container justifyContent="center" alignItems="center">
+          <Grid
+            item
+            xs={1}
+            container
+            justifyContent="center"
+            alignItems="center"
+          >
             <img src={arrow} alt="arrow" />
           </Grid>
           <Grid item xs={5}>
@@ -127,7 +93,11 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
                 </Grid>
                 <Grid item className="blue-text">
                   <h2>
-                    - {location.pathname === "/inspectSuccess" ? txReceipt?.returnValues?.fee : txReceipt?.events?.Withdrawal?.returnValues?.fee} {parsedNote.currency.toUpperCase()}
+                    -{" "}
+                    {location.pathname === "/inspectSuccess"
+                      ? txReceipt?.returnValues?.fee
+                      : txReceipt?.events?.Withdrawal?.returnValues?.fee}{" "}
+                    {parsedNote.currency.toUpperCase()}
                   </h2>
                 </Grid>
               </Grid>
@@ -141,9 +111,11 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
                 alignItems="flex-start"
               >
                 <small>{t("Date")}</small>
-                <small className={classes.textAlignStyle}>
-                  {location.pathname === "/inspectSuccess" ? new Date(txReceipt.withdrawTimestamp * 1000).toUTCString() : new Date(txReceipt.timestamp * 1000).toUTCString()}
-                </small>
+                <CustomSmall>
+                  {location.pathname === "/inspectSuccess"
+                    ? new Date(txReceipt.withdrawTimestamp * 1000).toUTCString()
+                    : new Date(txReceipt.timestamp * 1000).toUTCString()}
+                </CustomSmall>
               </Grid>
 
               <Grid
@@ -155,9 +127,11 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
                 alignItems="flex-start"
               >
                 <small>{t("Transaction")}</small>
-                <small className={classes.textAlignStyle}>
-                  {location.pathname === "/inspectSuccess" ? txReceipt.withdrawTransactionHash : txReceipt.transactionHash}
-                </small>
+                <CustomSmall>
+                  {location.pathname === "/inspectSuccess"
+                    ? txReceipt.withdrawTransactionHash
+                    : txReceipt.transactionHash}
+                </CustomSmall>
               </Grid>
 
               <Grid
@@ -169,9 +143,9 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
                 alignItems="flex-start"
               >
                 <small>{t("To")}</small>
-                <small className={classes.textAlignStyle}>
+                <CustomSmall>
                   {txReceipt.to.toLowerCase()}
-                </small>
+                </CustomSmall>
               </Grid>
 
               <Grid
@@ -183,9 +157,9 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
                 alignItems="flex-start"
               >
                 <small>{t("Nullifier Hash")}</small>
-                <small className={classes.textAlignStyle}>
+                <CustomSmall>
                   {parsedNote?.deposit?.nullifierHex}
-                </small>
+                </CustomSmall>
               </Grid>
             </Grid>
           </Grid>

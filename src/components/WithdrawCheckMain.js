@@ -1,40 +1,17 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import makeStyles from '@mui/styles/makeStyles';
-import withStyles from '@mui/styles/withStyles';
+import makeStyles from "@mui/styles/makeStyles";
+import withStyles from "@mui/styles/withStyles";
 import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
 import { deployments } from "../conflux/config";
 import DepositInfo from "./DepositInfo";
 import { useWeb3React } from "@web3-react/core";
 import { useTranslation } from "react-i18next";
-import {CustomTextField} from "./InspectMain";
+import { CustomTextField } from "./InspectMain";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
-
-const CustomTextField = withStyles({
-  root: {
-    "& label.Mui-focused": {
-      color: "#ffffff",
-      borderBottomColor: "#ffffff",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "#ffffff",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "#ffffff",
-      },
-      "&:hover fieldset": {
-        borderColor: "#ffffff",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#ffffff",
-      },
-    },
-  },
-})(TextField);
 
 const WithdrawCheckMain = ({
   isSpent,
@@ -50,10 +27,10 @@ const WithdrawCheckMain = ({
 
   const [depositData, setDepositData] = useState();
 
-  const getDepositData = async() => {
+  const getDepositData = async () => {
     let _deployment =
       deployments.eth_deployments[`netId${chainId}`][
-      parsedNote.currency.toLowerCase()
+        parsedNote.currency.toLowerCase()
       ];
 
     const deployment = {
@@ -64,33 +41,33 @@ const WithdrawCheckMain = ({
     };
 
     // Get all deposit events from smart contract and assemble merkle tree from them
-    console.log('Getting current state from sacred contract')
+    console.log("Getting current state from sacred contract");
     const deposit = parsedNote.deposit;
 
-    const sacred = new web3.eth.Contract(deployment.abi, deployment.address)
+    const sacred = new web3.eth.Contract(deployment.abi, deployment.address);
 
     try {
-      const eventWhenHappened = await sacred.getPastEvents('Deposit', {
+      const eventWhenHappened = await sacred.getPastEvents("Deposit", {
         filter: {
-          commitment: deposit.commitmentHex
+          commitment: deposit.commitmentHex,
         },
         fromBlock: 0,
-        toBlock: 'latest'
-      })
+        toBlock: "latest",
+      });
 
       if (eventWhenHappened.length === 0) {
-        console.log('There is no related deposit, the note is invalid')
+        console.log("There is no related deposit, the note is invalid");
       }
 
-      const { timestamp } = eventWhenHappened[0].returnValues
-      const transactionHash = eventWhenHappened[0].transactionHash
-      const receipt = await web3.eth.getTransactionReceipt(transactionHash)
-  
+      const { timestamp } = eventWhenHappened[0].returnValues;
+      const transactionHash = eventWhenHappened[0].transactionHash;
+      const receipt = await web3.eth.getTransactionReceipt(transactionHash);
+
       setDepositData({ timestamp, transactionHash, from: receipt.from });
     } catch (e) {
-      console.error('loadDepositData', e)
+      console.error("loadDepositData", e);
     }
-  }
+  };
 
   if (isSpent) {
     titleText = <h1>This Claim has been Withdrawn</h1>;
@@ -102,7 +79,7 @@ const WithdrawCheckMain = ({
 
   useEffect(() => {
     getDepositData();
-  }, [])
+  }, []);
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect
   return (
@@ -131,7 +108,13 @@ const WithdrawCheckMain = ({
         {!((isSpent && isExist) || !isExist) && (
           <Grid item container xs={12} direction="row" spacing={2}>
             <Grid item xs={6}>
-              <DepositInfo txReceipt={depositData} deposit={parsedNote.deposit} amount={parsedNote.amount + ' ' + parsedNote.currency.toUpperCase()}/>
+              <DepositInfo
+                txReceipt={depositData}
+                deposit={parsedNote.deposit}
+                amount={
+                  parsedNote.amount + " " + parsedNote.currency.toUpperCase()
+                }
+              />
             </Grid>
 
             <Grid item xs={6}>
