@@ -4,7 +4,6 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import makeStyles from '@mui/styles/makeStyles';
 import { init, generateProof } from "../conflux/utils";
 import { useWeb3React } from "@web3-react/core";
 import { useHistory } from "react-router-dom";
@@ -18,6 +17,7 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { useState } from "react";
 import WaitingModal from "./WaitingModal";
 import { useTranslation } from "react-i18next";
+import {HeaderButton} from "./Withdraw";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
@@ -27,16 +27,6 @@ export const injectedConnector = new InjectedConnector({
     42, // Kovan Testnetwork
   ],
 });
-
-const useStyles = makeStyles((theme) => ({
-  headerBtn: {
-    marginTop: "-10px",
-    fontSize: "20px",
-    fontFamily: "Montserrat",
-    textTransform: "none",
-    fontWeight: "bold",
-  },
-}));
 
 const WithdrawConfirm = ({
   parsedNote,
@@ -53,8 +43,6 @@ const WithdrawConfirm = ({
 
   const [btnDisable, setBtnDisable] = useState(false);
   const [waiting, setWaiting] = useState(false);
-
-  const classes = useStyles();
 
   const handleClick = async () => {
     if (!active) {
@@ -185,15 +173,14 @@ const WithdrawConfirm = ({
               alignItems="center"
             >
               <Grid item>
-                <Button
+                <HeaderButton
                   variant="text"
                   startIcon={<ArrowBackIosIcon />}
-                  className={classes.headerBtn}
                   style={{ color: "#A7A9AC" }}
                   onClick={handleWithdrawRoute}
                 >
                   <b>{t("Back")}</b>
-                </Button>
+                </HeaderButton>
               </Grid>
             </Grid>
             <Grid item>
