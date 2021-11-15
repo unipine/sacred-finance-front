@@ -111,7 +111,7 @@ function App() {
   const [openAlert, setOpenAlert] = useState(false);
   const [alertText, setAlertText] = useState("");
   const [networkId, setNetworkId] = useState(42);
-
+console.log('recepeint', recipient);
   const handleAlert = (err) => {
     setAlertText(err.toString());
     setOpenAlert(true);
@@ -458,6 +458,7 @@ function App() {
                         ]}
                         component={() => (
                           <WithdrawSuccess
+                            recipient={recipient}
                             parsedNote={parsedNote}
                             txReceipt={txReceipt}
                             claim={claim}
@@ -558,7 +559,8 @@ function App() {
                         "/inspectSuccess"
                       ]}
                       component={() => (
-                        <WithdrawSuccessMain
+                        <WithdrawSuccessMain                          
+                          recipient={recipient}
                           claim={claim}
                           parsedNote={parsedNote}
                           txReceipt={txReceipt}

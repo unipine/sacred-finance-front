@@ -97,7 +97,7 @@ const InspectMain = ({
       deployments.eth_deployments[`netId${chainId}`][
         parsedNote.currency.toLowerCase()
       ];
-
+console.log('_de', _deployment);
     const deployment = {
       address: _deployment.instanceAddress[parsedNote.amount],
       abi: _deployment.abi,
