@@ -203,7 +203,7 @@ const InspectMain = ({
       style={
         location.pathname === "/inspect"
           ? { position: "relative", left: "-20%" }
-          : ""
+          : {}
       }
     >
       <Grid

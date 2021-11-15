@@ -217,12 +217,12 @@ const WithdrawSuccess = ({ parsedNote, txReceipt, claim, deployment, depReceipt 
             <Grid item>
               <br />
               <PDFDownloadLink document={<MyDocument />} fileName={"sacred_compliance_report"} style={{textDecoration: 'none'}}>
-                <Button variant="contained" color="secondary" style={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth >{t("Generate PDF")}</Button>
+                <Button variant="contained" color="secondary" sx={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth >{t("Generate PDF")}</Button>
               </PDFDownloadLink>
             </Grid>
             <Grid item>
               <br />
-              <Button variant="outlined" color="secondary" style={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth onClick={handleDepositRoute}>{t("Done")}</Button>
+              <Button variant="outlined" color="secondary" sx={{ textTransform: 'none', fontWeight: 'bold' }} fullWidth onClick={handleDepositRoute}>{t("Done")}</Button>
             </Grid>
             <Grid item>
               <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace('.', '')}.sacred.eth`}</small>
