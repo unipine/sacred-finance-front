@@ -5,14 +5,14 @@ import { styled } from "@mui/material/styles";
 
 const FixedBox = styled(Box)`
   position: fixed;
-  zindex: 1300;
+  z-index: 1300;
   inset: 0;
 `;
 
 const BodyBox = styled(Box)`
   position: fixed;
   inset: 0px;
-  backgroundcolor: rgba(20, 20, 20, 0.85);
+  background-color: rgba(20, 20, 20, 0.85);
   z-index: -1;
 `;
 

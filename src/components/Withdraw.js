@@ -101,7 +101,7 @@ const Withdraw = ({
 
   //TODO optimize this as there's time lag to parse the note
   useEffect(() => {
-    if (claim.length > 0 && recipient.length > 0) {
+    if (claim?.length > 0 && recipient?.length > 0) {
       if (web3Utils.isAddress(recipient)) {
         setBtnDisabled(false);
       } else {

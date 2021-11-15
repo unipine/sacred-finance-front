@@ -78,8 +78,7 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
             <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
                 <span style={{ marginLeft: "10px" }}>{t("Recipient Address")}</span>
-                <TextField
-                  className={classes.textField}
+                <CustomTextField
                   value={recipient}
                   variant="filled"
                   size="small"
