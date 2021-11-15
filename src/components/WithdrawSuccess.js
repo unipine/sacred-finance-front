@@ -122,6 +122,7 @@ const WithdrawSuccess = ({
   claim,
   deployment,
   depReceipt,
+  recipient
 }) => {
   const history = useHistory();
 
@@ -230,7 +231,7 @@ const WithdrawSuccess = ({
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>To</Text>
-            <Text style={styles.value}>{txReceipt.to.toLowerCase()}</Text>
+            <Text style={styles.value}>{recipeint ? recipient : txReceipt.to.toLowerCase()}</Text>
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>Nullifier Hash</Text>

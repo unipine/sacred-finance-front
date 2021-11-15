@@ -48,7 +48,7 @@ const Withdraw = ({
   deployment,
   handleSetDeployment,
   handleRelayer,
-  relayerOption,
+  relayerOption
 }) => {
   const history = useHistory();
   const location = useLocation();

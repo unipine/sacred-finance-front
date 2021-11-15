@@ -6,12 +6,11 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { CustomTextField } from "./InspectMain";
 import { CustomSmall } from "./DepositInfo";
+import { Receipt } from "@mui/icons-material";
 
-const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
+const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt, recipient }) => {
   const { t } = useTranslation();
   const location = useLocation();
-
-  console.log("depReceipt", depReceipt);
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect
   return (
@@ -144,7 +143,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt }) => {
               >
                 <small>{t("To")}</small>
                 <CustomSmall>
-                  {txReceipt.to.toLowerCase()}
+                  {recipient}
                 </CustomSmall>
               </Grid>
 
