@@ -37,6 +37,7 @@ const TermsContent = styled("div")`
   padding-right: ${(props) => props.theme.spacing(4)};
   padding-bottom: ${(props) => props.theme.spacing(3)};
   overflow-y: scroll;
+  z-index: 1301;
   height: 60vh;
 `;
 
