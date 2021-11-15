@@ -12,6 +12,7 @@ import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import { useTranslation } from "react-i18next";
 
 import { styled } from "@mui/material/styles";
+import { GoToContract } from "./Deposit";
 
 const CustomTextField = styled(TextField)`
   margin: ${(props) => props.theme.spacing(1)};
@@ -72,7 +73,7 @@ const DepositClaim = ({ deposit, deployment }) => {
               <Grid item>
                 <Button
                   variant="text darkBlack"
-                  sx={{ml: "-10px"}}
+                  sx={{ ml: "-10px" }}
                   startIcon={<ArrowBackIosIcon />}
                   onClick={handleDepositRoute}
                 >
@@ -84,7 +85,9 @@ const DepositClaim = ({ deposit, deployment }) => {
               <b>{t("Before you Deposit")}</b>
             </Grid>
             <Grid item>
-              {t("In order to withdraw your deposit, you will have to enter this Claim:")}
+              {t(
+                "In order to withdraw your deposit, you will have to enter this Claim:"
+              )}
             </Grid>
             <Grid item>
               <CustomTextField
@@ -125,7 +128,8 @@ const DepositClaim = ({ deposit, deployment }) => {
               </Grid>
             </Grid>
             <Grid item>
-              <b>{t("Important:")} </b>{t("Store this Claim somewhere safe before continuing.")}
+              <b>{t("Important:")} </b>
+              {t("Store this Claim somewhere safe before continuing.")}
             </Grid>
             <Grid item>
               <br />
@@ -140,10 +144,17 @@ const DepositClaim = ({ deposit, deployment }) => {
               </Button>
             </Grid>
             <Grid item>
-              <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
-                ".",
-                ""
-              )}.sacred.eth`}</small>
+              <GoToContract
+                href={`https://kovan.etherscan.io/address/${deployment.address}`}
+                className="blue-text"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
+                  ".",
+                  ""
+                )}.sacred.eth`}</small>
+              </GoToContract>
             </Grid>
           </Grid>
         </Box>

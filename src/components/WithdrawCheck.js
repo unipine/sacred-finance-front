@@ -8,6 +8,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { styled } from "@mui/material/styles";
+import { GoToContract } from "./Deposit";
 
 const HeaderButton = styled(Button)`
   margin-top: -10px;
@@ -27,7 +28,14 @@ const CustomTextField = styled(TextField)`
   }
 `;
 
-const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayerOption }) => {
+const WithdrawCheck = ({
+  claim,
+  recipient,
+  isSpent,
+  isExist,
+  deployment,
+  relayerOption,
+}) => {
   const history = useHistory();
   const { t } = useTranslation();
 
@@ -77,7 +85,9 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
             </Grid>
             <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
-                <span style={{ marginLeft: "10px" }}>{t("Recipient Address")}</span>
+                <span style={{ marginLeft: "10px" }}>
+                  {t("Recipient Address")}
+                </span>
                 <CustomTextField
                   value={recipient}
                   variant="filled"
@@ -105,10 +115,17 @@ const WithdrawCheck = ({ claim, recipient, isSpent, isExist, deployment, relayer
               </Button>
             </Grid>
             <Grid item>
-              <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
-                ".",
-                ""
-              )}.sacred.eth`}</small>
+              <GoToContract
+                href={`https://kovan.etherscan.io/address/${deployment.address}`}
+                className="blue-text"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
+                  ".",
+                  ""
+                )}.sacred.eth`}</small>
+              </GoToContract>
             </Grid>
           </Grid>
         </Box>

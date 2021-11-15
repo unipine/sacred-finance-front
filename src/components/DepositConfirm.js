@@ -16,6 +16,7 @@ import { format } from "js-conflux-sdk";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { GoToContract } from "./Deposit";
 
 const Web3Utils = require("web3-utils");
 const Web3 = require("web3");
@@ -61,15 +62,13 @@ const DepositConfirm = ({
         .deposit(toHex(deposit.commitment))
         .send({ value, from: account })
         .on("transactionHash", function (hash) {
-
           // Loading screen
           history.push("/depositWorking");
         })
         // .on("confirmation", function (confirmationNumber, receipt) {
         //   console.log("confirmationNumber: ", confirmationNumber);
         // })
-        .on("receipt", function (receipt) {
-        });
+        .on("receipt", function (receipt) {});
 
       const blockInfo = await web3.eth.getBlock(tx.blockNumber);
       tx.timestamp = blockInfo.timestamp;
@@ -156,7 +155,9 @@ const DepositConfirm = ({
             </Grid>
             <Grid item>
               <br />
-              {t("Ensure you have saved your Sacred Claim somewhere safe.")}{" "}
+              {t(
+                "Ensure you have saved your Sacred Claim somewhere safe."
+              )}{" "}
               <b>{t("It is required to retrieve your funds.")}</b>
             </Grid>
             <Grid item>
@@ -173,10 +174,17 @@ const DepositConfirm = ({
               </Button>
             </Grid>
             <Grid item>
-              <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
-                ".",
-                ""
-              )}.sacred.eth`}</small>
+              <GoToContract
+                href={`https://kovan.etherscan.io/address/${deployment.address}`}
+                className="blue-text"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
+                  ".",
+                  ""
+                )}.sacred.eth`}</small>
+              </GoToContract>
             </Grid>
           </Grid>
         </Box>

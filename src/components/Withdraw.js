@@ -18,6 +18,8 @@ import { styled } from "@mui/material/styles";
 
 const web3Utils = require("web3-utils");
 
+import { GoToContract } from "./Deposit";
+
 export const HeaderButton = styled(Button)`
   margin-top: -10px;
   font-size: 20px;
@@ -122,9 +124,11 @@ const Withdraw = ({
   return (
     <div
       onClick={handleWithdrawRoute}
-      style={location.pathname === "/inspect" ? {position: "relative",
-      left: "-100%",
-      cursor: "pointer"} : {}}
+      style={
+        location.pathname === "/inspect"
+          ? { position: "relative", left: "-100%", cursor: "pointer" }
+          : {}
+      }
     >
       <Paper>
         <Box p={3}>
@@ -172,7 +176,9 @@ const Withdraw = ({
             </Grid>
             <Grid item container direction="row" justifyContent="flex-start">
               <Grid item container direction="column" alignItems="flex-start">
-                <span style={{ marginLeft: 0.5 }}>{t("Recipient Address")}</span>
+                <span style={{ marginLeft: 0.5 }}>
+                  {t("Recipient Address")}
+                </span>
                 <CustomTextField
                   variant="filled"
                   size="small"
@@ -209,10 +215,17 @@ const Withdraw = ({
               </Button>
             </Grid>
             <Grid item>
-              <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
-                ".",
-                ""
-              )}.sacred.eth`}</small>
+              <GoToContract
+                href={`https://kovan.etherscan.io/address/${deployment.address}`}
+                className="blue-text"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
+                  ".",
+                  ""
+                )}.sacred.eth`}</small>
+              </GoToContract>
             </Grid>
           </Grid>
         </Box>

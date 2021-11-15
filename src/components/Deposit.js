@@ -35,7 +35,7 @@ const CustomFormControl = styled(FormControl)`
 `;
 
 const CustomSelect = styled(Select)`
-  padding-top: ${props => props.theme.spacing(0.5)};
+  padding-top: ${(props) => props.theme.spacing(0.5)};
   color: black;
   &.Mui-focused {
     background-color: #ef646d;
@@ -43,6 +43,14 @@ const CustomSelect = styled(Select)`
   }
   transition: all 0.5s;
 `;
+
+export const GoToContract = styled('a')`
+  color: inherit;
+  text-decoration: none;
+  &:hover, &:link, &:active, &:visited  {
+    color: inherit;
+  }
+`
 
 const Deposit = ({
   deployment,
@@ -84,6 +92,7 @@ const Deposit = ({
       setBtnDisabled(false);
     }
   }, [deployment.symbol, deployment.amount]);
+  console.log("deployment", deployment);
 
   return (
     <div>
@@ -106,7 +115,7 @@ const Deposit = ({
               <Grid item>
                 <CustomButton
                   variant="text darkBlack"
-                  sx={{mr: 0.5 }}
+                  sx={{ mr: 0.5 }}
                   onClick={handleWithdrawRoute}
                 >
                   {t("Withdraw")}
@@ -115,7 +124,7 @@ const Deposit = ({
             </Grid>
             <Grid item container direction="column" alignItems="flex-start">
               <br />
-              <span style={{ ml: 0.5, color: "#A7A9AC", }}>{t("Token")}</span>
+              <span style={{ ml: 0.5, color: "#A7A9AC" }}>{t("Token")}</span>
 
               <CustomFormControl variant="outlined">
                 <CustomSelect
@@ -208,10 +217,17 @@ const Deposit = ({
               </Button>
             </Grid>
             <Grid item>
-              <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
-                ".",
-                ""
-              )}.sacred.eth`}</small>
+              <GoToContract
+                href={`https://kovan.etherscan.io/address/${deployment.address}`}
+                className="blue-text"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
+                  ".",
+                  ""
+                )}.sacred.eth`}</small>
+              </GoToContract>
             </Grid>
           </Grid>
         </Box>

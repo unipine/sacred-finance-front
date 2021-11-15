@@ -17,7 +17,8 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { useState } from "react";
 import WaitingModal from "./WaitingModal";
 import { useTranslation } from "react-i18next";
-import {HeaderButton} from "./Withdraw";
+import { HeaderButton } from "./Withdraw";
+import { GoToContract } from "./Deposit";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
@@ -35,7 +36,7 @@ const WithdrawConfirm = ({
   deployment,
   handleAlert,
   relayerOption,
-  handleDepReceipt
+  handleDepReceipt,
 }) => {
   const { activate, active, account } = useWeb3React();
   const history = useHistory();
@@ -59,7 +60,7 @@ const WithdrawConfirm = ({
     await init(deployment);
     const { proof, args } = await generateProof({ deposit, recipient, refund });
 
-    const contract = new web3.eth.Contract(deployment.abi, deployment.address);    
+    const contract = new web3.eth.Contract(deployment.abi, deployment.address);
 
     // const _fee = parseInt(args[4], 16);
     // const _refund = parseInt(args[5], 16);
@@ -76,8 +77,7 @@ const WithdrawConfirm = ({
         // .on("confirmation", function (confirmationNumber, receipt) {
         //   console.log("confirmationNumber: ", confirmationNumber);
         // })
-        .on("receipt", function (receipt) {
-        });
+        .on("receipt", function (receipt) {});
 
       // const receipt = await waitForTxReceipt({ txHash: tx.transactionHash });
       // console.log(tx);
@@ -87,23 +87,23 @@ const WithdrawConfirm = ({
 
       handleTransaction(tx);
 
-      const eventWhenHappened = await contract.getPastEvents('Deposit', {
+      const eventWhenHappened = await contract.getPastEvents("Deposit", {
         filter: {
-          commitment: deposit.commitmentHex
+          commitment: deposit.commitmentHex,
         },
         fromBlock: 0,
-        toBlock: 'latest'
-      })
-  
+        toBlock: "latest",
+      });
+
       if (eventWhenHappened.length === 0) {
-        console.log('There is no related deposit, the note is invalid');
+        console.log("There is no related deposit, the note is invalid");
         return;
       }
-  
+
       const depositEvent = eventWhenHappened[0];
-      const { timestamp } = depositEvent.returnValues
-      const transactionHash = depositEvent.transactionHash
-      const receipt = await web3.eth.getTransactionReceipt(transactionHash)
+      const { timestamp } = depositEvent.returnValues;
+      const transactionHash = depositEvent.transactionHash;
+      const receipt = await web3.eth.getTransactionReceipt(transactionHash);
       handleDepReceipt({ timestamp, transactionHash, from: receipt.from });
 
       history.push("/withdrawSuccess");
@@ -214,10 +214,17 @@ const WithdrawConfirm = ({
               </Button>
             </Grid>
             <Grid item>
-              <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
-                ".",
-                ""
-              )}.sacred.eth`}</small>
+              <GoToContract
+                href={`https://kovan.etherscan.io/address/${deployment.address}`}
+                className="blue-text"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
+                  ".",
+                  ""
+                )}.sacred.eth`}</small>
+              </GoToContract>
             </Grid>
           </Grid>
         </Box>
