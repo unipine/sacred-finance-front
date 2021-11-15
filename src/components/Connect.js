@@ -6,6 +6,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import withStyles from '@mui/styles/withStyles';
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
@@ -47,6 +48,7 @@ const Connect = ({ handleAlert, networkId }) => {
   // const classes = useStyles();
 
   const { active, account, activate, chainId } = useWeb3React();
+  const { t } = useTranslation();
 
   const changeNetworkId = async () => {
     let sacredChainId = '0x' + parseInt(networkId).toString(16);
@@ -93,7 +95,7 @@ const Connect = ({ handleAlert, networkId }) => {
           onClick={onConnectClick}
           fullWidth
         >
-          Connect Wallet
+          {t('connect_wallet')}
         </Button>
       )}
     </div>

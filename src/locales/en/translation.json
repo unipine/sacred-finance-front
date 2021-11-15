@@ -67,6 +67,7 @@
     "alert" : {
         "unsupported_network": "Unsupported network selected. Please choose Kovan Test Network on Metamask.",
         "no_conflux_provider": "No Conflux provider detected. Please install or enable Conflux Portal."
-    }
+    },
+    "connect_wallet" : "Connect Wallet"
 
 }
