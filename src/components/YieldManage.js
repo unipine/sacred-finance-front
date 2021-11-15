@@ -76,8 +76,8 @@ const FlexDiv = styled("div")`
 const SettingDiv = styled("div")`
   margin-top: 1.25rem;
   border: 4px solid #8cbde9;
-  borderradius: 0.5rem;
-  backgroundcolor: rgba(140, 189, 233, 0.3);
+  border-radius: 0.5rem;
+  background-color: rgba(140, 189, 233, 0.3);
   padding: 0.5rem;
   width: 1.5rem;
 `;
