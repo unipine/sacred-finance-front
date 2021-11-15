@@ -92,7 +92,6 @@ const Deposit = ({
       setBtnDisabled(false);
     }
   }, [deployment.symbol, deployment.amount]);
-  console.log("deployment", deployment);
 
   return (
     <div>
