@@ -143,7 +143,7 @@ const WithdrawSuccessMain = ({ claim, parsedNote, txReceipt, depReceipt, recipie
               >
                 <small>{t("To")}</small>
                 <CustomSmall>
-                  {recipient}
+                  {recipient && recipient.toLowerCase()}
                 </CustomSmall>
               </Grid>
 
