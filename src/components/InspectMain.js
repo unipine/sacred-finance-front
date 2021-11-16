@@ -144,13 +144,13 @@ const InspectMain = ({
     const transactionHash = depositEvent.transactionHash;
     const receipt = await web3.eth.getTransactionReceipt(transactionHash);
 
-    const recipient = receipt.from;
+    const recipient = receipt.from;console.log('recipient',recipient);
 
     // Validate that our data is correct
     const isSpent = await sacred.methods
       .isSpent(toHex(deposit.nullifierHash))
       .call();
-
+console.log('isSpent', isSpent)
     if (isSpent) {
       setStatus(t('claim.withdrawn'));
       handleSetParsedNote(parsedNote);
@@ -166,9 +166,11 @@ const InspectMain = ({
       })[0];
 
       const blockInfo = await web3.eth.getBlock(withdrawEvent.blockNumber);
-
+      
+      const receipt1 = await web3.eth.getTransactionReceipt(transactionHash);
+      console.log('receipt1', receipt1)
       console.log("withdrawEvent", withdrawEvent);
-
+      console.log('blockInfo', blockInfo)
       receipt.timestamp = timestamp;
       receipt.withdrawTimestamp = blockInfo.timestamp;
       receipt.withdrawTransactionHash = withdrawEvent.transactionHash;
