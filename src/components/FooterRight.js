@@ -111,9 +111,9 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
                   {
                     depositHistory?.map((dep, index) => {
                       return index < 4 && (
-                        <>
-                          <b className='deposit-id'>{depositCount - index}</b> {dep} <br />
-                        </>
+                        <div key={`1-${index}`}>
+                          <b className='deposit-id'>{(depositCount - index).toString()}</b> {dep} <br />
+                        </div>
                       )
                     })
                   }
@@ -124,9 +124,9 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
                   {
                     depositHistory?.map((dep, index) => {
                       return index >= 4 && index < 8 && (
-                        <>
-                          <b className='deposit-id'>{depositCount - index}</b> {dep} <br />
-                        </>
+                        <div key={`2-${index}`}>
+                          <b className='deposit-id'>{(depositCount - index).toString()}</b> {dep} <br />
+                        </div>
                       )
                     })
                   }
