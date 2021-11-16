@@ -1,14 +1,16 @@
 import Grid from '@mui/material/Grid';
 import WarningIcon from '@mui/icons-material/Warning';
+import { useTranslation } from "react-i18next";
 
 
 const FooterMid = () => {
-
+  const { t } = useTranslation();
+  
   return (
 
     <Grid item xs={5}>
       <p className='ip-display'>
-        <WarningIcon className="inline-icon" /> <small>Sacred is still experimental software. Please use at your own risk.</small>
+        <WarningIcon className="inline-icon" /> <small>{t('footer.risk_warning')}</small>
       </p>
 
     </Grid>

@@ -44,7 +44,7 @@ const WithdrawWorking = ({ deployment }) => {
           </Grid>
         </Box>
       </Paper>
-      <WaitingModal content="Transaction is in progress..." />
+      <WaitingModal content={t('withdraw.in_progress')} />
     </div>
   )
 }

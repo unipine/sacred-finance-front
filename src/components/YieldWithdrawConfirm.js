@@ -71,10 +71,10 @@ const YieldWithdrawConfirm = () => {
     <Container item container direction="row" spacing={4}>
       <Grid item direction="column" xs={3}>
         <InputLabel sx={{ fontSize: "1.25rem", color: "white" }}>
-          Yield Points balance
+          {t('yield.points_balance')}
         </InputLabel>
         <TextBalance>0</TextBalance>
-        <TextPoints>USDT Yield Points</TextPoints>
+        <TextPoints>{t('yield.usdt_points')}</TextPoints>
       </Grid>
       <Grid item direction="column" xs={3}>
         <ContentGrid item>
@@ -85,9 +85,9 @@ const YieldWithdrawConfirm = () => {
             justifyContent="space-between"
             style={{ paddingBottom: "0.5rem" }}
           >
-            <GridItem18 item>Claim ID</GridItem18>
+            <GridItem18 item>{t('yield.claim_id')}</GridItem18>
             <GridItem18 item style={{ color: "#8CBDE9" }}>
-              UnSpent
+            {t('yield.upspent')}
             </GridItem18>
           </Grid>
           <SacredChainGrid>
@@ -103,7 +103,7 @@ const YieldWithdrawConfirm = () => {
             style={{ paddingBottom: "10px" }}
           >
             <GridItem14 item xs={6}>
-              Blocks
+            {t('yield.blocks')}
             </GridItem14>
             <Grid item sx={{ fontSize: "1rem" }} xs={6}>
               35523
@@ -117,10 +117,10 @@ const YieldWithdrawConfirm = () => {
             style={{ paddingBottom: "10px" }}
           >
             <GridItem14 item xs={6}>
-              Pool Rate
+            {t('yield.pool_rate')}
             </GridItem14>
             <Grid item sx={{ fontSize: "1rem" }} xs={6}>
-              10 AP/Block
+              10 {t('yield.ap_block')}
             </Grid>
           </Grid>
           <Grid
@@ -131,10 +131,10 @@ const YieldWithdrawConfirm = () => {
             style={{ paddingBottom: "10px" }}
           >
             <GridItem14 item xs={6}>
-              Network fee
+            {t('yield.network_fee')}
             </GridItem14>
             <Grid item sx={{ fontSize: "1rem" }} xs={6}>
-              0.06784 MATIC
+              0.06784 {t('yield.matic')}
             </Grid>
           </Grid>
           <Grid
@@ -145,10 +145,10 @@ const YieldWithdrawConfirm = () => {
             style={{ paddingBottom: "10px" }}
           >
             <GridItem14 item xs={6}>
-              Gas Price
+            {t('yield.get_price')}
             </GridItem14>
             <Grid item sx={{ fontSize: "1rem" }} xs={6}>
-              128 GWEI
+              128 {t('yield.GWEI')}
             </Grid>
           </Grid>
         </ContentGrid>
@@ -162,7 +162,7 @@ const YieldWithdrawConfirm = () => {
             justifyContent="space-between"
             style={{ paddingBottom: "0.5rem" }}
           >
-            <GridItem18 item>TX History</GridItem18>
+            <GridItem18 item>{t('yield.tx')} {t('yield.history')}</GridItem18>
           </Grid>
           <Grid
             item
@@ -171,9 +171,9 @@ const YieldWithdrawConfirm = () => {
             justifyContent="space-between"
             style={{ paddingBottom: "10px" }}
           >
-            <GridItem14 item>Reward i</GridItem14>
+            <GridItem14 item>{t('yield.reward')} i</GridItem14>
             <Grid item sx={{ fontSize: "1rem" }} style={{ opacity: "0.6" }}>
-              355230 IC
+              355230 {t('yield.IC')}
             </Grid>
           </Grid>
           <Grid
@@ -183,9 +183,9 @@ const YieldWithdrawConfirm = () => {
             justifyContent="space-between"
             style={{ paddingBottom: "10px" }}
           >
-            <GridItem14 item>Relayer Fee</GridItem14>
+            <GridItem14 item>{t('yield.relayer_fee')}</GridItem14>
             <Grid item sx={{ fontSize: "1rem" }} style={{ opacity: "0.6" }}>
-              -299152 IC
+              -299152 {t('yield.IC')}
             </Grid>
           </Grid>
           <Grid
@@ -195,13 +195,13 @@ const YieldWithdrawConfirm = () => {
             justifyContent="space-between"
             style={{ paddingBottom: "10px" }}
           >
-            <GridItem14 item>Total</GridItem14>
+            <GridItem14 item>{t('yield.total')}</GridItem14>
             <Grid
               item
               sx={{ fontSize: "1rem" }}
               style={{ color: "#8CBDE9", fontWeight: "bold" }}
             >
-              56078 IC
+              56078 {t('yield.IC')}
             </Grid>
           </Grid>
           <Grid
@@ -211,17 +211,17 @@ const YieldWithdrawConfirm = () => {
             justifyContent="space-between"
             style={{ paddingBottom: "10px" }}
           >
-            <GridItem14 item>Asset</GridItem14>
+            <GridItem14 item>{t('yield.asset')}</GridItem14>
             <Grid
               item
               sx={{ fontSize: "1rem" }}
               style={{ color: "#8CBDE9", fontWeight: "bold" }}
             >
-              USDT
+              {t('yield.usdt')}
             </Grid>
           </Grid>
           <RedeemButton variant="contained" fullWidth>
-            REDEEM YIELD POINTS
+            {t('yield.redeem_points')}
           </RedeemButton>
         </ContentGrid>
       </Grid>

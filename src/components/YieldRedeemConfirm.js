@@ -65,10 +65,10 @@ const YieldRedeemConfirm = () => {
     <Container item container direction="row" spacing={4}>
       <Grid item direction="column" xs={3}>
         <InputLabel sx={{ fontSize: "1.25rem", color: "white" }}>
-          Yield Points balance
+          {t('yield.points_balance')}
         </InputLabel>
         <TextBalance>0</TextBalance>
-        <TextPoints>USDT Yield Points</TextPoints>
+        <TextPoints>{t('yield.usdt_points')}</TextPoints>
       </Grid>
       <Grid item direction="column" xs={3}>
         <ContentGrid item>
@@ -80,10 +80,10 @@ const YieldRedeemConfirm = () => {
             sx={{ pb: "0.5rem" }}
           >
             <GridItem18 item>
-              Claim ID
+              {t('yield.claim_id')}
             </GridItem18>
             <GridItem18 item sx={{ color: "#8CBDE9" }}>
-              UnSpent
+              {t('yield.upspent')}
             </GridItem18>
           </Grid>
           <SacredChainGrid item>
@@ -99,7 +99,7 @@ const YieldRedeemConfirm = () => {
             sx={{ pb: "10px" }}
           >
             <GridItem14 item xs={6}>
-              Blocks
+              {t('yield.blocks')}
             </GridItem14>
             <Grid item sx={{fontSize: "1rem"}} xs={6}>
               35523
@@ -113,10 +113,10 @@ const YieldRedeemConfirm = () => {
             sx={{ pb: "10px" }}
           >
             <GridItem14 item xs={6}>
-              Pool Rate
+              {t('yield.pool_rate')}
             </GridItem14>
             <Grid item sx={{fontSize: "1rem"}} xs={6}>
-              10 AP/Block
+              10 {t('yield.ap_block')}
             </Grid>
           </Grid>
           <Grid
@@ -127,10 +127,10 @@ const YieldRedeemConfirm = () => {
             sx={{ pb: "10px" }}
           >
             <GridItem14 item xs={6}>
-              Network fee
+              {t('yield.network_fee')}
             </GridItem14>
             <Grid item sx={{fontSize: "1rem"}} xs={6}>
-              0.06784 MATIC
+              0.06784 {t('yield.matic')}
             </Grid>
           </Grid>
           <Grid
@@ -141,10 +141,10 @@ const YieldRedeemConfirm = () => {
             sx={{ pb: "10px" }}
           >
             <GridItem14 item xs={6}>
-              Gas Price
+              {t('yield.get_price')}
             </GridItem14>
             <Grid item sx={{fontSize: "1rem"}} xs={6}>
-              128 GWEI
+              128 {t('yield.GWEI')}
             </Grid>
           </Grid>
         </ContentGrid>
@@ -159,7 +159,7 @@ const YieldRedeemConfirm = () => {
             sx={{ pb: "0.5rem" }}
           >
             <GridItem18 item>
-              TX History
+              TX {t('yield.history')}
             </GridItem18>
           </Grid>
           <Grid
@@ -222,7 +222,7 @@ const YieldRedeemConfirm = () => {
             sx={{ textTransform: "none", fontWeight: "bold" }}
             fullWidth
           >
-            REDEEM YIELD POINTS
+            {t('yield.redeem_points')}
           </Button>
         </ContentGrid>
       </Grid>

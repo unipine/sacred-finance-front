@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Box, Typography, Modal, Link } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const Content = styled(Box)`
   position: absolute;
@@ -24,6 +25,7 @@ const Title = styled('p')`
 `;
 
 const MetaMaskDialog = (prop) => {
+  const { t } = useTranslation();
   const [open, setOpen] = React.useState(prop.connectMeta);
 
   const handleClose = () => {
@@ -38,9 +40,9 @@ const MetaMaskDialog = (prop) => {
       aria-describedby="modal-modal-description"
     >
       <Content>
-        <Title>You need to install Metamask.</Title>
+        <Title>{t('metamask.install')}</Title>
         <p>
-          Please visit{" "}
+          {`${t('metamask.please')} `}
           <Link href="https://metamask.io/" variant="body2">
             https://metamask.io/
           </Link>

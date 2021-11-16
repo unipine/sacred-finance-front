@@ -6,6 +6,7 @@ import InputLabel from "@mui/material/InputLabel";
 import { useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const VersionSelect = styled(Select)`
   &.Mui-focused {
@@ -36,6 +37,7 @@ const CustomMenuItem = styled(MenuItem)`
 const Version = ({ handleNetworkId, networkId, handleAlert }) => {
   const [versionChainId, setVersionChainId] = useState(networkId);
   const { chainId } = useWeb3React();
+  const { t } = useTranslation();
 
   const handleChange = async (event) => {
     if (chainId !== undefined) {
@@ -72,8 +74,8 @@ const Version = ({ handleNetworkId, networkId, handleAlert }) => {
               getContentAnchorEl: null,
             }}
           >
-            <CustomMenuItem value={1}>Ethereum Mainnet</CustomMenuItem>
-            <CustomMenuItem value={42}>Kovan Testnet</CustomMenuItem>
+            <CustomMenuItem value={1}>{t('version.ethereum')}</CustomMenuItem>
+            <CustomMenuItem value={42}>{t('version.kovan')}</CustomMenuItem>
           </VersionSelect>
         </FormControl>
       </div>

@@ -52,7 +52,7 @@ const YieldRedemptionSetup = () => {
                 paddingBottom: "20px",
               }}
             >
-              Account Setup
+              {t('yield.account_setup')}
             </InputLabel>
           </Grid>
           <Grid item>
@@ -63,16 +63,15 @@ const YieldRedemptionSetup = () => {
                 whiteSpace: "pre-wrap",
               }}
             >
-              This key is only used to store your incognito points for the
-              mining protocol.
+              {t('yield.text3')}
               <br />
-              <b>Please back it up and never share it with anyone.</b>
+              <b>{t('yield.text4')}</b>
             </InputLabel>
           </Grid>
           <Grid item container direction="row" justifyContent="space-between">
-            <InputLabel>Recovery Key</InputLabel>
+            <InputLabel>{t('yield.recover_key')}</InputLabel>
             <InputLabel sx={{ color: "#EF646D", textDecoration: "underline" }}>
-              <u>Copy</u>
+              <u>{t('yield.copy')}</u>
             </InputLabel>
           </Grid>
           <Grid item>
@@ -121,10 +120,10 @@ const YieldRedemptionSetup = () => {
               color="secondary"
               onClick={handleSetupClick}
             >
-              Setup
+              {t('yield.setup')}
             </CustomButton>
             <CustomButton variant="outlined" color="secondary">
-              Cancel
+              {t('yield.cancel')}
             </CustomButton>
           </Grid>
         </Grid>

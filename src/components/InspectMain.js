@@ -87,7 +87,7 @@ const InspectMain = ({
       parsedNote = parseNote(claim);
     } catch (err) {
       console.log("The note has invalid format");
-      setStatus("This Claim is invalid");
+      setStatus(t('claim.invalid'));
       setDisplayDepositInfo(false);
 
       return false;
@@ -97,7 +97,7 @@ const InspectMain = ({
       deployments.eth_deployments[`netId${chainId}`][
         parsedNote.currency.toLowerCase()
       ];
-console.log('_de', _deployment);
+
     const deployment = {
       address: _deployment.instanceAddress[parsedNote.amount],
       abi: _deployment.abi,
@@ -152,7 +152,7 @@ console.log('_de', _deployment);
       .call();
 
     if (isSpent) {
-      setStatus("This Claim has been Withdrawn");
+      setStatus(t('claim.withdrawn'));
       handleSetParsedNote(parsedNote);
       handleSetClaim(claim);
 
@@ -181,13 +181,13 @@ console.log('_de', _deployment);
       return;
     } else {
       if (leafIndex >= 0) {
-        setStatus("This Claim is in Sacred");
+        setStatus(t('claim.sacred'));
         setParsedNote(parsedNote);
         setTxLayers(leaves.length - leafIndex - 1);
         setDepositData({ timestamp, transactionHash, from: receipt.from });
         setDisplayDepositInfo(true);
       } else {
-        setStatus(t("This Claim does not exist in Sacred"));
+        setStatus(t('claim.not_exist'));
         setDisplayDepositInfo(false);
       }
     }
@@ -226,7 +226,7 @@ console.log('_de', _deployment);
             InputProps={{
               disableUnderline: true,
             }}
-            placeholder="Paste your Sacred Claim to check status..."
+            placeholder={t('claim.prompt')}
             variant="filled"
             onChange={handleInspect}
           />
@@ -269,10 +269,10 @@ console.log('_de', _deployment);
                       alignItems="flex-start"
                     >
                       <Grid item>
-                        <small>Your Claim's</small>
+                        <small>{t('claim.your_claim')}</small>
                       </Grid>
                       <Grid item className="blue-text">
-                        Privacy Indicator
+                        {t('claim.indicator')}
                       </Grid>
                     </Grid>
                   </Grid>
@@ -310,7 +310,7 @@ console.log('_de', _deployment);
                     xs={5}
                   >
                     <small>
-                      Not Private: <b>0-300</b>
+                      {t('claim.not_private')}: <b>0-300</b>
                     </small>
                   </Grid>
                   <Grid
@@ -322,7 +322,7 @@ console.log('_de', _deployment);
                     xs={7}
                   >
                     <small>
-                      Securely Private: <b>400-1000</b>
+                      {t('claim.scure_private')}: <b>400-1000</b>
                     </small>
                   </Grid>
                 </Grid>
@@ -335,8 +335,8 @@ console.log('_de', _deployment);
                   justifyContent="flex-start"
                   alignItems="center"
                 >
-                  This claim has been layered further by&nbsp;
-                  <b>{txLayers} transactions</b>
+                  {t('claim.layerd_further')}&nbsp;
+                  <b>{txLayers} {t('claim.transations')}</b>
                 </Grid>
                 <Grid
                   item
@@ -351,7 +351,7 @@ console.log('_de', _deployment);
                     fullWidth
                     onClick={handleWithdrawClick}
                   >
-                    Withdraw Claim
+                    {t('claim.withdraw')}
                   </Button>
                 </Grid>
                 {/* 

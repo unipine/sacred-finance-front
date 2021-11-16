@@ -45,7 +45,7 @@ const DepositWorking = ({ deployment }) => {
           </Grid>
         </Box>
       </Paper>
-      <WaitingModal content="Transaction is in progress..." />
+      <WaitingModal content={t('waiting')} />
     </div>
   )
 }

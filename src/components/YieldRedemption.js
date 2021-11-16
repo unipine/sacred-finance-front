@@ -51,18 +51,18 @@ const YieldRedemption = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <Title>Sacred.Finance</Title>
-      <YieldTitle>Yield Redemption</YieldTitle>
+      <Title>{t('yield.sacred_finance')}</Title>
+      <YieldTitle>{t('yield.redemption')}</YieldTitle>
       <Content>
-        Create a Shielded Account and calculate your
-        <br /> Yield Points to privately redeem your Yield
+        {t('yield.text1')}
+        <br /> {t('yield.text2')}
       </Content>
       <CustomButton
         variant="contained"
         color="secondary"
         onClick={handleClick}
       >
-        Get Started
+        {t('yield.get_started')}
       </CustomButton>
     </CustomGrid>
   );

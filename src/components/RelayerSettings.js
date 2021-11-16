@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 import TextField from "@mui/material/TextField";
 import { useLocation } from "react-router";
@@ -87,6 +88,7 @@ const RelayerSettings = () => {
 
   const [selectedRelayerI, setSelectedRelayerI] = useState(false);
   const [layer, setLayer] = useState("");
+  const { t } = useTranslation();
 
   const handleLayerChange = (event) => {
     setLayer(event.target.value);
@@ -123,7 +125,7 @@ const RelayerSettings = () => {
                   }
                   onClick={handleRelayerChange}
                 >
-                  <b>Relayer i</b>
+                  <b>{t('relayer.i')} i</b>
                 </HeaderButton>
               </Grid>
               <Grid item>
@@ -136,7 +138,7 @@ const RelayerSettings = () => {
                   }
                   onClick={handleWalletChange}
                 >
-                  <b>Wallet i</b>
+                  <b>{t('wallet.i')} i</b>
                 </HeaderButton>
               </Grid>
             </Grid>
@@ -149,7 +151,7 @@ const RelayerSettings = () => {
                       multiline
                       variant="filled"
                       size="small"
-                      value="Make sure that ETH used to pay for the gas fee is not linkable to ANY of your addresses. Otherwise, the anonymity of the withdrawal will be comprised. We recommend using a Relayer instead. "
+                      value={t('relayer.ether_fee')}
                       InputProps={{ disableUnderline: true }}
                       fullWidth
                       disabled
@@ -164,7 +166,7 @@ const RelayerSettings = () => {
                     <InputLabel
                       sx={{ fontFamily: "Montserrat", margin: "8px" }}
                     >
-                      Relayer
+                      {t('relayer.i')}
                     </InputLabel>
                   </Grid>
                   <Grid item container>
@@ -180,16 +182,16 @@ const RelayerSettings = () => {
                         }}
                       >
                         <RelayerItem value={"mainnet.t-relay.matic"}>
-                          mainnet.t-relay.matic
+                          {t('relayer.mainnet')}
                         </RelayerItem>
                         <RelayerItem value={"noder.t-relay.matic"}>
-                          noder.t-relay.matic
+                          {t('relayer.noder')}
                         </RelayerItem>
                         <RelayerItem value={"relay2.t-relay.matic"}>
-                          relay2.t-relay.matic
+                        {t('relayer.relay2')}
                         </RelayerItem>
                         <RelayerItem value={"4 mainnet.t-relay.matic"}>
-                          4 mainnet.t-relay.matic
+                          {t('relayer.4mainnet')}
                         </RelayerItem>
                       </RelayerSelect>
                     </CustomFormControl>
@@ -199,12 +201,12 @@ const RelayerSettings = () => {
             )}
             <Grid item container>
               <CustomButton variant="outlined" color="secondary" fullWidth>
-                Set as default
+                {t('set_default')}
               </CustomButton>
             </Grid>
             <Grid item container>
               <CustomButton variant="contained" color="secondary" fullWidth>
-                Save
+                {t('Save')}
               </CustomButton>
             </Grid>
           </Grid>

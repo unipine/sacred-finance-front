@@ -89,7 +89,7 @@ const FooterRight = ({ deployment, depositCount, networkId }) => {
         </Grid>
         <Grid item>
           <div className="deposit-latest">
-            {depositCount === undefined ? "Loading... " : `${depositCount} `}
+            {depositCount === undefined ? t('common.loading') : `${depositCount} `}
             equal user deposits
           </div>
         </Grid>

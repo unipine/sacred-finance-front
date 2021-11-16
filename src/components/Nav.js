@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useHistory } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -25,6 +26,7 @@ const theme = createTheme({
 })
 
 const Nav = () => {
+  const { t } = useTranslation();
 
   const history = useHistory();
 
@@ -37,12 +39,12 @@ const Nav = () => {
     <ThemeProvider theme={theme}>
     <Grid item xs={5}>
       <ButtonGroup variant="contained" >
-        <Button onClick={() => handleRoute('')}>Sacred App</Button>
-        <Button sx={{borderRadius: 'initial'}} target="_blank" href="https://sacred.gitbook.io/sacred-finance/">About</Button>
-        <Button sx={{borderRadius: 'initial'}} onClick={() => handleRoute('yield')}>Yield</Button>
-        <Button sx={{borderRadius: 'initial'}} onClick={() => handleRoute('inspect')}>Inspect</Button>
-        <Button sx={{borderRadius: 'initial'}} target="_blank" href="https://sacred.gitbook.io/sacred-finance/tokeneconomics/scrd-token-supply-and-distribution">Token</Button>
-        <Button target="_blank" href="https://sacred.gitbook.io/sacred-finance/other-important-information/faq">FAQ</Button>
+        <Button onClick={() => handleRoute('')}>{t('header.app')}</Button>
+        <Button sx={{borderRadius: 'initial'}} target="_blank" href="https://sacred.gitbook.io/sacred-finance/">{t('header.about')}</Button>
+        <Button sx={{borderRadius: 'initial'}} onClick={() => handleRoute('yield')}>{t('header.yield')}</Button>
+        <Button sx={{borderRadius: 'initial'}} onClick={() => handleRoute('inspect')}>{t('header.inspect')}</Button>
+        <Button sx={{borderRadius: 'initial'}} target="_blank" href="https://sacred.gitbook.io/sacred-finance/tokeneconomics/scrd-token-supply-and-distribution">{t('header.token')}</Button>
+        <Button target="_blank" href="https://sacred.gitbook.io/sacred-finance/other-important-information/faq">{t('header.faq')}</Button>
       </ButtonGroup>
     </Grid>
     </ThemeProvider>

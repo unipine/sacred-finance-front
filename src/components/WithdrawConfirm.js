@@ -149,7 +149,7 @@ const WithdrawConfirm = ({
       if (
         error.message.indexOf("Transaction has been reverted by the EVM") >= 0
       ) {
-        handleAlert("Transaction has been reverted by the EVM");
+        handleAlert(t('withdraw.reverted'));
         history.push("/withdrawCheck");
       }
     }
@@ -229,7 +229,7 @@ const WithdrawConfirm = ({
           </Grid>
         </Box>
       </Paper>
-      {waiting && <WaitingModal content="Generating Proof..." />}
+      {waiting && <WaitingModal content={t('withdraw.generating_proof')} />}
     </div>
   );
 };

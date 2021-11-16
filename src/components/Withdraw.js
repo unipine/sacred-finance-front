@@ -194,7 +194,7 @@ const Withdraw = ({
                     style={{ cursor: "pointer" }}
                   >
                     <small>
-                      <b>Use current address</b>
+                      <b>{t('withdraw.current_address')}</b>
                     </small>
                   </span>
                 </Grid>
@@ -230,7 +230,7 @@ const Withdraw = ({
           </Grid>
         </Box>
       </Paper>
-      {waiting && <WaitingModal content="Verifying claim..." />}
+      {waiting && <WaitingModal content={t('withdraw.verify_claim')} />}
     </div>
   );
 };

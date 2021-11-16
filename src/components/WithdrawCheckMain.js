@@ -137,10 +137,10 @@ const WithdrawCheckMain = ({
                       alignItems="flex-start"
                     >
                       <Grid item>
-                        <small>Your Claim's</small>
+                        <small>{t('claim.your_claim')}</small>
                       </Grid>
                       <Grid item className="blue-text">
-                        Privacy Indicator
+                        {t('claim.indicator')}
                       </Grid>
                     </Grid>
                   </Grid>
@@ -178,7 +178,7 @@ const WithdrawCheckMain = ({
                     xs={5}
                   >
                     <small>
-                      Not Private: <b>0-300</b>
+                      {t('claim.not_private')}: <b>0-300</b>
                     </small>
                   </Grid>
                   <Grid
@@ -190,7 +190,7 @@ const WithdrawCheckMain = ({
                     xs={7}
                   >
                     <small>
-                      Securely Private: <b>400-1000</b>
+                      {t('claim.secure_private')}: <b>400-1000</b>
                     </small>
                   </Grid>
                 </Grid>
@@ -203,8 +203,8 @@ const WithdrawCheckMain = ({
                   justifyContent="flex-start"
                   alignItems="center"
                 >
-                  This claim has been layered further by&nbsp;
-                  <b>{txLayers} transactions</b>
+                  {t('claim.layerd_further')}&nbsp;
+                  <b>{txLayers} {t('claim.transactions')}</b>
                 </Grid>
                 {/* 
                 <Grid item xs={12}

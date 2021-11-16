@@ -150,17 +150,17 @@ const WithdrawSuccess = ({
       <Page size="A4" style={styles.page}>
         <View style={styles.section1}>
           <Image src={svgLogo} style={{ width: 200, height: 55 }} />
-          <Text style={styles.title}>Compliance Report</Text>
+          <Text style={styles.title}>{t('document.compliance')}</Text>
         </View>
         <View style={styles.claimView}>
-          <Text style={styles.claimHead}>Sacred Claim:</Text>
+          <Text style={styles.claimHead}>{t('document.claim')}:</Text>
           <Text style={styles.claimContent}>{claimText}</Text>
         </View>
         <View style={styles.depositView}>
-          <Text style={{ fontSize: "12.42px" }}>Deposit</Text>
+          <Text style={{ fontSize: "12.42px" }}>{t('Deposit')}</Text>
           <View style={styles.depositVerify}>
             <View style={{ width: "50%", textAlign: "left" }}>
-              <Text style={{ fontWeight: "bold" }}>Verified</Text>
+              <Text style={{ fontWeight: "bold" }}>{t('Verified')}</Text>
             </View>
             <View style={{ width: "50%", textAlign: "right" }}>
               <Text style={{ fontWeight: "bold" }}>{`${
@@ -169,7 +169,7 @@ const WithdrawSuccess = ({
             </View>
           </View>
           <View style={styles.depositContent}>
-            <Text style={styles.field}>Date</Text>
+            <Text style={styles.field}>{t('Date')}</Text>
             <Text style={styles.value}>
               {location.pathname === "/inspectSuccess"
                 ? new Date(txReceipt?.timestamp * 1000).toUTCString()
@@ -177,7 +177,7 @@ const WithdrawSuccess = ({
             </Text>
           </View>
           <View style={styles.depositContent}>
-            <Text style={styles.field}>Transaction</Text>
+            <Text style={styles.field}>{t('Transaction')}</Text>
             <Text style={styles.value}>
               {location.pathname === "/inspectSuccess"
                 ? txReceipt?.transactionHash
@@ -193,12 +193,12 @@ const WithdrawSuccess = ({
             </Text>
           </View>
           <View style={styles.depositContent}>
-            <Text style={styles.field}>Commitment</Text>
+            <Text style={styles.field}>{t('Commitment')}</Text>
             <Text style={styles.value}>{parsedNote.deposit.commitmentHex}</Text>
           </View>
         </View>
         <View style={styles.depositView}>
-          <Text style={{ fontSize: "12.42px" }}>Withdrawal</Text>
+          <Text style={{ fontSize: "12.42px" }}>{t('Withdrawal')}</Text>
           <View style={styles.depositVerify}>
             <View style={{ width: "50%", textAlign: "left" }}>
               <Text style={{ fontWeight: "bold" }}>Verified</Text>
@@ -214,7 +214,7 @@ const WithdrawSuccess = ({
             </View>
           </View>
           <View style={styles.depositContent}>
-            <Text style={styles.field}>Date</Text>
+            <Text style={styles.field}>{t('Date')}</Text>
             <Text style={styles.value}>
               {location.pathname === "/inspectSuccess"
                 ? new Date(txReceipt.withdrawTimestamp * 1000).toUTCString()
@@ -222,7 +222,7 @@ const WithdrawSuccess = ({
             </Text>
           </View>
           <View style={styles.depositContent}>
-            <Text style={styles.field}>Transaction</Text>
+            <Text style={styles.field}>{t('Transaction')}</Text>
             <Text style={styles.value}>
               {location.pathname === "/inspectSuccess"
                 ? txReceipt.withdrawTransactionHash
@@ -230,11 +230,11 @@ const WithdrawSuccess = ({
             </Text>
           </View>
           <View style={styles.depositContent}>
-            <Text style={styles.field}>To</Text>
+            <Text style={styles.field}>{t('To')}</Text>
             <Text style={styles.value}>{recipeint ? recipient : txReceipt.to.toLowerCase()}</Text>
           </View>
           <View style={styles.depositContent}>
-            <Text style={styles.field}>Nullifier Hash</Text>
+            <Text style={styles.field}>{t('Nullifier Hash')}</Text>
             <Text style={styles.value}>
               {parsedNote?.deposit?.nullifierHex}
             </Text>
@@ -242,31 +242,18 @@ const WithdrawSuccess = ({
         </View>
         <View style={styles.warningView}>
           <Text style={{ fontSize: "14.2px", fontWeight: "bold" }}>
-            Warning
+            {t('common.warning')}
           </Text>
           <Text
             style={{ color: "#686868", fontSize: "10.6px", paddingTop: "8px" }}
           >
-            This Compliance Report is for informational purposes only. You
-            should confirm the validity of this report by using Sacred’s
-            Compliance Tool (https://app.sacred.finance/compliance) or with any
-            other cryptographic software that can compute and verify the
-            information contained herein(the "Sacred Inspect Tool"). Any
-            discrepancies between information found in this report and provided
-            by the above tool indicate that the information in this report is
-            inaccurate and/or fraudulent.
+            {t('document.text1')}
           </Text>
           <Text
             style={{ color: "#686868", fontSize: "10.6px", paddingTop: "8px" }}
           >
             {" "}
-            THE COMPLIANCE REPORT IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY
-            KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-            WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-            NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OF THE SACRED
-            COMPLIANCE TOOL BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-            WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-            OUT OF OR IN CONNECTION WITH THIS COMPLIANCE REPORT.
+            {t('document.text2')}
           </Text>
         </View>
       </Page>

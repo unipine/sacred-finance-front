@@ -138,7 +138,7 @@ const YieldManage = () => {
                   }
                   onClick={handleRedeemClick}
                 >
-                  <b>Redeem</b>
+                  <b>{t('redeem.main')}</b>
                 </HeaderButton>
               </Grid>
               <Grid item>
@@ -151,7 +151,7 @@ const YieldManage = () => {
                   }
                   onClick={handleWithdrawClick}
                 >
-                  <b>Withdraw</b>
+                  <b>{t('Withdraw')}</b>
                 </HeaderButton>
               </Grid>
             </Grid>
@@ -166,8 +166,8 @@ const YieldManage = () => {
                       direction="row"
                       justifyContent="space-between"
                     >
-                      <BlackInputLabel>From</BlackInputLabel>
-                      <BlackInputLabel>Balance: 56078</BlackInputLabel>
+                      <BlackInputLabel>{t('From')}</BlackInputLabel>
+                      <BlackInputLabel>{t('redeem.balance')}: 56078</BlackInputLabel>
                     </Grid>
                     <Grid
                       item
@@ -179,7 +179,7 @@ const YieldManage = () => {
                     >
                       <InputLabel sx={{ fontSize: "20px" }}>0.0</InputLabel>
                       <FlexDiv>
-                        <div>MAX</div>
+                        <div>{t('redeem.max')}</div>
                         <select
                           labelId="network-select-label"
                           value={coinType}
@@ -203,8 +203,8 @@ const YieldManage = () => {
                       justifyContent="space-between"
                       sx={{ paddingBottom: "10px" }}
                     >
-                      <BlackInputLabel>To</BlackInputLabel>
-                      <BlackInputLabel>Balance: 0.000000</BlackInputLabel>
+                      <BlackInputLabel>{t('To')}</BlackInputLabel>
+                      <BlackInputLabel>{t('redeem.balance')}: 0.000000</BlackInputLabel>
                     </Grid>
                     <Grid
                       item
@@ -223,7 +223,7 @@ const YieldManage = () => {
                       fullWidth
                       onClick={handleWithrawYield}
                     >
-                      Withdraw Yield
+                      {t('Withdraw Yield')}
                     </CalculateButton>
                   </Grid>
                 </Grid>
@@ -232,7 +232,7 @@ const YieldManage = () => {
               <>
                 <Grid item direction="column" justifyContent="space-between">
                   <Grid item>
-                    <InputLabel>Sacred Claim</InputLabel>
+                    <InputLabel>{t('Sacred Claim')}</InputLabel>
                     <CustomTextField
                       multiline
                       variant="outlined"
@@ -249,7 +249,7 @@ const YieldManage = () => {
                       sx={{ marginTop: "280px" }}
                       onClick={handleCalculatePoints}
                     >
-                      Calculate Points
+                      {t('Calculate Points')}
                     </CalculateButton>
                   </Grid>
                 </Grid>
