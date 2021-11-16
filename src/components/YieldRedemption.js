@@ -51,6 +51,7 @@ const YieldRedemption = () => {
       item
       direction="column"
       alignItems="center"
+      container
       justifyContent="center"
     >
       <Title>{t('yield.sacred_finance')}</Title>

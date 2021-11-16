@@ -125,7 +125,7 @@ const YieldManage = () => {
             <Grid
               item
               container
-              direction="row"
+              container direction="row"
               spacing={0}
               justifyContent="space-around"
               alignItems="center"
@@ -160,12 +160,12 @@ const YieldManage = () => {
 
             {selectedWithdraw ? (
               <>
-                <Grid item direction="column">
+                <Grid item container direction="column" container>
                   <BalanceGrid item>
                     <Grid
                       item
                       container
-                      direction="row"
+                      container direction="row"
                       justifyContent="space-between"
                     >
                       <BlackInputLabel>{t('From')}</BlackInputLabel>
@@ -174,7 +174,7 @@ const YieldManage = () => {
                     <Grid
                       item
                       container
-                      direction="row"
+                      container direction="row"
                       justifyContent="space-between"
                       alignItems="center"
                       sx={{ paddingTop: "10px" }}
@@ -183,7 +183,6 @@ const YieldManage = () => {
                       <FlexDiv>
                         <div>{t('redeem.max')}</div>
                         <select
-                          labelId="network-select-label"
                           value={coinType}
                           onChange={handleCoinType}
                           className="select"
@@ -201,7 +200,7 @@ const YieldManage = () => {
                     <Grid
                       item
                       container
-                      direction="row"
+                      container direction="row"
                       justifyContent="space-between"
                       sx={{ paddingBottom: "10px" }}
                     >
@@ -211,7 +210,7 @@ const YieldManage = () => {
                     <Grid
                       item
                       container
-                      direction="row"
+                      container direction="row"
                       justifyContent="space-between"
                     >
                       <InputLabel sx={{ fontSize: "20px" }}>0.0</InputLabel>
@@ -232,14 +231,14 @@ const YieldManage = () => {
               </>
             ) : (
               <>
-                <Grid item direction="column" justifyContent="space-between">
+                <Grid item container direction="column" justifyContent="space-between">
                   <Grid item>
                     <InputLabel>{t('Sacred Claim')}</InputLabel>
                     <CustomTextField
                       multiline
                       variant="outlined"
                       size="small"
-                      InputProps={{ disableUnderline: true }}
+                      InputProps={{  }}
                       fullWidth
                     />
                   </Grid>
