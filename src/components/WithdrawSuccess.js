@@ -123,7 +123,7 @@ const WithdrawSuccess = ({
   deployment,
   depReceipt,
   recipient
-}) => {
+}) => {console.log('tx',txReceipt)
   const history = useHistory();
 
   const handleDepositRoute = () => {
@@ -231,7 +231,7 @@ const WithdrawSuccess = ({
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>{t('To')}</Text>
-            <Text style={styles.value}>{recipient ? recipient.toLowerCase() : txReceipt.to.toLowerCase()}</Text>
+            <Text style={styles.value}>{recipient ? recipient.toLowerCase() : txReceipt?.returnValues?.to?.toLowerCase()}</Text>
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>{t('Nullifier Hash')}</Text>

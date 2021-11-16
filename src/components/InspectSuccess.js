@@ -10,6 +10,7 @@ import svgLogo from "../images/sacred_pdf_logo.png";
 import Mont_Regular from "../fonts/Montserrat-Regular.ttf";
 import Mont_Bold from "../fonts/Montserrat-Bold.ttf";
 import { useTranslation } from "react-i18next";
+import { Receipt } from '@mui/icons-material';
 
 Font.register({
   family: 'Montserrat',
@@ -168,7 +169,7 @@ const InspectSuccess = ({ parsedNote, txReceipt, claim, deployment }) => {
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>{t('To')}</Text>
-            <Text style={styles.value}>{txReceipt.to.toLowerCase()}</Text>
+            <Text style={styles.value}>{txReceipt?.returnValues?.to?.toLowerCase()}</Text>
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>{t('Nullifier Hash')}</Text>
