@@ -70,15 +70,16 @@ const WithdrawCheckMain = ({
   };
 
   if (isSpent) {
-    titleText = <h1>This Claim has been Withdrawn</h1>;
+    titleText = <h1>{t('claim.withdrawn')}</h1>;
   } else if (!isExist) {
-    titleText = <h1>This Claim does not exist in Sacred</h1>;
+    titleText = <h1>{t('claim.not_exist')}</h1>;
   } else {
     titleText = <h1>{t("This Claim is in Sacred")}</h1>;
   }
 
   useEffect(() => {
     getDepositData();
+    () => {}
   }, []);
 
   //TODO: grid elements code duplication. should have a component to reuse in Depositsuccess, a few withdraw pages and Inspect
