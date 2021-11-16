@@ -18,7 +18,7 @@ import { styled } from "@mui/material/styles";
 
 const injectedConnector = new InjectedConnector({
   supportedChainIds: [
-    1, // Ethereum Mainnet
+    // 1, // Ethereum Mainnet
     42, // Kovan Testnet
   ],
 });
