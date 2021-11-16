@@ -231,7 +231,7 @@ const WithdrawSuccess = ({
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>{t('To')}</Text>
-            <Text style={styles.value}>{recipeint ? recipient : txReceipt.to.toLowerCase()}</Text>
+            <Text style={styles.value}>{recipient ? recipient : txReceipt.to.toLowerCase()}</Text>
           </View>
           <View style={styles.depositContent}>
             <Text style={styles.field}>{t('Nullifier Hash')}</Text>

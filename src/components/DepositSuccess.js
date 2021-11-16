@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { GoToContract } from "./Deposit";
 
 const DepositSuccess = ({ txReceipt, deployment }) => {
   const history = useHistory();
@@ -50,7 +51,17 @@ const DepositSuccess = ({ txReceipt, deployment }) => {
             <Grid item>
               <br />
               <br />
-              <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace('.', '')}.sacred.eth`}</small>
+              <GoToContract
+                href={`https://kovan.etherscan.io/address/${deployment.address}`}
+                className="blue-text"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <small>{`${deployment.symbol.toLowerCase()}-${deployment.amount.replace(
+                  ".",
+                  ""
+                )}.sacred.eth`}</small>
+              </GoToContract>
             </Grid>
           </Grid>
         </Box>
