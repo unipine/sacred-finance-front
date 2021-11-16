@@ -12,6 +12,7 @@ import { InputLabel } from "@mui/material";
 import arrow_down from "../images/arrow_down.svg";
 import settingImg from "../images/setting.svg";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const BalanceGrid = styled(Grid)`
   border: 1px solid #757575;
@@ -85,6 +86,7 @@ const SettingDiv = styled("div")`
 const YieldManage = () => {
   const history = useHistory();
   const location = useLocation();
+  const { t } = useTranslation();
 
   const [selectedWithdraw, setSelectedWithdraw] = useState(false);
   const [coinType, setCoinType] = useState(0);

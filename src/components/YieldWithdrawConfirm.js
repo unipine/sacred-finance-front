@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grid, InputLabel, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const Container = styled(Grid)`
   color: white;
@@ -67,6 +68,8 @@ const RedeemButton = styled(Button)`
 `;
 
 const YieldWithdrawConfirm = () => {
+  const { t } = useTranslation();
+  
   return (
     <Container item container direction="row" spacing={4}>
       <Grid item direction="column" xs={3}>

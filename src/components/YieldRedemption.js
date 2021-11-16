@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Grid, Button, LinearProgress } from "@mui/material";
 import { useHistory, useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const CustomGrid = styled(Grid)`
   padding-top: 80px;
@@ -39,6 +40,7 @@ const CustomButton = styled(Button)`
 const YieldRedemption = () => {
   const history = useHistory();
   const location = useLocation();
+  const { t } = useTranslation();
 
   const handleClick = () => {
     history.push("/yieldSetup");

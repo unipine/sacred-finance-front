@@ -11,6 +11,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import WaitingModal from "./WaitingModal";
 import { Radio, RadioGroup, FormControl } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const CustomButton = styled(Button)`
   margin: 20px;
@@ -31,6 +32,7 @@ const CustomTextField = styled(TextField)`
 const YieldRedemptionSetup = () => {
   const history = useHistory();
   const [value, setValue] = React.useState(0);
+  const { t } = useTranslation();
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
