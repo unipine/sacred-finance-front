@@ -1,4 +1,4 @@
-import merkleTree from '../lib/MerkleTree';
+import merkleTree from "../lib/MerkleTree";
 // import { address, abi } from './config';
 // const { bigInt } = require('snarkjs');
 // const { format } = require('js-conflux-sdk')
@@ -6,7 +6,7 @@ const snarkjs = require("snarkjs");
 const crypto = require("crypto");
 const circomlib = require("circomlib");
 const { Conflux, Drip, format } = require("js-conflux-sdk");
-const { toWei, fromWei, toBN, BN } = require('web3-utils')
+const { toWei, fromWei, toBN, BN } = require("web3-utils");
 
 //const buildGroth16 = require('websnark/src/groth16')
 const websnarkUtils = require("websnark/src/utils");
@@ -15,8 +15,8 @@ const websnarkUtils = require("websnark/src/utils");
 const assert = require("assert");
 const { poseidonHash2, getExtWithdrawAssetArgsHash } = require("./utils2");
 
-const Web3 = require("web3")
-const web3 = window.web3 ? new Web3( window.web3.currentProvider) : null
+const Web3 = require("web3");
+const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
 
 // const confluxJS = new Conflux({
 //   url: "https://test.confluxrpc.com",
@@ -100,80 +100,94 @@ function parseNote(noteString) {
 
 async function loadDepositData({ deposit }) {
   try {
-    const eventWhenHappened = await sacred.getPastEvents('Deposit', {
+    const eventWhenHappened = await sacred.getPastEvents("Deposit", {
       filter: {
-        commitment: deposit.commitmentHex
+        commitment: deposit.commitmentHex,
       },
       fromBlock: 0,
-      toBlock: 'latest'
-    })
+      toBlock: "latest",
+    });
     if (eventWhenHappened.length === 0) {
-      throw new Error('There is no related deposit, the note is invalid')
+      throw new Error("There is no related deposit, the note is invalid");
     }
 
-    const { timestamp } = eventWhenHappened[0].returnValues
-    const txHash = eventWhenHappened[0].transactionHash
-    const isSpent = await sacred.methods.isSpent(deposit.nullifierHex).call()
-    const receipt = await web3.eth.getTransactionReceipt(txHash)
+    const { timestamp } = eventWhenHappened[0].returnValues;
+    const txHash = eventWhenHappened[0].transactionHash;
+    const isSpent = await sacred.methods.isSpent(deposit.nullifierHex).call();
+    const receipt = await web3.eth.getTransactionReceipt(txHash);
 
-    return { timestamp, txHash, isSpent, from: receipt.from, commitment: deposit.commitmentHex }
+    return {
+      timestamp,
+      txHash,
+      isSpent,
+      from: receipt.from,
+      commitment: deposit.commitmentHex,
+    };
   } catch (e) {
-    console.error('loadDepositData', e)
+    console.error("loadDepositData", e);
   }
-  return {}
+  return {};
 }
 
 function fromDecimals({ amount, decimals }) {
-  amount = amount.toString()
-  let ether = amount.toString()
-  const base = new BN('10').pow(new BN(decimals))
-  const baseLength = base.toString(10).length - 1 || 1
+  amount = amount.toString();
+  let ether = amount.toString();
+  const base = new BN("10").pow(new BN(decimals));
+  const baseLength = base.toString(10).length - 1 || 1;
 
-  const negative = ether.substring(0, 1) === '-'
+  const negative = ether.substring(0, 1) === "-";
   if (negative) {
-    ether = ether.substring(1)
+    ether = ether.substring(1);
   }
 
-  if (ether === '.') {
-    throw new Error('[ethjs-unit] while converting number ' + amount + ' to wei, invalid value')
+  if (ether === ".") {
+    throw new Error(
+      "[ethjs-unit] while converting number " +
+        amount +
+        " to wei, invalid value"
+    );
   }
 
   // Split it into a whole and fractional part
-  const comps = ether.split('.')
+  const comps = ether.split(".");
   if (comps.length > 2) {
     throw new Error(
-      '[ethjs-unit] while converting number ' + amount + ' to wei,  too many decimal points'
-    )
+      "[ethjs-unit] while converting number " +
+        amount +
+        " to wei,  too many decimal points"
+    );
   }
 
-  let whole = comps[0]
-  let fraction = comps[1]
+  let whole = comps[0];
+  let fraction = comps[1];
 
   if (!whole) {
-    whole = '0'
+    whole = "0";
   }
   if (!fraction) {
-    fraction = '0'
+    fraction = "0";
   }
   if (fraction.length > baseLength) {
     throw new Error(
-      '[ethjs-unit] while converting number ' + amount + ' to wei, too many decimal places'
-    )
+      "[ethjs-unit] while converting number " +
+        amount +
+        " to wei, too many decimal places"
+    );
   }
 
   while (fraction.length < baseLength) {
-    fraction += '0'
+    fraction += "0";
   }
 
-  whole = new BN(whole)
-  fraction = new BN(fraction)
-  let wei = whole.mul(base).add(fraction)
+  whole = new BN(whole);
+  fraction = new BN(fraction);
+  let wei = whole.mul(base).add(fraction);
 
   if (negative) {
-    wei = wei.mul(negative)
+    wei = wei.mul(negative);
   }
 
-  return new BN(wei.toString(10), 10)
+  return new BN(wei.toString(10), 10);
 }
 
 // /**
@@ -298,26 +312,34 @@ function fromDecimals({ amount, decimals }) {
  */
 async function generateMerkleProof(deposit) {
   // Get all deposit events from smart contract and assemble merkle tree from them
-  console.log('Getting current state from sacred contract')
-  const events = await sacred.getPastEvents('Deposit', { fromBlock: 0, toBlock: 'latest' })
+  console.log("Getting current state from sacred contract");
+  const events = await sacred.getPastEvents("Deposit", {
+    fromBlock: 0,
+    toBlock: "latest",
+  });
   const leaves = events
-    .sort((a, b) => a.returnValues.leafIndex - b.returnValues.leafIndex).map(e => e.returnValues.commitment);
+    .sort((a, b) => a.returnValues.leafIndex - b.returnValues.leafIndex)
+    .map((e) => e.returnValues.commitment);
   const tree = new merkleTree(MERKLE_TREE_HEIGHT, leaves);
 
   // Find current commitment in the tree
-  const depositEvent = events.find(e => e.returnValues.commitment === toHex(deposit.commitment));
+  const depositEvent = events.find(
+    (e) => e.returnValues.commitment === toHex(deposit.commitment)
+  );
   const leafIndex = depositEvent ? depositEvent.returnValues.leafIndex : -1;
 
   // Validate that our data is correct
-  const root = await tree.root()
-  const isValidRoot = await sacred.methods.isKnownRoot(toHex(root)).call()
-  const isSpent = await sacred.methods.isSpent(toHex(deposit.nullifierHash)).call()
-  assert(isValidRoot === true, 'Merkle tree is corrupted')
-  assert(isSpent === false, 'The note is already spent')
-  assert(leafIndex >= 0, 'The deposit is not found in the tree')
+  const root = await tree.root();
+  const isValidRoot = await sacred.methods.isKnownRoot(toHex(root)).call();
+  const isSpent = await sacred.methods
+    .isSpent(toHex(deposit.nullifierHash))
+    .call();
+  assert(isValidRoot === true, "Merkle tree is corrupted");
+  assert(isSpent === false, "The note is already spent");
+  assert(leafIndex >= 0, "The deposit is not found in the tree");
 
   // Compute merkle proof of our commitment
-  return tree.path(leafIndex)
+  return tree.path(leafIndex);
 }
 
 /**
@@ -328,9 +350,17 @@ async function generateMerkleProof(deposit) {
  * @param fee Relayer fee
  * @param refund Receive ether for exchanged tokens
  */
-async function generateProof({ deposit, recipient, relayerAddress = 0, fee = 0, refund = 0 }) {
+async function generateProof({
+  deposit,
+  recipient,
+  relayerAddress = 0,
+  fee = 0,
+  refund = 0,
+}) {
   // Compute merkle proof of our commitment
-  const { root, path_elements, path_index } = await generateMerkleProof(deposit)
+  const { root, path_elements, path_index } = await generateMerkleProof(
+    deposit
+  );
 
   // Prepare circuit input
   const input = {
@@ -347,9 +377,9 @@ async function generateProof({ deposit, recipient, relayerAddress = 0, fee = 0, 
     secret: deposit.secret,
     pathElements: path_elements,
     pathIndices: path_index,
-  }
+  };
 
-  console.log('Generating SNARK proof')
+  console.log("Generating SNARK proof");
   console.time("Proof time");
   const proofData = await window.genZKSnarkProofAndWitness(
     input,
@@ -365,10 +395,10 @@ async function generateProof({ deposit, recipient, relayerAddress = 0, fee = 0, 
     toHex(input.recipient, 20),
     toHex(input.relayer, 20),
     toHex(input.fee),
-    toHex(input.refund)
-  ]
+    toHex(input.refund),
+  ];
 
-  return { proof, args }
+  return { proof, args };
 }
 
 function toArrayBuffer(buf) {
@@ -392,8 +422,7 @@ async function init(deployment) {
   //   address: deployment.address,
   //   abi: deployment.abi,
   // });
-  sacred = new web3.eth.Contract(deployment.abi, deployment.address)
-
+  sacred = new web3.eth.Contract(deployment.abi, deployment.address);
 }
 
 /**
@@ -443,6 +472,17 @@ function waitForTxReceipt({ txHash, attempts = 60, delay = 1000 }) {
   });
 }
 
+async function getChainList() {
+  const url = "https://chainid.network/chains.json";
+  let chainList = []
+  try {
+    chainList = await (await fetch(url)).json();
+  } catch (e) {
+    console.log(e)
+  }
+  return chainList;
+}
+
 export {
   createDeposit,
   rbigint,
@@ -455,4 +495,5 @@ export {
   fromHexString,
   generateClaim,
   waitForTxReceipt,
+  getChainList,
 };
