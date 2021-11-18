@@ -125,6 +125,7 @@ const InspectMain = ({
 
     if (eventWhenHappened.length === 0) {
       console.log("There is no related deposit, the note is invalid");
+      setStatus(t('There is no related deposit, the note is invalid'));
       return;
     }
 

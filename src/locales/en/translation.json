@@ -38,6 +38,7 @@
   "has been confirmed.": "has been confirmed.",
   "Done": "Done",
   "This deposit is now in Sacred!": "This deposit is now in Sacred!",
+  "There is no related deposit, the note is invalid" : "There is no related deposit, the note is invalid",
   "Verified": "Verified",
   "Date": "Date",
   "Transaction": "Transaction",
