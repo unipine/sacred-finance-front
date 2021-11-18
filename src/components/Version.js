@@ -55,11 +55,15 @@ const Version = ({ handleNetworkId, networkId, handleAlert }) => {
           setVersionChainId(event.target.value);
           handleNetworkId(event.target.value);
         })
-        .catch(() => {
+        .catch((e) => {
+          console.log(e);
           setWaiting(false);
-          alert(
-            `App network(${sacredChainId}) doesn't match to network selected in your wallet.`
-          );
+          if (e.code === 4092)
+            alert(
+              `App network(${sacredChainId}) doesn't match to network selected in your wallet.`
+            );
+          else 
+           alert(e.message);
           setWaiting(true);
           window.ethereum
             .request({
