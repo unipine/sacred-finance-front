@@ -44,19 +44,35 @@ const CustomSelect = styled(Select)`
   transition: all 0.5s;
 `;
 
-export const GoToContract = styled('a')`
+export const GoToContract = styled("a")`
   color: inherit;
   text-decoration: none;
-  &:hover, &:link, &:active, &:visited  {
+  &:hover,
+  &:link,
+  &:active,
+  &:visited {
     color: inherit;
   }
-`
+`;
+
+export const KethDiv = styled("div")`
+  margin-top: ${(props) => props.theme.spacing(2)};
+  & h4 {
+    margin: 0 auto;
+    line-height: 1.2;
+  }
+  $ a {
+    margin: 0 auto;
+    line-height: 1.2;
+  }
+`;
 
 const Deposit = ({
   deployment,
   handleGenerateClaim,
   handleSetToken,
   handleSetAmount,
+  networkId
 }) => {
   const history = useHistory();
   // const [token, setToken] = React.useState(deployment.symbol);
@@ -66,6 +82,7 @@ const Deposit = ({
   const { t } = useTranslation();
 
   const handleAmount = async (event, newAmount) => {
+    console.log(newAmount);
     if (!newAmount) return;
     // setAmount(newAmount);
     await handleSetAmount(newAmount);
@@ -200,8 +217,23 @@ const Deposit = ({
               </Grid>
             </Grid>
             <Grid item>
-              <br />
-              <br />
+              {networkId === 42 ? (
+                <KethDiv>
+                  <h4>{t("Need kETH")}:</h4>
+                  <GoToContract
+                    href="https://etherscan.io/token/0x893e32b76237b43db1717e9eba66626fb7690094"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t("Use the ChainLink Faucet here")}
+                  </GoToContract>
+                </KethDiv>
+              ) : (
+                <>
+                  <br />
+                  <br />
+                </>
+              )}
 
               <br />
               <Button

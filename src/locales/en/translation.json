@@ -64,6 +64,8 @@
   "Success!": "Success!",
   "Receipt": "Receipt",
   "equal user deposits": "equal user deposits",
+  "Use the ChainLink Faucet here": "Use the ChainLink Faucet here",
+  "Need kETH": "Need kETH",
   "common": {
     "loading": "Loading",
     "warning": "Warning"
