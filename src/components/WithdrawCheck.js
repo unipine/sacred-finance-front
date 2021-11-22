@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -35,6 +35,7 @@ const WithdrawCheck = ({
   isExist,
   deployment,
   relayerOption,
+  setWaiting
 }) => {
   const history = useHistory();
   const { t } = useTranslation();
@@ -46,6 +47,10 @@ const WithdrawCheck = ({
   const handleWithdrawRoute = () => {
     history.push("/withdraw");
   };
+
+  useEffect(() => {
+    setWaiting(false);
+  }, [])
 
   return (
     <div>

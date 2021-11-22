@@ -12,9 +12,9 @@ import { useWeb3React } from "@web3-react/core";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import WaitingModal from "./WaitingModal";
 import { useTranslation } from "react-i18next";
 import { styled } from "@mui/material/styles";
+import WaitingModal from "./WaitingModal";
 
 const web3Utils = require("web3-utils");
 
@@ -48,7 +48,9 @@ const Withdraw = ({
   deployment,
   handleSetDeployment,
   handleRelayer,
-  relayerOption
+  relayerOption,
+  waiting,
+  setWaiting,
 }) => {
   const history = useHistory();
   const location = useLocation();
@@ -58,13 +60,11 @@ const Withdraw = ({
   const [claim, setClaim] = useState("");
   const [recipient, setRecipient] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(true);
-  const [waiting, setWaiting] = useState(false);
 
   async function sendWithdraw() {
-    if (await handleWithdraw({ claim, recipient })) {
-      history.push("/withdrawCheck");
-    }
-    setWaiting(false);
+    let result = false;
+    result = await handleWithdraw({ claim, recipient });
+    if (result) history.push("/withdrawCheck");
   }
 
   const handleClick = () => {
@@ -95,9 +95,9 @@ const Withdraw = ({
     handleRelayer(event.target.checked);
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     if (waiting) {
-      sendWithdraw();
+      await sendWithdraw();
     }
   }, [waiting]);
 
@@ -171,6 +171,7 @@ const Withdraw = ({
                     disableUnderline: true,
                   }}
                   fullWidth
+                  value={claim}
                 />
               </Grid>
             </Grid>
@@ -194,7 +195,7 @@ const Withdraw = ({
                     style={{ cursor: "pointer" }}
                   >
                     <small>
-                      <b>{t('withdraw.current_address')}</b>
+                      <b>{t("withdraw.current_address")}</b>
                     </small>
                   </span>
                 </Grid>
@@ -230,7 +231,7 @@ const Withdraw = ({
           </Grid>
         </Box>
       </Paper>
-      {waiting && <WaitingModal content={t('withdraw.verify_claim')} />}
+      {/* {waiting && <WaitingModal content={t('withdraw.verify_claim')} />} */}
     </div>
   );
 };

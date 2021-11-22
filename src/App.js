@@ -36,6 +36,8 @@ import YieldRedeemConfirm from "./components/YieldRedeemConfirm";
 import YieldWithdrawConfirm from "./components/YieldWithdrawConfirm";
 import RelayerSettings from "./components/RelayerSettings";
 import { getChainList } from "./conflux/utils";
+import WaitingModal from "./components/WaitingModal";
+import { useTranslation } from "react-i18next";
 
 const Web3 = require("web3");
 const web3 = window.web3 ? new Web3(window.web3.currentProvider) : null;
@@ -112,7 +114,9 @@ function App() {
   const [chainList, setChainList] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
   const [alertText, setAlertText] = useState("");
-  const [networkId, setNetworkId] = useState(42);
+  const [networkId, setNetworkId] = useState(42);  
+  const [waiting, setWaiting] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(async () => {
     let result = await getChainList();
@@ -244,6 +248,7 @@ function App() {
       parsedNote = parseNote(claim);
     } catch (err) {
       console.log("The note has invalid format");
+      setWaiting(false);
       return false;
     }
 
@@ -264,6 +269,7 @@ function App() {
       setClaim(claim);
       setRecipient(recipient);
       setParsedNote(parsedNote);
+      setWaiting(false);
       return true;
     }
 
@@ -294,7 +300,8 @@ function App() {
     setRecipient(recipient);
     setParsedNote(parsedNote);
     setTxLayers(leaves.length - leafIndex - 1);
-
+    
+    setWaiting(false);
     return true;
   };
 
@@ -401,6 +408,7 @@ function App() {
                               handleGenerateClaim={handleGenerateClaim}
                               handleSetToken={handleSetToken}
                               handleSetAmount={handleSetAmount}
+                              networkId={networkId}
                             />
                           )}
                         />
@@ -451,6 +459,8 @@ function App() {
                               deployment={deployment}
                               handleRelayer={handleRelayer}
                               relayerOption={relayer}
+                              setWaiting={setWaiting}
+                              waiting={waiting}
                             />
                           )}
                         />
@@ -465,6 +475,7 @@ function App() {
                               isExist={isExist}
                               deployment={deployment}
                               relayerOption={relayer}
+                              setWaiting={setWaiting}
                             />
                           )}
                         />
@@ -628,6 +639,7 @@ function App() {
         </Web3ReactProvider>
       </Router>
       <MetaMaskDialog connectMeta={connectMeta} />
+      {waiting && <WaitingModal content={t('withdraw.verify_claim')} />}
     </>
   );
 }
